@@ -1,0 +1,51 @@
+[debug] [2022-05-26T02:53:26.513Z] ----------------------------------------------------------------------
+[debug] [2022-05-26T02:53:26.517Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\hamza\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2022-05-26T02:53:26.517Z] CLI Version:   10.1.2
+[debug] [2022-05-26T02:53:26.518Z] Platform:      win32
+[debug] [2022-05-26T02:53:26.518Z] Node Version:  v16.15.0
+[debug] [2022-05-26T02:53:26.524Z] Time:          Thu May 26 2022 07:53:26 GMT+0500 (Pakistan Standard Time)
+[debug] [2022-05-26T02:53:26.524Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-05-26T02:53:26.691Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-05-26T02:53:26.692Z] > authorizing via signed-in user (hamzasatti4321@gmail.com)
+[debug] [2022-05-26T02:53:26.692Z] [iam] checking project stepout-restaurant for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2022-05-26T02:53:26.697Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/stepout-restaurant:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2022-05-26T02:53:28.240Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Thu, 26 May 2022 02:53:29 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=1234","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2022-05-26T02:53:28.243Z] > refreshing access token with scopes: []
+[debug] [2022-05-26T02:53:28.243Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2022-05-26T02:53:28.621Z] <<< HTTP RESPONSE 200 {"expires":"Mon, 01 Jan 1990 00:00:00 GMT","date":"Thu, 26 May 2022 02:53:30 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","pragma":"no-cache","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2022-05-26T02:53:28.633Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/stepout-restaurant [none]
+[debug] [2022-05-26T02:53:29.202Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/stepout-restaurant 200
+[debug] [2022-05-26T02:53:29.203Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/stepout-restaurant {"projectId":"stepout-restaurant","projectNumber":"82396920199","displayName":"stepout-restaurant","name":"projects/stepout-restaurant","resources":{"hostingSite":"stepout-restaurant"},"state":"ACTIVE"}
+[info] 
+[info] === Deploying to 'stepout-restaurant'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2022-05-26T02:53:29.216Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2022-05-26T02:53:29.217Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2022-05-26T02:53:29.587Z] <<< HTTP RESPONSE 200 {"expires":"Mon, 01 Jan 1990 00:00:00 GMT","pragma":"no-cache","cache-control":"no-cache, no-store, max-age=0, must-revalidate","date":"Thu, 26 May 2022 02:53:31 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2022-05-26T02:53:29.597Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/stepout-restaurant/versions  
+ {"config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2022-05-31T17:28:47.177Z] ----------------------------------------------------------------------
+[debug] [2022-05-31T17:28:47.180Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\hamza\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js use --add
+[debug] [2022-05-31T17:28:47.181Z] CLI Version:   10.1.2
+[debug] [2022-05-31T17:28:47.181Z] Platform:      win32
+[debug] [2022-05-31T17:28:47.181Z] Node Version:  v16.15.0
+[debug] [2022-05-31T17:28:47.183Z] Time:          Tue May 31 2022 22:28:47 GMT+0500 (Pakistan Standard Time)
+[debug] [2022-05-31T17:28:47.184Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-05-31T17:28:47.189Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2022-05-31T17:28:47.425Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-05-31T17:28:47.426Z] > authorizing via signed-in user (hamzasatti4321@gmail.com)
+[debug] [2022-05-31T17:28:47.429Z] > refreshing access token with scopes: []
+[debug] [2022-05-31T17:28:47.431Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2022-05-31T17:28:47.875Z] <<< HTTP RESPONSE 200 {"pragma":"no-cache","cache-control":"no-cache, no-store, max-age=0, must-revalidate","expires":"Mon, 01 Jan 1990 00:00:00 GMT","date":"Tue, 31 May 2022 17:28:47 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2022-05-31T17:28:47.922Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=1000
+[debug] [2022-05-31T17:28:48.261Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2022-05-31T17:28:48.262Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2022-05-31T17:28:48.746Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2022-05-31T17:28:48.746Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
