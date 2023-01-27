@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,28 +13,41 @@ import '../../../../src/ui/widget/textfield_widget.dart';
 import '../../../../src/utils/utils.dart';
 import '../../widget/button_widget.dart';
 
-class Cleaners extends GetView<CleanersController>{
-
+class Cleaners extends GetView<CleanersController> {
   TextEditingController controllerSearchBox = TextEditingController();
   late Room room;
 
   var previousRoute = '';
 
+  List<Cleaner> filteredCleaners = [];
+
+  Cleaners({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetX<CleanersController>(
-      initState: (_){
+      initState: (_) {
         room = Get.arguments ?? Room();
         previousRoute = Get.previousRoute;
+
+        controller.getCleaners();
+
+        filteredCleaners = controller.cleanersList;
       },
-      builder: (_) {
-        _.isLoading;
+      
+      // didUpdateWidget: (oldWidget, newWidget) {
+      //   // filteredCleaners = controller.cleanersList;
+      // },
+      builder: (cleanersController) {
+        cleanersController.isLoading;
 
         return Scaffold(
           appBar: CupertinoNavigationBar(
             leading: CupertinoNavigationBarBackButton(
-              previousPageTitle: previousRoute.toString().contains('/dashboard') ? 'home'.tr : 'rooms'.tr,
-              onPressed: () =>Get.back(),
+              previousPageTitle: previousRoute.toString().contains('/dashboard')
+                  ? 'home'.tr
+                  : 'rooms'.tr,
+              onPressed: () => Get.back(),
             ),
             middle: Text('select_cleaner'.tr),
           ),
@@ -46,63 +58,105 @@ class Cleaners extends GetView<CleanersController>{
               // search bar
               Row(
                 children: [
-                  Flexible(child: TxtField(controller: controllerSearchBox, label: 'search_cleaner'.tr, hasSearchIcon: true,)),
+                  Flexible(
+                    child: TxtField(
+                      controller: controllerSearchBox,
+                      label: 'search_cleaner'.tr,
+                      hasSearchIcon: true,
+                    ),
+                  ),
                   8.pw,
-                  SizedBox(width: 130, height: 47, child: Btn(label: 'search'.tr, onPressed: (){})),
+                  SizedBox(
+                    width: 130,
+                    height: 47,
+                    child: Btn(
+                      label: 'search'.tr,
+                      onPressed: () {
+                        print('search');
+                        filteredCleaners = cleanersController.cleanersList
+                            .where(
+                              (cleaner) =>
+                                  cleaner.fullname!.toLowerCase().contains(
+                                        controllerSearchBox.text.toLowerCase(),
+                                      ),
+                            )
+                            .toList();
+
+                        cleanersController.update();
+
+                        for (var cleaner in filteredCleaners) {
+                          print(cleaner.fullname);
+                        }
+                      },
+                    ),
+                  ),
                 ],
               ).paddingSymmetric(horizontal: 16),
 
               24.ph,
 
-              Expanded(
-                child: SingleChildScrollView(
+              SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: GridView(
+                  shrinkWrap: true,
                   physics: const BouncingScrollPhysics(),
-                  child: Wrap(
-                    spacing: 32,
-                    runSpacing: 32,
-                    children: [
-
-                      for(int i=0; i<_.cleanersList.length;i++)
-                        FadeAnimation(delay: .15 * i, child: CleanerAvatar(
-                          image: '${_.cleanersList[i].avatar}',
-                          name: '${_.cleanersList[i].fullname}',
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 0,
+                    mainAxisSpacing: 0,
+                  ),
+                  children: [
+                    for (int i = 0; i < filteredCleaners.length; i++)
+                      FadeAnimation(
+                        delay: .15 * i,
+                        child: CleanerAvatar(
+                          image: '${filteredCleaners[i].avatar}',
+                          name: '${filteredCleaners[i].fullname}',
                           onTap: () {
-                            if(previousRoute.toString().contains('/dashboard')){
-                              _showDialog(context, _.cleanersList[i]);
-                            }else {
-                              Get.toNamed(Routes.CHECKLIST, arguments: [room, _.cleanersList[i]]);
+                            if (previousRoute
+                                .toString()
+                                .contains('/dashboard')) {
+                              _showDialog(
+                                context,
+                                filteredCleaners[i],
+                              );
+                            } else {
+                              Get.toNamed(
+                                Routes.CHECKLIST,
+                                arguments: [room, filteredCleaners[i]],
+                              );
                             }
                           },
                         ),
-                        ),
+                      ),
 
-                      // FadeAnimation(delay: .15 * 7, child: NewCleanerButton(onTap: ()=>_showDialog(context)),),
-
-                    ],
-                  ),
+                    // FadeAnimation(delay: .15 * 7, child: NewCleanerButton(onTap: ()=>_showDialog(context)),),
+                  ],
                 ),
               ),
-
             ],
-          ));
-      });
+          ),
+        );
+      },
+    );
   }
 
   void _showDialog(BuildContext context, Cleaner cleaner) {
     Dialog errorDialog = Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)), //this right here
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0)), //this right here
       child: SizedBox(
         width: Get.width / 2.5,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-
             ClipRRect(
-              borderRadius: const BorderRadius.only(topRight: Radius.circular(12), topLeft: Radius.circular(12)),
+              borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(12), topLeft: Radius.circular(12)),
               child: CupertinoNavigationBar(
                 leading: CupertinoNavigationBarBackButton(
                   previousPageTitle: 'cancel'.tr,
-                  onPressed: () =>Get.back(),
+                  onPressed: () => Get.back(),
                 ),
                 middle: Text('cleaner_profile'.tr),
               ),
@@ -118,9 +172,7 @@ class Cleaners extends GetView<CleanersController>{
 
             CupertinoButton(
               padding: EdgeInsets.zero,
-              onPressed: (){
-
-              },
+              onPressed: () {},
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
@@ -130,23 +182,27 @@ class Cleaners extends GetView<CleanersController>{
                   //   backgroundImage: NetworkImage('${cleaner.avatar}'.toImageUrl),
                   // ),
 
-                  if(cleaner.avatar=='' || cleaner.avatar=='null') ... [
+                  if (cleaner.avatar == '' || cleaner.avatar == 'null') ...[
                     CircleAvatar(
                       radius: 80, // Image radius
                       backgroundColor: const Color(0x330BBBEF),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: const [
-                          Icon(CupertinoIcons.person_fill, color: primaryColor, size: 60,),
+                          Icon(
+                            CupertinoIcons.person_fill,
+                            color: primaryColor,
+                            size: 60,
+                          ),
                           // Text('add_photo'.tr,style: Get.textTheme.subtitle1).setStyle(size: 16, weight: FontWeight.w600),
                         ],
                       ),
                     ),
-
-                  ] else ... [
+                  ] else ...[
                     CircleAvatar(
                       radius: 80, // Image radius
-                      backgroundImage: NetworkImage(cleaner.avatar.toString().toImageUrl),
+                      backgroundImage:
+                          NetworkImage(cleaner.avatar.toString().toImageUrl),
                     ),
                   ],
 
@@ -165,17 +221,20 @@ class Cleaners extends GetView<CleanersController>{
               ),
             ),
             28.ph,
-            TxtField(controller: TextEditingController(text: cleaner.fullname), readOnly: true, label: 'full_name'.tr).paddingSymmetric(horizontal: 24),
+            TxtField(
+                    controller: TextEditingController(text: cleaner.fullname),
+                    readOnly: true,
+                    label: 'full_name'.tr)
+                .paddingSymmetric(horizontal: 24),
             // 12.ph,
             // TxtField(controller: TextEditingController(), label: 'phone'.tr).paddingSymmetric(horizontal: 24),
 
             28.ph,
-
           ],
         ),
       ),
     );
-    showDialog(context: context, builder: (BuildContext context) => errorDialog);
+    showDialog(
+        context: context, builder: (BuildContext context) => errorDialog);
   }
-
 }

@@ -18,6 +18,7 @@ import 'widgets/send_alert_dialog.dart';
 
 class Reception extends GetView<ReceptionController> {
   TextEditingController controllerSearchBox = TextEditingController();
+  List<Room> filteredRoomsList = [];
 
   Reception({super.key});
 
@@ -26,55 +27,77 @@ class Reception extends GetView<ReceptionController> {
     return GetX<ReceptionController>(initState: (_) {
       controller.getRooms();
       controller.getProfile();
-    }, builder: (_) {
-      _.isLoading;
+      filteredRoomsList = controller.roomsList;
+    }, builder: (receptionController) {
+      receptionController.isLoading;
 
       return Scaffold(
           appBar: CupertinoNavigationBar(
             middle: Text('rooms'.tr),
             automaticallyImplyLeading: false,
             trailing: Tap(
-                onTap: () => _showSignoutDialog(context),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text('sign_out'.tr)
-                        .setStyle(color: Colors.red, weight: FontWeight.w500),
-                    6.pw,
-                    const Icon(
-                      Icons.logout,
-                      color: Colors.red,
-                      size: 20,
-                    ),
-                  ],
-                )),
+              onTap: () => _showSignoutDialog(context),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('sign_out'.tr)
+                      .setStyle(color: Colors.red, weight: FontWeight.w500),
+                  6.pw,
+                  const Icon(
+                    Icons.logout,
+                    color: Colors.red,
+                    size: 20,
+                  ),
+                ],
+              ),
+            ),
           ),
           body: Column(
             children: [
               18.ph,
-
               // search bar
               Row(
                 children: [
                   Flexible(
-                      child: TxtField(
-                    controller: controllerSearchBox,
-                    label: 'search_room'.tr,
-                    hasSearchIcon: true,
-                  )),
+                    child: TxtField(
+                      controller: controllerSearchBox,
+                      label: 'search_room'.tr,
+                      hasSearchIcon: true,
+                    ),
+                  ),
                   8.pw,
                   SizedBox(
-                      width: 130,
-                      height: 47,
-                      child: Btn(
-                          label: 'filter'.tr,
-                          secondaryBtn: true,
-                          onPressed: () => _showFilterDialog(context))),
+                    width: 130,
+                    height: 47,
+                    child: Btn(
+                      label: 'filter'.tr,
+                      secondaryBtn: true,
+                      onPressed: () => _showFilterDialog(context),
+                    ),
+                  ),
                   8.pw,
                   SizedBox(
-                      width: 130,
-                      height: 47,
-                      child: Btn(label: 'search'.tr, onPressed: () {})),
+                    width: 130,
+                    height: 47,
+                    child: Btn(
+                      label: 'search'.tr,
+                      onPressed: () {
+                        print('search');
+                        filteredRoomsList = receptionController.roomsList
+                            .where(
+                              (room) => room.name!.toLowerCase().contains(
+                                    controllerSearchBox.text.toLowerCase(),
+                                  ),
+                            )
+                            .toList();
+                        receptionController.update();
+
+                        for (var i = 0; i < filteredRoomsList.length; i++) {
+                          print(filteredRoomsList[i].name);
+                        }
+                      },
+                    ),
+                  ),
                   // 8.pw,
                   // SizedBox(width: 130, height: 47, child: Btn(label: 'bulk_actions'.tr, secondaryBtn: true, iconData: Icons.keyboard_arrow_down_rounded, iconColor: Get.theme.primaryColor,direction: TextDirection.rtl, onPressed: (){})),
                 ],
@@ -82,13 +105,16 @@ class Reception extends GetView<ReceptionController> {
 
               38.ph,
 
-              if (_.isLoading) ...[
+              if (receptionController.isLoading) ...[
                 const Expanded(
-                    child: Center(
-                        child: SizedBox(
-                            width: 24,
-                            height: 24,
-                            child: CupertinoActivityIndicator())))
+                  child: Center(
+                    child: SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CupertinoActivityIndicator(),
+                    ),
+                  ),
+                )
               ] else ...[
                 // header
                 Row(
@@ -151,10 +177,10 @@ class Reception extends GetView<ReceptionController> {
                       borderRadius: BorderRadius.circular(8),
                       color: Get.theme.splashColor,
                     ),
-                    // padding: const EdgeInsets.all(16),
                     child: ListView.builder(
                       itemBuilder: (BuildContext context, int index) {
-                        Room model = _.roomsList[index];
+                        // Room model = receptionController.roomsList[index];
+                        Room model = filteredRoomsList[index];
                         return RoomRowView(
                           label: '${model.name}',
                           type: '${model.roomType?.title}',
@@ -164,7 +190,7 @@ class Reception extends GetView<ReceptionController> {
                           },
                         );
                       },
-                      itemCount: _.roomsList.length,
+                      itemCount: filteredRoomsList.length,
                     ),
                   ),
                 ),

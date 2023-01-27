@@ -34,7 +34,7 @@ class RoomRowView extends StatelessWidget {
                 children: [
                   Text(label).setStyle(size: 23).paddingOnly(left: 22, top: 6, bottom: 6),
                   // Checker(label: '$label', state: false, type: CheckerType.Check, onChanged: (newValue){}, fontSize: 20, longText: false),
-                  Text('$type'.tr).setStyle(color: Get.theme.hintColor),
+                  Text(type.tr).setStyle(color: Get.theme.hintColor),
                 ],
               ).paddingOnly(right: 22),
             ),
