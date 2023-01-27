@@ -1,4 +1,3 @@
-
 import 'package:checkerapp/src/ui/theme/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +10,14 @@ class RoomBox extends StatelessWidget {
   final String report;
   final String status;
   final VoidCallback? onTap;
-  const RoomBox({Key? key, this.onTap, required this.title, required this.type, required this.report, required this.status}) : super(key: key);
+  const RoomBox(
+      {Key? key,
+      this.onTap,
+      required this.title,
+      required this.type,
+      required this.report,
+      required this.status})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +39,25 @@ class RoomBox extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(title, style: Get.theme.textTheme.subtitle1,).setStyle(size: 22, weight: FontWeight.bold),
+                Text(
+                  title,
+                  style: Get.theme.textTheme.titleMedium,
+                ).setStyle(size: 22, weight: FontWeight.bold),
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.asset('suite'.toPng, width: 25, height: 15, fit: BoxFit.cover,),
+                    Image.asset(
+                      'suite'.toPng,
+                      width: 25,
+                      height: 15,
+                      fit: BoxFit.cover,
+                    ),
                     2.ph,
-                    Text(type, style: Get.theme.textTheme.subtitle1,).setStyle(weight: FontWeight.w600, size: 12),
+                    Text(
+                      type,
+                      style: Get.theme.textTheme.titleMedium,
+                    ).setStyle(weight: FontWeight.w600, size: 12),
                   ],
                 ),
               ],
@@ -50,59 +67,81 @@ class RoomBox extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-
-                  if(status.toString() == 'Cleaned') ... [
-                    const Icon(Icons.check, color: greenColor,),
+                  if (status.toString() == 'Cleaned') ...[
+                    const Icon(
+                      Icons.check,
+                      color: greenColor,
+                    ),
                     8.ph,
-                  ] else if(status.toString() == 'Damaged') ... [
-                    const Icon(Icons.close_rounded, color: redColor,),
+                  ] else if (status.toString() == 'Damaged') ...[
+                    const Icon(
+                      Icons.close_rounded,
+                      color: redColor,
+                    ),
                     8.ph,
                   ],
-
-                  if(report.toString() == 'QuickClean') ... [
-                    Icon(Icons.warning_amber_rounded, color: Get.theme.highlightColor,),
-                  ] else if(report.toString() == 'ExtraBedNormal') ... [
-                    Icon(Icons.bed, color: Get.theme.highlightColor,),
-                  ] else if(report.toString() == 'ExtraBedChild') ... [
-                    Icon(Icons.child_friendly, color: Get.theme.highlightColor,),
-                  ] else if(report.toString() == 'RedCard') ... [
+                  if (report.toString() == 'QuickClean') ...[
+                    Icon(
+                      Icons.warning_amber_rounded,
+                      color: Get.theme.highlightColor,
+                    ),
+                  ] else if (report.toString() == 'ExtraBedNormal') ...[
+                    Icon(
+                      Icons.bed,
+                      color: Get.theme.highlightColor,
+                    ),
+                  ] else if (report.toString() == 'ExtraBedChild') ...[
+                    Icon(
+                      Icons.child_friendly,
+                      color: Get.theme.highlightColor,
+                    ),
+                  ] else if (report.toString() == 'RedCard') ...[
                     Container(
-                      margin: const EdgeInsets.only(right: 4,top: 4),
+                      margin: const EdgeInsets.only(right: 4, top: 4, left: 4),
                       width: 16,
                       height: 16,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(3),
                           color: redColor,
-                          shape: BoxShape.rectangle
-                      ),
+                          shape: BoxShape.rectangle),
                     ),
-                  ]else if(report.toString() == 'CleanStay') ... [
+                  ] else if (report.toString() == 'CleanStay') ...[
                     Container(
-                      margin: const EdgeInsets.only(right: 4,top: 4),
+                      margin: const EdgeInsets.only(right: 4, top: 4),
                       width: 16,
                       height: 16,
                       decoration: const BoxDecoration(
-                        color: Colors.amber,
-                        shape: BoxShape.circle
-                      ),
+                          color: Colors.amber, shape: BoxShape.circle),
                     ),
-                  ]else if(report.toString() == 'CleanCheckOut') ... [
+                  ] else if (report.toString() == 'CleanCheckOut') ...[
                     Container(
-                      margin: const EdgeInsets.only(right: 4,top: 4),
+                      margin: const EdgeInsets.only(right: 4, top: 4),
                       width: 16,
                       height: 16,
                       decoration: const BoxDecoration(
-                          color: greenColor,
-                          shape: BoxShape.circle
-                      ),
+                          color: greenColor, shape: BoxShape.circle),
                     ),
-                  ]else if(report.toString() == 'CleanAgain') ... [
-                    const Icon(Icons.sync_problem_rounded, color: redColor,),
+                  ] else if (report.toString() == 'CleanAgain') ...[
+                    const Icon(
+                      Icons.sync_problem_rounded,
+                      color: redColor,
+                    ),
                   ],
-
                   8.ph,
-
                 ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: GestureDetector(
+                onTap: () {
+                  print('info icon button tapped');
+                },
+                child: const SizedBox(
+                  child: Icon(
+                    Icons.info_outline_rounded,
+                  ),
+                ),
               ),
             ),
           ],
