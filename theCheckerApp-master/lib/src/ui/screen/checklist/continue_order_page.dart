@@ -1,6 +1,3 @@
-
-import 'dart:async';
-
 import 'package:checkerapp/src/controllers/rooms_controller.dart';
 
 import '../../../data/repository/main_repository.dart';
@@ -13,18 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../main.dart';
-import '../../../data/model/cleaner_model.dart';
-import '../../../data/model/room_model.dart';
-import '../../widget/checker.dart';
 import '../../widget/tap_widget.dart';
-import 'bathroom_section.dart';
-import 'check_menu.dart';
-import 'materials_section.dart';
-import 'bed_section.dart';
-import 'shelves_section.dart';
-import 'floor_section.dart';
-import '../../../../src/controllers/checklist_controller.dart';
 
 class ContinueOrder extends StatefulWidget {
   const ContinueOrder({Key? key}) : super(key: key);
@@ -34,7 +20,6 @@ class ContinueOrder extends StatefulWidget {
 }
 
 class _ContinueOrderState extends State<ContinueOrder> {
-
   bool cleaned = false;
   bool notCleaned = false;
   bool damaged = false;
@@ -64,15 +49,14 @@ class _ContinueOrderState extends State<ContinueOrder> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-
-            Text('pls_make_appropriate_selection'.tr, style: Get.textTheme.subtitle1,).setStyle(size: 20).paddingOnly(left: 24, top: 24),
-
+            Text(
+              'pls_make_appropriate_selection'.tr,
+              style: Get.textTheme.titleMedium,
+            ).setStyle(size: 20).paddingOnly(left: 24, top: 24),
             34.ph,
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
                 Tap(
                   onTap: () {
                     setState(() {
@@ -87,25 +71,39 @@ class _ContinueOrderState extends State<ContinueOrder> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       color: Get.theme.splashColor,
-                      border: cleaned ? Border.all(color: Get.theme.primaryColor, width: 1.2) : null,
+                      border: cleaned
+                          ? Border.all(
+                              color: Get.theme.primaryColor, width: 1.2)
+                          : null,
                     ),
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        6.ph,
-                        const Icon(Icons.check_circle_outline_rounded, size: 38, color: greenColor,),
-                        18.ph,
-                        SizedBox(width: Get.width / 5.2,child: Text('room_release_all_defects'.tr, style: Get.textTheme.subtitle1, textAlign: TextAlign.center,).paddingSymmetric(horizontal: 4)),
-                        22.ph,
-                      ],
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 16),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          6.ph,
+                          const Icon(
+                            Icons.check_circle_outline_rounded,
+                            size: 38,
+                            color: greenColor,
+                          ),
+                          18.ph,
+                          SizedBox(
+                              width: Get.width / 5.2,
+                              child: Text(
+                                'room_release_all_defects'.tr,
+                                style: Get.textTheme.titleMedium,
+                                textAlign: TextAlign.center,
+                              ).paddingSymmetric(horizontal: 4)),
+                          22.ph,
+                        ],
+                      ),
                     ),
                   ),
                 ),
-
                 22.pw,
-
                 Tap(
                   onTap: () {
                     setState(() {
@@ -120,25 +118,37 @@ class _ContinueOrderState extends State<ContinueOrder> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       color: Get.theme.splashColor,
-                      border: notCleaned ? Border.all(color: Get.theme.primaryColor, width: 1.2) : null,
+                      border: notCleaned
+                          ? Border.all(
+                              color: Get.theme.primaryColor, width: 1.2)
+                          : null,
                     ),
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         6.ph,
-                        const Icon(Icons.info_outlined, size: 38, color: Colors.amber,),
+                        const Icon(
+                          Icons.info_outlined,
+                          size: 38,
+                          color: Colors.amber,
+                        ),
                         18.ph,
-                        SizedBox(width: Get.width / 5.2,child: Text('room_not_cleaned'.tr, style: Get.textTheme.subtitle1, textAlign: TextAlign.center,).paddingSymmetric(horizontal: 4)),
+                        SizedBox(
+                            width: Get.width / 5.2,
+                            child: Text(
+                              'room_not_cleaned'.tr,
+                              style: Get.textTheme.titleMedium,
+                              textAlign: TextAlign.center,
+                            ).paddingSymmetric(horizontal: 4)),
                         22.ph,
                       ],
                     ),
                   ),
                 ),
-
                 22.pw,
-
                 Tap(
                   onTap: () {
                     setState(() {
@@ -153,46 +163,68 @@ class _ContinueOrderState extends State<ContinueOrder> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       color: Get.theme.splashColor,
-                      border: damaged ? Border.all(color: Get.theme.primaryColor, width: 1.2) : null,
+                      border: damaged
+                          ? Border.all(
+                              color: Get.theme.primaryColor, width: 1.2)
+                          : null,
                     ),
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        6.ph,
-                        const Icon(Icons.warning_amber_rounded, size: 38, color: redColor,),
-                        18.ph,
-                        SizedBox(width: Get.width / 5.2,child: Text('room_was_cleaned_but_not_released_due_damage'.tr, style: Get.textTheme.subtitle1, textAlign: TextAlign.center,).paddingSymmetric(horizontal: 4)),
-                        22.ph,
-                      ],
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 16),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          6.ph,
+                          const Icon(
+                            Icons.warning_amber_rounded,
+                            size: 38,
+                            color: redColor,
+                          ),
+                          18.ph,
+                          SizedBox(
+                              width: Get.width / 5.2,
+                              child: Text(
+                                'room_was_cleaned_but_not_released_due_damage'
+                                    .tr,
+                                style: Get.textTheme.titleMedium,
+                                textAlign: TextAlign.center,
+                              ).paddingSymmetric(horizontal: 4)),
+                          22.ph,
+                        ],
+                      ),
                     ),
                   ),
                 ),
-
               ],
             ),
-
             44.ph,
-
-            SizedBox(width: Get.width / 5,child: Btn(label: 'continue'.tr, onPressed: ()=>setRoomStatus(), isLoading: isLoading, iconData: Icons.arrow_back_rounded, direction: TextDirection.rtl, padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 9))),
-
-
+            SizedBox(
+              width: Get.width / 5,
+              child: Btn(
+                label: 'continue'.tr,
+                onPressed: () => setRoomStatus(),
+                isLoading: isLoading,
+                iconData: Icons.arrow_back_rounded,
+                direction: TextDirection.rtl,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 18, vertical: 9),
+              ),
+            ),
           ],
         ));
   }
 
-
-  setRoomStatus() async{
-    try{
+  setRoomStatus() async {
+    try {
       setState(() {
         isLoading = true;
       });
 
       String status = 'Damaged';
-      if(cleaned){
+      if (cleaned) {
         status = 'Cleaned';
-      }else if(notCleaned){
+      } else if (notCleaned) {
         status = 'NotCleaned';
       }
 
@@ -203,11 +235,10 @@ class _ContinueOrderState extends State<ContinueOrder> {
 
       Get.offNamedUntil(Routes.DASHBOARD, (route) => false);
       Toast.success('request_submitted'.tr, 'submitted'.tr);
-
-    }catch(e, s){
+    } catch (e) {
       log(this, e);
       Toast.error(e.toString());
-    }finally{
+    } finally {
       setState(() {
         isLoading = false;
       });
