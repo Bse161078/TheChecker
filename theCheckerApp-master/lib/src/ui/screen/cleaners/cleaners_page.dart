@@ -21,7 +21,7 @@ class Cleaners extends GetView<CleanersController> {
 
   List<Cleaner> filteredCleaners = [];
 
-  Cleaners({super.key});
+  Cleaners({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class Cleaners extends GetView<CleanersController> {
 
         filteredCleaners = controller.cleanersList;
       },
-      
+
       // didUpdateWidget: (oldWidget, newWidget) {
       //   // filteredCleaners = controller.cleanersList;
       // },

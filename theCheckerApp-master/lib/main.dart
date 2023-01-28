@@ -1,4 +1,3 @@
-
 import 'src/storage/pref.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -22,7 +21,7 @@ const AndroidNotificationChannel channel = AndroidNotificationChannel(
 );
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-FlutterLocalNotificationsPlugin();
+    FlutterLocalNotificationsPlugin();
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
@@ -42,7 +41,7 @@ void main() async {
 
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
-      AndroidFlutterLocalNotificationsPlugin>()
+          AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
 
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
@@ -51,7 +50,8 @@ void main() async {
     sound: true,
   );
 
-  NotificationSettings settings = await FirebaseMessaging.instance.requestPermission(
+  NotificationSettings settings =
+      await FirebaseMessaging.instance.requestPermission(
     alert: true,
     announcement: false,
     badge: true,
@@ -74,7 +74,6 @@ class CheckerApp extends StatefulWidget {
 }
 
 class _CheckerAppState extends State<CheckerApp> {
-
   @override
   void didChangeDependencies() {
     getLocale().then((locale) {
@@ -111,13 +110,12 @@ class _CheckerAppState extends State<CheckerApp> {
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('A new onMessageOpenedApp event was published!');
-      if(Pref.to.roleVal == 'Checker'){
+      if (Pref.to.roleVal == 'Checker') {
         Get.offNamed(Routes.DASHBOARD);
-      }else{
+      } else {
         Get.offNamed(Routes.RECEPTION);
       }
     });
-
   }
 
   @override
@@ -144,5 +142,4 @@ class _CheckerAppState extends State<CheckerApp> {
       },
     );
   }
-
 }
