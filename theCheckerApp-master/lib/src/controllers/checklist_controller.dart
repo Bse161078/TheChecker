@@ -1,13 +1,8 @@
-
 import '../../src/controllers/basic.dart';
 import 'package:get/get.dart';
 import '../data/repository/main_repository.dart';
-import '../routes/app_pages.dart';
-import '../utils/toast.dart';
 
-enum CheckMenuItems{
-  floor, bed, shelves, bathroom
-}
+enum CheckMenuItems { floor, bed, shelves, bathroom }
 
 class CheckListController extends Basic {
   static CheckListController get to => Get.find();
@@ -27,7 +22,7 @@ class CheckListController extends Basic {
   final floorDamageReport = RxString('');
   final floorDamageReportPhoto = RxList<String>([]);
 
-  Future<bool> updateFloorItems(roomId) async{
+  Future<bool> updateFloorItems(roomId) async {
     await repository.floor(
         roomId,
         floorRoomIsVacuumed.value,
@@ -39,11 +34,9 @@ class CheckListController extends Basic {
         floorDamageCausedByGuests.value,
         floorDamageCausedByGuestsPhoto,
         floorDamageReport.value,
-        floorDamageReportPhoto
-    );
+        floorDamageReportPhoto);
     return true;
   }
-
 
   // bed items
   final bedIsMadeUp = RxBool(false);
@@ -57,7 +50,7 @@ class CheckListController extends Basic {
   final bedDamageReport = RxString('');
   final bedDamageReportPhoto = RxList<String>([]);
 
-  Future<bool> updateBedItems(roomId) async{
+  Future<bool> updateBedItems(roomId) async {
     await repository.bed(
         roomId,
         bedIsMadeUp.value,
@@ -69,15 +62,13 @@ class CheckListController extends Basic {
         bedExtraBed.value,
         bedExtraBedPhoto,
         bedDamageReport.value,
-        bedDamageReportPhoto
-    );
+        bedDamageReportPhoto);
     return true;
   }
 
   // material items
   final materialWater = RxBool(false);
   final materialChips = RxBool(false);
-
 
   // bathroom items
   final bathroomIsCleaned = RxBool(false);
@@ -95,8 +86,23 @@ class CheckListController extends Basic {
   final bathroomDamageReport = RxString('');
   final bathroomDamageReportPhoto = RxList<String>([]);
 
-  Future<bool> updateBathroomItems(roomId) async{
-    await repository.bathroom(roomId, bathroomIsCleaned.value, bathroomIsCleanedPhoto, bathroomTilesNotMopped.value, bathroomTilesNotMoppedPhoto, bathroomToiletNotWiped.value, bathroomToiletNotWipedPhoto, bathroomDirtInShower.value, bathroomDirtInShowerPhoto, bathroomShelvesNotWiped.value, bathroomShelvesNotWipedPhoto, bathroomTraysNotFilled.value, bathroomTraysNotFilledPhoto, bathroomDamageReport.value, bathroomDamageReportPhoto);
+  Future<bool> updateBathroomItems(roomId) async {
+    await repository.bathroom(
+        roomId,
+        bathroomIsCleaned.value,
+        bathroomIsCleanedPhoto,
+        bathroomTilesNotMopped.value,
+        bathroomTilesNotMoppedPhoto,
+        bathroomToiletNotWiped.value,
+        bathroomToiletNotWipedPhoto,
+        bathroomDirtInShower.value,
+        bathroomDirtInShowerPhoto,
+        bathroomShelvesNotWiped.value,
+        bathroomShelvesNotWipedPhoto,
+        bathroomTraysNotFilled.value,
+        bathroomTraysNotFilledPhoto,
+        bathroomDamageReport.value,
+        bathroomDamageReportPhoto);
     return true;
   }
 
@@ -118,12 +124,27 @@ class CheckListController extends Basic {
   final shelvesDamageReport = RxString('');
   final shelvesDamageReportPhoto = RxList<String>([]);
 
-  Future<bool> updateShelvesItems(roomId) async{
-    await repository.shelves(roomId, shelvesAllShelvesWiped.value, shelvesAllShelvesWipedPhoto, shelvesTable.value, shelvesTablePhoto, shelvesSideTable.value, shelvesSideTablePhoto, shelvesTV.value, shelvesTVPhoto, shelvesWindowSill.value, shelvesWindowSillPhoto, shelvesCabinetSurfaces.value, shelvesCabinetSurfacesPhoto, shelvesAllBrochuresNeatlySorted.value, shelvesAllBrochuresNeatlySortedPhoto, shelvesDamageReport.value, shelvesDamageReportPhoto);
+  Future<bool> updateShelvesItems(roomId) async {
+    await repository.shelves(
+        roomId,
+        shelvesAllShelvesWiped.value,
+        shelvesAllShelvesWipedPhoto,
+        shelvesTable.value,
+        shelvesTablePhoto,
+        shelvesSideTable.value,
+        shelvesSideTablePhoto,
+        shelvesTV.value,
+        shelvesTVPhoto,
+        shelvesWindowSill.value,
+        shelvesWindowSillPhoto,
+        shelvesCabinetSurfaces.value,
+        shelvesCabinetSurfacesPhoto,
+        shelvesAllBrochuresNeatlySorted.value,
+        shelvesAllBrochuresNeatlySortedPhoto,
+        shelvesDamageReport.value,
+        shelvesDamageReportPhoto);
     return true;
   }
 
-
   final currentCheckItem = Rx<CheckMenuItems>(CheckMenuItems.floor);
-
 }

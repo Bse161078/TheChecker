@@ -1,6 +1,5 @@
-
 class Routes {
-  static const String baseURL = 'https://api.the-checkerapp.com';
+  static const String baseURL = 'http://35.178.46.228:3010';
 
   static const String login = "$baseURL/auth/login";
   static const String profile = "$baseURL/auth/check-login";
@@ -14,5 +13,4 @@ class Routes {
   static const String send_alert = "$baseURL/room/send-alert";
   static const String materials = "$baseURL/material-list";
   static const String set_material = "$baseURL/check-list";
-
 }
