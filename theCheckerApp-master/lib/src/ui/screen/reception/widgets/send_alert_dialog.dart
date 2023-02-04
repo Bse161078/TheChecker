@@ -84,13 +84,7 @@ class _SendAlertDialogState extends State<SendAlertDialog> {
                       longText: false,
                       onChanged: (value) {
                         setState(() {
-                          CleanQuick = true;
-                          ExtraBedNormal = false;
-                          ExtraBedChild = false;
-                          RedCard = false;
-                          CleanStay = false;
-                          CleanCheckout = false;
-                          CleanAgain = false;
+                          CleanQuick = value;
                         });
                       })),
               10.ph,
@@ -104,13 +98,7 @@ class _SendAlertDialogState extends State<SendAlertDialog> {
                       longText: false,
                       onChanged: (value) {
                         setState(() {
-                          CleanQuick = false;
-                          ExtraBedNormal = true;
-                          ExtraBedChild = false;
-                          RedCard = false;
-                          CleanStay = false;
-                          CleanCheckout = false;
-                          CleanAgain = false;
+                          ExtraBedNormal = value;
                         });
                       })),
               10.ph,
@@ -124,13 +112,7 @@ class _SendAlertDialogState extends State<SendAlertDialog> {
                       longText: false,
                       onChanged: (value) {
                         setState(() {
-                          CleanQuick = false;
-                          ExtraBedNormal = false;
-                          ExtraBedChild = true;
-                          RedCard = false;
-                          CleanStay = false;
-                          CleanCheckout = false;
-                          CleanAgain = false;
+                          ExtraBedChild = value;
                         });
                       })),
               10.ph,
@@ -144,13 +126,7 @@ class _SendAlertDialogState extends State<SendAlertDialog> {
                       longText: false,
                       onChanged: (value) {
                         setState(() {
-                          CleanQuick = false;
-                          ExtraBedNormal = false;
-                          ExtraBedChild = false;
-                          RedCard = true;
-                          CleanStay = false;
-                          CleanCheckout = false;
-                          CleanAgain = false;
+                          RedCard = value;
                         });
                       })),
               10.ph,
@@ -164,13 +140,7 @@ class _SendAlertDialogState extends State<SendAlertDialog> {
                       longText: false,
                       onChanged: (value) {
                         setState(() {
-                          CleanQuick = false;
-                          ExtraBedNormal = false;
-                          ExtraBedChild = false;
-                          RedCard = false;
-                          CleanStay = true;
-                          CleanCheckout = false;
-                          CleanAgain = false;
+                          CleanStay = value;
                         });
                       })),
               10.ph,
@@ -184,13 +154,7 @@ class _SendAlertDialogState extends State<SendAlertDialog> {
                       longText: false,
                       onChanged: (value) {
                         setState(() {
-                          CleanQuick = false;
-                          ExtraBedNormal = false;
-                          ExtraBedChild = false;
-                          RedCard = false;
-                          CleanStay = false;
-                          CleanCheckout = true;
-                          CleanAgain = false;
+                          CleanCheckout = value;
                         });
                       })),
               10.ph,
@@ -204,13 +168,7 @@ class _SendAlertDialogState extends State<SendAlertDialog> {
                       longText: false,
                       onChanged: (value) {
                         setState(() {
-                          CleanQuick = false;
-                          ExtraBedNormal = false;
-                          ExtraBedChild = false;
-                          RedCard = false;
-                          CleanStay = false;
-                          CleanCheckout = false;
-                          CleanAgain = true;
+                          CleanAgain = value;
                         });
                       })),
               30.ph,

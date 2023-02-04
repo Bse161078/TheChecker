@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:convert';
 import '../../src/utils/utils.dart';
@@ -7,14 +6,12 @@ import '../storage/pref.dart';
 import 'exception.dart';
 import 'response.dart';
 
-enum Method{
-  GET, POST, PUT, DELETE
-}
+enum Method { GET, POST, PUT, DELETE }
 
 class ServiceProvider {
-
-  static Future<ApiResponse> execute(String url, Method method, [var data , List<int>? acceptedStatus]) async {
-    try{
+  static Future<ApiResponse> execute(String url, Method method,
+      [var data, List<int>? acceptedStatus]) async {
+    try {
       int serviceTimeout = 10;
       final uri = Uri.parse(url);
       final token = Pref.to.tokenVal.toBearer;
@@ -24,43 +21,49 @@ class ServiceProvider {
         'Authorization': token
       };
 
+      print("header: $header");
+
       http.Response res;
-      switch (method){
+      switch (method) {
         case Method.POST:
-          res = await http.post(uri, headers: header, body: jsonEncode(data)).timeout(Duration(seconds: serviceTimeout));
+          res = await http
+              .post(uri, headers: header, body: jsonEncode(data))
+              .timeout(Duration(seconds: serviceTimeout));
           break;
         case Method.GET:
-          res = await http.get(uri, headers: header).timeout(Duration(seconds: serviceTimeout));
+          res = await http
+              .get(uri, headers: header)
+              .timeout(Duration(seconds: serviceTimeout));
           break;
         case Method.PUT:
-          res = await http.put(uri, headers: header, body: jsonEncode(data)).timeout(Duration(seconds: serviceTimeout));
+          res = await http
+              .put(uri, headers: header, body: jsonEncode(data))
+              .timeout(Duration(seconds: serviceTimeout));
           break;
         case Method.DELETE:
-          res = await http.delete(uri, headers: header, body: jsonEncode(data)).timeout(Duration(seconds: serviceTimeout));
+          res = await http
+              .delete(uri, headers: header, body: jsonEncode(data))
+              .timeout(Duration(seconds: serviceTimeout));
           break;
       }
 
       var body;
-      if(res.body.toString().isNotEmpty){
+      if (res.body.toString().isNotEmpty) {
         body = json.decode(res.body.toString());
-      }else{
+      } else {
         body = [];
       }
 
-      if(acceptedStatus == null || acceptedStatus.contains(res.statusCode)) {
+      if (acceptedStatus == null || acceptedStatus.contains(res.statusCode)) {
         return ApiResponse(status: res.statusCode, body: body, url: url);
-      }else{
+      } else {
         throw EndUserException(body['errors']['message']);
       }
-
     } catch (e) {
       log('this', 'b');
       throw ApiException(e).toString();
     }
   }
-
-
-
 
   // Future<dynamic> getWithoutTrusted(String url) async {
   //
@@ -95,7 +98,6 @@ class ServiceProvider {
   //   return responseJson;
   // }
 
-
   // Future<dynamic> uploadFile(String url,File file,[int isPublic]) async{
   //
   //   if (file == null) return;
@@ -128,7 +130,6 @@ class ServiceProvider {
   //   return res.statusCode;
   // }
 
-
   // Future<dynamic> uploadAttachment(String url,File file) async{
   //
   //   if (file == null) return;
@@ -154,5 +155,4 @@ class ServiceProvider {
   //   var res = await request.send();
   //   return res.stream.bytesToString();
   // }
-
 }

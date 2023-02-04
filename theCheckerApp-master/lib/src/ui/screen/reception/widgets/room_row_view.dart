@@ -14,7 +14,13 @@ class RoomRowView extends StatelessWidget {
   final String type;
   final String cleaningStatus;
   final VoidCallback onTapAlert;
-  const RoomRowView({Key? key, required this.label, required this.type, required this.cleaningStatus, required this.onTapAlert}) : super(key: key);
+  const RoomRowView(
+      {Key? key,
+      required this.label,
+      required this.type,
+      required this.cleaningStatus,
+      required this.onTapAlert})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,42 +31,53 @@ class RoomRowView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-
             Expanded(
               flex: 3,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(label).setStyle(size: 23).paddingOnly(left: 22, top: 6, bottom: 6),
+                  Text(label)
+                      .setStyle(size: 23)
+                      .paddingOnly(left: 22, top: 6, bottom: 6),
                   // Checker(label: '$label', state: false, type: CheckerType.Check, onChanged: (newValue){}, fontSize: 20, longText: false),
                   Text(type.tr).setStyle(color: Get.theme.hintColor),
                 ],
               ).paddingOnly(right: 22),
             ),
-
             Container(
               width: 1.5,
               height: 35,
               color: Get.theme.dividerColor,
             ),
-
             16.pw,
-
-            Expanded(flex: 6,child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CleaningActionsView(state: (cleaningStatus == 'Cleaned' || cleaningStatus == 'Damaged') ? CleaningActions.cleaned : CleaningActions.notCleaned,),
-                DamagesActionsView(state: (cleaningStatus == 'Damaged') ? DamagesActions.damaged : DamagesActions.noDamages ,),
-                AlertView(onTap: onTapAlert,),
-              ],
-            )),
-
+            Expanded(
+                flex: 8,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CleaningActionsView(
+                      state: (cleaningStatus == 'Cleaned' ||
+                              cleaningStatus == 'Damaged')
+                          ? CleaningActions.cleaned
+                          : CleaningActions.notCleaned,
+                    ),
+                    DamagesActionsView(
+                      state: (cleaningStatus == 'Damaged')
+                          ? DamagesActions.damaged
+                          : DamagesActions.noDamages,
+                    ),
+                    AlertView(
+                      onTap: onTapAlert,
+                    ),
+                  ],
+                )),
             16.pw,
-
           ],
         ).paddingOnly(top: 6, bottom: 4),
-        const Divider(height: 4,),
+        const Divider(
+          height: 4,
+        ),
       ],
     );
   }

@@ -38,7 +38,6 @@ class Checker extends StatelessWidget {
         ),
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
         child: Row(
-          mainAxisSize: MainAxisSize.min,
           children: [
             if (type == CheckerType.Check) ...[
               Checkbox(

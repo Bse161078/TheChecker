@@ -141,7 +141,7 @@ class Reception extends GetView<ReceptionController> {
                     ),
                     16.pw,
                     Expanded(
-                        flex: 6,
+                        flex: 8,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

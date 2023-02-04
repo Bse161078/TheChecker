@@ -1,4 +1,3 @@
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../../src/controllers/basic.dart';
@@ -30,24 +29,23 @@ class ReceptionController extends Basic {
 
   final roomsList = RxList<Room>([]);
 
-  getRooms() async{
-    try{
+  getRooms() async {
+    try {
       isLoading = true;
       ApiResponse result = await repository.rooms();
       final list = result.body['data']['rooms'];
+      print("data : ${list.toString()}");
       roomsList.value = Room.fromJsonList(list);
       log(this, 'rooms list ${list.length}');
-    }catch(e, s){
+    } catch (e, s) {
       log(this, 'rooms error x $e $s');
-    }finally{
+    } finally {
       isLoading = false;
     }
   }
 
-  getProfile() async{
-
-    try{
-
+  getProfile() async {
+    try {
       ApiResponse result = await repository.profile();
       final id = result.body['data']['user']['_id'];
       // final name = result.body['data']['user']['fullname'];
@@ -60,10 +58,8 @@ class ReceptionController extends Basic {
       // isLoading = false;
 
       log(this, 'get profile info: ${result.body['data']}');
-    }catch(e, s){
+    } catch (e) {
       log(this, e);
     }
   }
-
-
 }
