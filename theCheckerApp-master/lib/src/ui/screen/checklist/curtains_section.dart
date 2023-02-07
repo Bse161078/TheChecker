@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:io';
 
 import 'package:checkerapp/src/controllers/checklist_controller.dart';
@@ -6,26 +8,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../routes/app_pages.dart';
 import '../../widget/answer_yes_no_widget.dart';
-import '../../widget/button_widget.dart';
 import '../../widget/checker.dart';
 import '../../widget/tap_widget.dart';
-import '../cleaners/widgets/cleaner_avatar.dart';
 import 'widgets/add_photos_view.dart';
 
-class BedSection extends GetView<CheckListController> {
+class CurtainsSection extends GetView<CheckListController> {
   TextEditingController controllerReport = TextEditingController();
 
-  BedSection({super.key});
+  CurtainsSection({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GetX<CheckListController>(initState: (_) {
-      controllerReport.text = controller.bedDamageReport.value;
+      controllerReport.text = controller.curtainsDamageReport.value;
     }, builder: (_) {
       if (controllerReport.text.isEmpty) {
-        controllerReport.text = controller.bedDamageReport.value;
+        controllerReport.text = controller.curtainsDamageReport.value;
       }
       _.isLoading;
       return SingleChildScrollView(
@@ -34,7 +33,7 @@ class BedSection extends GetView<CheckListController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'bed'.tr,
+              'curtains'.tr,
               style: Get.textTheme.titleMedium,
             ).setStyle(size: 18, weight: FontWeight.bold),
             16.ph,
@@ -53,14 +52,14 @@ class BedSection extends GetView<CheckListController> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          'is_bed_made_up'.tr,
+                          'Are curtains clean?',
                           style: Get.textTheme.titleMedium,
                         ).setStyle(size: 16),
                         10.ph,
                         AnswerYesNoWidget(
                             state: controller.bedIsMadeUp.value,
                             onChangeValue: (newState) =>
-                                controller.bedIsMadeUp.value = newState)
+                                controller.curtainsTopQuestion.value = newState)
                       ],
                     ),
                   ),
@@ -73,14 +72,14 @@ class BedSection extends GetView<CheckListController> {
                     if (photo == null) {
                       return;
                     }
-                    _.bedIsMadeUpPhoto.add(photo.path);
+                    _.curtainsTopQuestionPhoto.add(photo.path);
                   },
                   child: Container(
-                    child: _.bedIsMadeUpPhoto.isNotEmpty
+                    child: _.curtainsTopQuestionPhoto.isNotEmpty
                         ? ClipRRect(
                             borderRadius: BorderRadius.circular(8),
                             child: Image.file(
-                              File(_.bedIsMadeUpPhoto.last),
+                              File(_.curtainsTopQuestionPhoto.last),
                               width: 170,
                               height: 110,
                               fit: BoxFit.cover,
@@ -132,19 +131,19 @@ class BedSection extends GetView<CheckListController> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Checker(
-                        label: 'bed_not_fresh'.tr,
-                        state: controller.bedNotFresh.value,
+                        label: 'Curtains Are Not Clean'.tr,
+                        state: controller.curtainsNotClean.value,
                         type: CheckerType.Check,
                         onChanged: (newValue) =>
                             controller.bedNotFresh.value = newValue,
                       ),
                       AddPhotosView(
                           onSelectPhoto: (photoPath) {
-                            _.bedNotFreshPhoto.add(photoPath);
+                            _.curtainsNotCleanPhoto.add(photoPath);
                             _.isLoading = true;
                             _.isLoading = false;
                           },
-                          photos: _.bedNotFreshPhoto),
+                          photos: _.curtainsNotCleanPhoto),
                     ],
                   ).paddingOnly(top: 6, bottom: 4),
                   const Divider(
@@ -155,42 +154,23 @@ class BedSection extends GetView<CheckListController> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Checker(
-                          label: 'bed_not_tightened'.tr,
-                          state: controller.bedNotTightened.value,
+                          label: 'Curtains Have Wrinkles',
+                          state: controller.curtainsHaveWrinkles.value,
                           type: CheckerType.Check,
-                          onChanged: (newValue) =>
-                              controller.bedNotTightened.value = newValue),
+                          onChanged: (newValue) => controller
+                              .curtainsHaveWrinklesPhoto.value = newValue),
                       AddPhotosView(
                           onSelectPhoto: (photoPath) {
-                            _.bedNotTightenedPhoto.add(photoPath);
+                            _.curtainsHaveWrinklesPhoto.add(photoPath);
                             _.isLoading = true;
                             _.isLoading = false;
                           },
-                          photos: _.bedNotTightenedPhoto),
+                          photos: _.curtainsHaveWrinklesPhoto),
                     ],
                   ).paddingOnly(top: 6, bottom: 4),
                   const Divider(
                     height: 4,
                   ).paddingSymmetric(horizontal: 12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Checker(
-                          label: 'extra_bed_status'.tr,
-                          state: controller.bedExtraBed.value,
-                          type: CheckerType.Check,
-                          onChanged: (newValue) =>
-                              controller.bedExtraBed.value = newValue),
-                      AddPhotosView(
-                          onSelectPhoto: (photoPath) {
-                            _.bedExtraBedPhoto.add(photoPath);
-                            _.isLoading = true;
-                            _.isLoading = false;
-                          },
-                          photos: _.bedExtraBedPhoto),
-                    ],
-                  ).paddingOnly(top: 6, bottom: 4),
                 ],
               ),
             ),
@@ -216,7 +196,7 @@ class BedSection extends GetView<CheckListController> {
                     controller: controllerReport,
                     textAlign: TextAlign.left,
                     onChanged: (t) {
-                      controller.bedDamageReport.value = t;
+                      controller.curtainsDamageReport.value = t;
                     },
                     decoration: InputDecoration(
                       filled: true,
@@ -247,11 +227,11 @@ class BedSection extends GetView<CheckListController> {
                     children: [
                       AddPhotosView(
                           onSelectPhoto: (photoPath) {
-                            _.bedDamageReportPhoto.add(photoPath);
+                            _.curtainsDamageReportPhoto.add(photoPath);
                             _.isLoading = true;
                             _.isLoading = false;
                           },
-                          photos: _.bedDamageReportPhoto),
+                          photos: _.curtainsDamageReportPhoto),
                     ],
                   ),
                   6.ph,

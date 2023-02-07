@@ -10,6 +10,7 @@ import '../../../data/model/room_model.dart';
 import 'bathroom_section.dart';
 import 'check_menu.dart';
 import 'bed_section.dart';
+import 'curtains_section.dart';
 import 'shelves_section.dart';
 import 'floor_section.dart';
 import '../../../../src/controllers/checklist_controller.dart';
@@ -105,6 +106,8 @@ class CheckList extends GetView<CheckListController> {
         return BedSection();
       case CheckMenuItems.shelves:
         return ShelvesSection();
+      case CheckMenuItems.curtains:
+        return CurtainsSection();
       case CheckMenuItems.bathroom:
         return BathroomSection();
     }
@@ -127,9 +130,12 @@ class CheckList extends GetView<CheckListController> {
       case CheckMenuItems.shelves:
         await controller.updateShelvesItems(room.id);
         break;
+      case CheckMenuItems.curtains:
+        await controller.updateCurtainsItems(room.id);
+        break;
       case CheckMenuItems.bathroom:
         await controller.updateBathroomItems(room.id);
-        Get.toNamed(Routes.CONTINUE_ORDER, arguments: room.id);
+        Get.toNamed(Routes.CONTINUE_ORDER, arguments: [room, cleaner]);
         break;
     }
 

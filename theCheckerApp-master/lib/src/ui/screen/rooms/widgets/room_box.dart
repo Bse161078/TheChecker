@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../src/utils/utils.dart';
+import '../../../widget/tap_widget.dart';
 
 class RoomBox extends StatelessWidget {
   final String title;
@@ -10,7 +11,7 @@ class RoomBox extends StatelessWidget {
   final String report;
   final String status;
   final VoidCallback? onTap;
-  RoomBox(
+  const RoomBox(
       {Key? key,
       this.onTap,
       required this.title,
@@ -136,10 +137,7 @@ class RoomBox extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   print('info icon button tapped');
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) => infoDialog,
-                  );
+                  showRoomInfoDialog(context);
                 },
                 child: const SizedBox(
                   child: Icon(
@@ -154,28 +152,80 @@ class RoomBox extends StatelessWidget {
     );
   }
 
-  Dialog infoDialog = Dialog(
-    shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.0)), //this right here
-    child: SizedBox(
-      width: Get.width / 2.2,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            children: [
-              16.ph,
-              Text(
-                "Room No: ",
-                style: Get.textTheme.titleMedium,
-              )
-                  .setStyle(size: 14, weight: FontWeight.w500)
-                  .paddingOnly(left: 24, top: 24),
-            ],
-          ),
-          8.ph,
-        ],
+  void showRoomInfoDialog(BuildContext context) {
+    Dialog errorDialog = Dialog(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0)), //this right here
+      child: SizedBox(
+        width: Get.width / 2.2,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(12), topLeft: Radius.circular(12)),
+              child: CupertinoNavigationBar(
+                leading: CupertinoNavigationBarBackButton(
+                  previousPageTitle: 'cancel'.tr,
+                  onPressed: () => Get.back(),
+                ),
+                trailing: Tap(
+                  onTap: () => Get.back(),
+                  child: Text('reset'.tr).setStyle(color: Colors.red),
+                ),
+                middle: Text('filter_rooms'.tr),
+              ),
+            ),
+            Row(
+              children: [
+                Text(
+                  "Room Name: $title",
+                  style: Get.textTheme.titleMedium,
+                )
+                    .setStyle(size: 14, weight: FontWeight.w500)
+                    .paddingOnly(left: 24, top: 24),
+              ],
+            ),
+            8.ph,
+            Row(
+              children: [
+                Text(
+                  type.isNotEmpty ? "Type: $type" : "Type: None",
+                  style: Get.textTheme.titleMedium,
+                )
+                    .setStyle(size: 14, weight: FontWeight.w500)
+                    .paddingOnly(left: 24, top: 24),
+              ],
+            ),
+            8.ph,
+            Row(
+              children: [
+                Text(
+                  report.isNotEmpty ? "Report: $report" : "Report: None",
+                  style: Get.textTheme.titleMedium,
+                )
+                    .setStyle(size: 14, weight: FontWeight.w500)
+                    .paddingOnly(left: 24, top: 24),
+              ],
+            ),
+            8.ph,
+            Row(
+              children: [
+                Text(
+                  status.isNotEmpty ? "Status: $status" : "Status: None",
+                  style: Get.textTheme.titleMedium,
+                )
+                    .setStyle(size: 14, weight: FontWeight.w500)
+                    .paddingOnly(left: 24, top: 24),
+              ],
+            ),
+            8.ph,
+            12.ph,
+          ],
+        ),
       ),
-    ),
-  );
+    );
+    showDialog(
+        context: context, builder: (BuildContext context) => errorDialog);
+  }
 }

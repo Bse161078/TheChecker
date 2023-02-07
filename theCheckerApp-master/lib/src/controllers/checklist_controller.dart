@@ -2,7 +2,7 @@ import '../../src/controllers/basic.dart';
 import 'package:get/get.dart';
 import '../data/repository/main_repository.dart';
 
-enum CheckMenuItems { floor, bed, shelves, bathroom }
+enum CheckMenuItems { floor, bed, shelves, curtains, bathroom }
 
 class CheckListController extends Basic {
   static CheckListController get to => Get.find();
@@ -103,6 +103,40 @@ class CheckListController extends Basic {
         bathroomTraysNotFilledPhoto,
         bathroomDamageReport.value,
         bathroomDamageReportPhoto);
+    return true;
+  }
+
+  // curtains
+
+  //
+  //   bool topQuestionStatus,
+  //   List<String> samplePhotoTopQuestion,
+  //   bool curtainsNotCleanStatus,
+  //   List<String> curtainsNotCleanPhotos,
+  //   bool curtainsHaveWrinklesStatus,
+  //   List<String> curtainsHaveWrinklesPhotos,
+  //   String DamageReportText,
+  //   List<String> DamageReportPhotos,
+
+  final curtainsTopQuestion = RxBool(false);
+  final curtainsTopQuestionPhoto = RxList<String>([]);
+  final curtainsNotClean = RxBool(false);
+  final curtainsNotCleanPhoto = RxList<String>([]);
+  final curtainsHaveWrinkles = RxBool(false);
+  final curtainsHaveWrinklesPhoto = RxList<String>([]);
+  final curtainsDamageReport = RxString('');
+  final curtainsDamageReportPhoto = RxList<String>([]);
+  Future<bool> updateCurtainsItems(roomId) async {
+    await repository.curtains(
+        roomId,
+        curtainsTopQuestion.value,
+        curtainsTopQuestionPhoto,
+        curtainsNotClean.value,
+        curtainsNotCleanPhoto,
+        curtainsHaveWrinkles.value,
+        curtainsHaveWrinklesPhoto,
+        curtainsDamageReport.value,
+        curtainsDamageReportPhoto);
     return true;
   }
 

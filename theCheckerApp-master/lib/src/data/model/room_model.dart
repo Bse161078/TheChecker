@@ -9,7 +9,9 @@ class Room {
     this.report,
     this.roomType,
     this.level,
-    this.hotel,});
+    this.hotel,
+    this.occupation_status,
+  });
 
   Room.fromJson(dynamic json) {
     id = json['_id'];
@@ -17,9 +19,11 @@ class Room {
     nameDe = json['name_de'];
     status = json['status'];
     report = json['report'];
-    roomType = json['roomType'] != null ? RoomType.fromJson(json['roomType']) : null;
+    roomType =
+        json['roomType'] != null ? RoomType.fromJson(json['roomType']) : null;
     level = json['level'] != null ? Level.fromJson(json['level']) : null;
     hotel = json['hotel'];
+    occupation_status = json['occupation_status'];
   }
   String? id;
   String? name;
@@ -29,6 +33,7 @@ class Room {
   RoomType? roomType;
   Level? level;
   String? hotel;
+  String? occupation_status;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -37,6 +42,7 @@ class Room {
     map['name_de'] = nameDe;
     map['status'] = status;
     map['report'] = report;
+    map['occupation_status'] = occupation_status;
     if (roomType != null) {
       map['roomType'] = roomType?.toJson();
     }
@@ -50,13 +56,13 @@ class Room {
   static List<Room> fromJsonList(List list) {
     return list.map((item) => Room.fromJson(item)).toList();
   }
-
 }
 
 class RoomType {
   RoomType({
     this.id,
-    this.title,});
+    this.title,
+  });
 
   RoomType.fromJson(dynamic json) {
     id = json['_id'];
@@ -71,5 +77,4 @@ class RoomType {
     map['title'] = title;
     return map;
   }
-
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:checkerapp/src/controllers/rooms_controller.dart';
 
 import '../../../data/repository/main_repository.dart';
@@ -26,12 +28,17 @@ class _ContinueOrderState extends State<ContinueOrder> {
 
   bool isLoading = false;
   var roomId = '';
+  var occupation_status = "";
+  var cleanerId = "";
+  var status = "";
 
   @override
   void initState() {
     super.initState();
     log(this, 'roomid ${Get.arguments}');
-    roomId = Get.arguments;
+    roomId = Get.arguments[0].id;
+    occupation_status = Get.arguments[0].occupation_status;
+    cleanerId = Get.arguments[1].id;
   }
 
   @override
@@ -39,11 +46,11 @@ class _ContinueOrderState extends State<ContinueOrder> {
     return Scaffold(
         appBar: CupertinoNavigationBar(
           automaticallyImplyLeading: false,
-          // leading: CupertinoNavigationBarBackButton(
-          //   previousPageTitle: 'cleaners'.tr,
-          //   onPressed: () =>Get.back(),
-          // ),
-          middle: Text('rooms'.tr),
+          leading: CupertinoNavigationBarBackButton(
+            previousPageTitle: 'Check List'.tr,
+            onPressed: () => Get.back(),
+          ),
+          middle: Text('Continue'.tr),
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -228,7 +235,8 @@ class _ContinueOrderState extends State<ContinueOrder> {
         status = 'NotCleaned';
       }
 
-      ApiResponse res = await MainRepository().setRoomStatus(roomId, status);
+      ApiResponse res = await MainRepository()
+          .setRoomStatus(roomId, status, cleanerId, occupation_status);
       log(this, res.status);
 
       RoomsController.to.getRooms();

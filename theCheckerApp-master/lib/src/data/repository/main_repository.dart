@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:dio/dio.dart';
 
 import '../../network/helper.dart';
@@ -37,11 +39,15 @@ class MainRepository {
     return response;
   }
 
-  Future<dynamic> setRoomStatus(String roomId, String status) async {
+  Future<dynamic> setRoomStatus(String roomId, String status, String cleanerId,
+      String occupationStatus) async {
     var data = {
-      "roomID": roomId,
-      "status": status,
+      "roomId": roomId,
+      "clean_status": status,
+      "cleanerId": cleanerId,
+      "occupation_status": occupationStatus,
     };
+    print("Data is $data");
     final response = await ServiceProvider.execute(
         Routes.set_room_status, Method.POST, data, [200, 201]);
     return response;
@@ -290,6 +296,80 @@ class MainRepository {
     return true;
   }
 
+  /// curtains
+
+// topQuestionStatus
+// bool
+// samplePhotoTopQuestion
+// array
+// curtainsNotCleanStatus
+// boolean
+// curtainsNotCleanPhotos
+// array
+// curtainsHaveWrinklesStatus
+// boolean
+// curtainsHaveWrinklesPhotos
+// array
+// DamageReportText
+// string
+// DamageReportPhotos
+// array
+
+  Future<dynamic> curtains(
+    roomId,
+    bool topQuestionStatus,
+    List<String> samplePhotoTopQuestion,
+    bool curtainsNotCleanStatus,
+    List<String> curtainsNotCleanPhotos,
+    bool curtainsHaveWrinklesStatus,
+    List<String> curtainsHaveWrinklesPhotos,
+    String DamageReportText,
+    List<String> DamageReportPhotos,
+  ) async {
+    var url = '${Routes.curtains}/$roomId';
+
+    log(this, 'curtains data url $url');
+
+    var dio = Dio();
+    dio.options.headers["Authorization"] = 'Bearer ${Pref.to.tokenVal}';
+
+    final formData = FormData.fromMap({
+      "topQuestionStatus": topQuestionStatus,
+      "samplePhotoTopQuestion": [
+        for (var filePath in samplePhotoTopQuestion)
+          await MultipartFile.fromFile(filePath),
+      ],
+      "curtainsNotCleanStatus": curtainsNotCleanStatus,
+      "curtainsNotCleanPhotos": [
+        for (var filePath in curtainsNotCleanPhotos)
+          await MultipartFile.fromFile(filePath),
+      ],
+      "curtainsHaveWrinklesStatus": curtainsHaveWrinklesStatus,
+      "curtainsHaveWrinklesPhotos": [
+        for (var filePath in curtainsHaveWrinklesPhotos)
+          await MultipartFile.fromFile(filePath),
+      ],
+      "DamageReportText": DamageReportText,
+      "DamageReportPhotos": [
+        for (var filePath in DamageReportPhotos)
+          await MultipartFile.fromFile(filePath),
+      ],
+    });
+
+    try {
+      final response = await dio.post(url, data: formData);
+      log(this, 'curtains data  status ${response.statusCode}');
+      log(this, 'curtains data  body ${response.data}');
+    } on DioError catch (e) {
+      log(this, 'dio c err: ${e.response?.statusMessage}');
+      log(this, 'dio c err: ${e.error}');
+    } catch (e) {
+      log(this, '$this Curtains Post Request Error $e');
+    }
+
+    return true;
+  }
+
   Future<dynamic> bathroom(
     roomId,
     bool bathroomIsCleaned,
@@ -360,7 +440,7 @@ class MainRepository {
       log(this, 'dio c err: ${e.response?.statusMessage}');
       log(this, 'dio c err: ${e.error}');
     } catch (e) {
-      log(this, 'z $e');
+      log(this, '$this Bathroom Post Request Error: $e');
     }
 
     return true;

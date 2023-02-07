@@ -86,6 +86,16 @@ class CheckMenu extends GetView<CheckListController> {
                             CheckListController.to.currentCheckItem.value ==
                                 CheckMenuItems.shelves),
                     MenuItemView(
+                        label: 'Curtains',
+                        image: 'm_curtains',
+                        onTap: () {
+                          CheckListController.to.currentCheckItem.value =
+                              CheckMenuItems.curtains;
+                        },
+                        isEnabled:
+                            CheckListController.to.currentCheckItem.value ==
+                                CheckMenuItems.curtains),
+                    MenuItemView(
                         label: 'bathroom',
                         image: 'm_bathroom',
                         onTap: () {
@@ -174,8 +184,11 @@ class CheckMenu extends GetView<CheckListController> {
       case CheckMenuItems.shelves:
         index = 2;
         break;
-      case CheckMenuItems.bathroom:
+      case CheckMenuItems.curtains:
         index = 3;
+        break;
+      case CheckMenuItems.bathroom:
+        index = 4;
         break;
     }
     return (index * 50) + index;

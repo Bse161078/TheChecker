@@ -53,8 +53,6 @@ class Cleaners extends GetView<CleanersController> {
           ),
           body: Column(
             children: [
-              18.ph,
-
               // search bar
               Row(
                 children: [
@@ -68,7 +66,7 @@ class Cleaners extends GetView<CleanersController> {
                   8.pw,
                   SizedBox(
                     width: 130,
-                    height: 47,
+                    height: 48,
                     child: Btn(
                       label: 'search'.tr,
                       onPressed: () {
@@ -93,46 +91,36 @@ class Cleaners extends GetView<CleanersController> {
                 ],
               ).paddingSymmetric(horizontal: 16),
 
-              24.ph,
-
-              SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: GridView(
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 0,
-                    mainAxisSpacing: 0,
-                  ),
-                  children: [
-                    for (int i = 0; i < filteredCleaners.length; i++)
-                      FadeAnimation(
-                        delay: .15 * i,
-                        child: CleanerAvatar(
-                          image: '${filteredCleaners[i].avatar}',
-                          name: '${filteredCleaners[i].fullname}',
-                          onTap: () {
-                            if (previousRoute
-                                .toString()
-                                .contains('/dashboard')) {
-                              _showDialog(
-                                context,
-                                filteredCleaners[i],
-                              );
-                            } else {
-                              Get.toNamed(
-                                Routes.CHECKLIST,
-                                arguments: [room, filteredCleaners[i]],
-                              );
-                            }
-                          },
-                        ),
-                      ),
-
-                    // FadeAnimation(delay: .15 * 7, child: NewCleanerButton(onTap: ()=>_showDialog(context)),),
-                  ],
+              GridView.builder(
+                shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 0,
+                  mainAxisSpacing: 0,
                 ),
+                itemCount: filteredCleaners.length,
+                itemBuilder: (context, index) {
+                  return FadeAnimation(
+                    delay: .15 * index,
+                    child: CleanerAvatar(
+                      image: '${filteredCleaners[index].avatar}',
+                      name: '${filteredCleaners[index].fullname}',
+                      onTap: () {
+                        if (previousRoute.toString().contains('/dashboard')) {
+                          _showDialog(
+                            context,
+                            filteredCleaners[index],
+                          );
+                        } else {
+                          Get.toNamed(
+                            Routes.CHECKLIST,
+                            arguments: [room, filteredCleaners[index]],
+                          );
+                        }
+                      },
+                    ),
+                  );
+                },
               ),
             ],
           ),

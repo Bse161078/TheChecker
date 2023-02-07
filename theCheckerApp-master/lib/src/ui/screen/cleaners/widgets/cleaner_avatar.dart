@@ -1,4 +1,3 @@
-
 import 'package:checkerapp/src/ui/widget/tap_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -12,11 +11,12 @@ class CleanerAvatar extends StatelessWidget {
   final String image;
   final String name;
   final VoidCallback onTap;
-  const CleanerAvatar({Key? key, required this.image, required this.name, required this.onTap}) : super(key: key);
+  const CleanerAvatar(
+      {Key? key, required this.image, required this.name, required this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return Tap(
       onTap: onTap,
       child: Container(
@@ -29,29 +29,33 @@ class CleanerAvatar extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-
-            if(image=='' || image=='null') ... [
+            if (image.isEmpty || image == 'null') ...[
               CircleAvatar(
                 radius: 80, // Image radius
                 backgroundColor: const Color(0x330BBBEF),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: const [
-                    Icon(CupertinoIcons.person_fill, color: primaryColor, size: 60,),
+                    Icon(
+                      CupertinoIcons.person_fill,
+                      color: primaryColor,
+                      size: 60,
+                    ),
                     // Text('add_photo'.tr,style: Get.textTheme.subtitle1).setStyle(size: 16, weight: FontWeight.w600),
                   ],
                 ),
               ),
-
-            ] else ... [
+            ] else ...[
               CircleAvatar(
                 radius: 80, // Image radius
-                backgroundImage: NetworkImage(image.toImageUrl),
+                backgroundImage: Image.network(image).image,
               ),
             ],
-
             8.ph,
-            Text(name, style: Get.theme.textTheme.subtitle1,).setStyle(size: 15, weight: FontWeight.w600),
+            Text(
+              name,
+              style: Get.theme.textTheme.titleMedium,
+            ).setStyle(size: 15, weight: FontWeight.w600),
           ],
         ),
       ),
