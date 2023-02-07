@@ -10,7 +10,7 @@ class RoomBox extends StatelessWidget {
   final String report;
   final String status;
   final VoidCallback? onTap;
-  const RoomBox(
+  RoomBox(
       {Key? key,
       this.onTap,
       required this.title,
@@ -136,6 +136,10 @@ class RoomBox extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   print('info icon button tapped');
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => infoDialog,
+                  );
                 },
                 child: const SizedBox(
                   child: Icon(
@@ -149,4 +153,29 @@ class RoomBox extends StatelessWidget {
       ),
     );
   }
+
+  Dialog infoDialog = Dialog(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0)), //this right here
+    child: SizedBox(
+      width: Get.width / 2.2,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            children: [
+              16.ph,
+              Text(
+                "Room No: ",
+                style: Get.textTheme.titleMedium,
+              )
+                  .setStyle(size: 14, weight: FontWeight.w500)
+                  .paddingOnly(left: 24, top: 24),
+            ],
+          ),
+          8.ph,
+        ],
+      ),
+    ),
+  );
 }

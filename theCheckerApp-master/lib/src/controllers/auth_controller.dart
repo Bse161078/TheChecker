@@ -1,6 +1,3 @@
-
-import 'dart:async';
-
 import 'package:checkerapp/src/network/response.dart';
 import 'package:checkerapp/src/storage/pref.dart';
 
@@ -21,9 +18,8 @@ class AuthController extends Basic {
   final enabledLoginButton = RxBool(false);
   final obscurePass = RxBool(true);
 
-  login(String userName, String pass) async{
-
-    try{
+  login(String userName, String pass) async {
+    try {
       isLoading = true;
 
       ApiResponse result = await repository.login(userName, pass);
@@ -33,23 +29,20 @@ class AuthController extends Basic {
       Pref.to.setString(Pref.token, token);
       Pref.to.setString(Pref.role, role);
 
-      if(role.toString().contains('Checker')){
+      if (role.toString().contains('Checker')) {
         Get.offNamed(Routes.DASHBOARD);
         Toast.success('you_are_login'.tr, 'login'.tr);
-      }else if(role.toString().contains('HotelReception')){
+      } else if (role.toString().contains('HotelReception')) {
         Get.offNamed(Routes.RECEPTION);
         Toast.success('you_are_login'.tr, 'login'.tr);
-      }else{
+      } else {
         Toast.error('no_access'.tr);
       }
-    }catch(e, s){
+    } catch (e) {
       log(this, e);
       Toast.error(e.toString());
-    }finally{
-        isLoading = false;
+    } finally {
+      isLoading = false;
     }
-
   }
-
-
 }
