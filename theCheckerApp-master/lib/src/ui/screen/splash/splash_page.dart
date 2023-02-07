@@ -38,13 +38,16 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FadeAnimation(
-          delay: 1,
-          child: Center(
-              child: SizedBox(
-                  width: Get.width / 3,
-                  child: Image.asset(
-                    'logo'.toPng,
-                  )))),
+        delay: 1,
+        child: Center(
+          child: SizedBox(
+            width: Get.width / 3,
+            child: Image.asset(
+              'logo'.toPng,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

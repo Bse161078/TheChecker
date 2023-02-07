@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:checkerapp/src/ui/screen/reception/widgets/room_row_view.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -13,6 +15,7 @@ import 'package:get/get.dart';
 import '../../../controllers/reception_controller.dart';
 import '../../../routes/app_pages.dart';
 import '../../widget/button_widget.dart';
+import '../../widget/fade_animation.dart';
 import '../../widget/tap_widget.dart';
 import 'widgets/send_alert_dialog.dart';
 
@@ -25,6 +28,10 @@ class Reception extends GetView<ReceptionController> {
   @override
   Widget build(BuildContext context) {
     return GetX<ReceptionController>(initState: (_) {
+      // make a full screen container that vanishes after 4 seconds
+
+      
+
       controller.getRooms();
       controller.getProfile();
       filteredRoomsList = controller.roomsList;

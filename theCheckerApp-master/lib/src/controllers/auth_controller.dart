@@ -34,8 +34,10 @@ class AuthController extends Basic {
         Get.offNamed(Routes.DASHBOARD);
         Toast.success('you_are_login'.tr, 'login'.tr);
       } else if (role.toString().contains('HotelReception')) {
-        const Splash();
-        Get.offNamed(Routes.RECEPTION);
+        Future.delayed(const Duration(seconds: 0), () {
+          Get.to(const Splash());
+        });
+
         Toast.success('you_are_login'.tr, 'login'.tr);
       } else {
         Toast.error('no_access'.tr);
