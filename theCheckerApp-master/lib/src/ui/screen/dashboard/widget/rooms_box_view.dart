@@ -7,11 +7,11 @@ import '../../../widget/button_widget.dart';
 /// Created by amir on 02, December, 2022
 
 class RoomsBoxView extends StatelessWidget {
-
   final VoidCallback onTap;
   final String roomsNo;
 
-  const RoomsBoxView({Key? key, required this.onTap, required this.roomsNo}) : super(key: key);
+  const RoomsBoxView({Key? key, required this.onTap, required this.roomsNo})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +30,33 @@ class RoomsBoxView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('rooms'.tr, style: Get.theme.textTheme.subtitle1,).setStyle(weight: FontWeight.w600, size: 14),
-              Image.asset('double_bed'.toPng, width: 25, height: 15, fit: BoxFit.cover,),
+              Text(
+                'rooms'.tr,
+                style: Get.theme.textTheme.titleMedium,
+              ).setStyle(weight: FontWeight.w600, size: 14),
+              Image.asset(
+                'double_bed'.toPng,
+                width: 25,
+                height: 15,
+                fit: BoxFit.cover,
+              ),
             ],
           ),
-          Text(roomsNo, style: Get.theme.textTheme.subtitle1,).setStyle(size: 24, weight: FontWeight.bold),
+          Text(
+            roomsNo,
+            style: Get.theme.textTheme.titleMedium,
+          ).setStyle(size: 24, weight: FontWeight.bold),
           22.ph,
-          Btn(label: 'start_checking'.tr, onPressed: onTap, iconData: Icons.arrow_back_rounded, direction: TextDirection.rtl, padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 9)),
+          Btn(
+            label: 'start_checking'.tr,
+            onPressed: onTap,
+            iconData: Icons.arrow_back_rounded,
+            direction: TextDirection.rtl,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 18,
+              vertical: 9,
+            ),
+          ),
         ],
       ),
     );

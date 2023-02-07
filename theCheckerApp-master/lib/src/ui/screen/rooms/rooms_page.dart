@@ -154,6 +154,9 @@ class Rooms extends GetView<RoomsController> {
   }
 
   void _showFilterDialog(BuildContext context) {
+    controller.roomTypesList = RxList<String>([]);
+    controller.getRoomTypes();
+
     Dialog errorDialog = Dialog(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0)), //this right here
@@ -189,48 +192,34 @@ class Rooms extends GetView<RoomsController> {
                   ],
                 ),
                 8.ph,
-                Row(
-                  children: [
-                    Expanded(
-                      child: Checker(
-                        label: 'single_bed'.tr,
-                        state: controller.singleBedCheck.value,
-                        type: CheckerType.Check,
-                        onChanged: (newValue) =>
-                            controller.singleBedCheck.value = newValue,
-                        longText: false,
+                for (int i = 0; i < controller.roomTypesList.length; i += 2)
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Checker(
+                          label: controller.roomTypesList[i],
+                          state: controller.singleBedCheck.value,
+                          type: CheckerType.Check,
+                          onChanged: (newValue) =>
+                              {controller.roomTypesChecks[i].value = newValue},
+                          longText: false,
+                        ),
                       ),
-                    ),
-                    16.pw,
-                    Expanded(
-                      child: Checker(
-                          label: 'double_bed'.tr,
-                          state: controller.doubleBedCheck.value,
-                          type: CheckerType.Check,
-                          onChanged: (newValue) =>
-                              controller.doubleBedCheck.value = newValue,
-                          longText: false),
-                    ),
-                  ],
-                ).paddingSymmetric(horizontal: 24),
-                12.ph,
-                Row(
-                  children: [
-                    Expanded(
-                      child: Checker(
-                          label: 'suite'.tr,
-                          state: controller.suiteCheck.value,
-                          type: CheckerType.Check,
-                          onChanged: (newValue) =>
-                              controller.suiteCheck.value = newValue,
-                          longText: false),
-                    ),
-                    16.pw,
-                    const Expanded(
-                      child: SizedBox(),
-                    ),
-                  ],
-                ).paddingSymmetric(horizontal: 24),
+                      16.pw,
+                      if (i + 1 < controller.roomTypesList.length)
+                        Expanded(
+                          child: Checker(
+                            label: controller.roomTypesList[i + 1],
+                            state: controller.doubleBedCheck.value,
+                            type: CheckerType.Check,
+                            onChanged: (newValue) => {
+                              controller.roomTypesChecks[i + 1].value = newValue
+                            },
+                            longText: false,
+                          ),
+                        ),
+                    ],
+                  ).paddingSymmetric(horizontal: 24, vertical: 12),
                 Row(
                   children: [
                     Text(

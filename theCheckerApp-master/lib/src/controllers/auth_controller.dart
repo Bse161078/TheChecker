@@ -1,5 +1,6 @@
 import 'package:checkerapp/src/network/response.dart';
 import 'package:checkerapp/src/storage/pref.dart';
+import 'package:checkerapp/src/ui/screen/splash/splash_page.dart';
 
 import '../../src/controllers/basic.dart';
 import '../data/repository/main_repository.dart';
@@ -33,6 +34,7 @@ class AuthController extends Basic {
         Get.offNamed(Routes.DASHBOARD);
         Toast.success('you_are_login'.tr, 'login'.tr);
       } else if (role.toString().contains('HotelReception')) {
+        const Splash();
         Get.offNamed(Routes.RECEPTION);
         Toast.success('you_are_login'.tr, 'login'.tr);
       } else {
