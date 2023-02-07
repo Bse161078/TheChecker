@@ -12,22 +12,28 @@ import '../../widget/button_widget.dart';
 import '../../widget/tap_widget.dart';
 import 'widgets/dashline.dart';
 
-class Rooms extends GetView<RoomsController> {
-  TextEditingController controllerSearchBox = TextEditingController();
-  List<Room> filteredRooms = [];
-  List<Room> filteredLevelsList = [];
+class Rooms extends StatefulWidget {
+  const Rooms({super.key});
 
-  Rooms({super.key});
+  @override
+  State<Rooms> createState() => _RoomsState();
+}
+
+class _RoomsState extends State<Rooms> {
+  TextEditingController controllerSearchBox = TextEditingController();
+
+  RoomsController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return GetX<RoomsController>(
       initState: (_) {
         controller.getRooms();
-        filteredRooms = controller.roomsList;
-        filteredLevelsList = controller.levelsList;
+        controller.filteredRooms = controller.roomsList;
+        controller.filteredLevelsList = controller.levelsList;
       },
       builder: (roomsController) {
+        print("Rebuilding Rooms Page");
         roomsController.isLoading;
 
         return Scaffold(
@@ -68,16 +74,9 @@ class Rooms extends GetView<RoomsController> {
                     child: Btn(
                       label: 'search'.tr,
                       onPressed: () {
-                        filteredRooms = controller.roomsList
-                            .where((room) => room.name!.toLowerCase().contains(
-                                controllerSearchBox.text.toLowerCase()))
-                            .toList();
-                        var set = <String?>{};
-                        filteredLevelsList = filteredRooms
-                            .where((element) => set.add(element.level?.id))
-                            .toList();
-
-                        controller.update();
+                        setState(() {
+                          controller.searchRooms(controllerSearchBox.text);
+                        });
                       },
                     ),
                   ),
@@ -98,13 +97,15 @@ class Rooms extends GetView<RoomsController> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        for (int i = 0; i < filteredLevelsList.length; i++)
+                        for (int i = 0;
+                            i < controller.filteredLevelsList.length;
+                            i++)
                           Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Row(
                                 children: [
-                                  Text('${filteredLevelsList[i].level?.title}')
+                                  Text('${controller.filteredLevelsList[i].level?.title}')
                                       .setStyle(size: 17),
                                 ],
                               ).paddingOnly(left: 16),
@@ -113,7 +114,7 @@ class Rooms extends GetView<RoomsController> {
                                   size: Size(Get.width - 32, 1.5)),
                               12.ph,
                               roomsListView(
-                                filteredLevelsList[i].level?.id,
+                                controller.filteredLevelsList[i].level?.id,
                               ),
                               20.ph,
                             ],
@@ -131,8 +132,9 @@ class Rooms extends GetView<RoomsController> {
   }
 
   Widget roomsListView(levelId) {
-    List<Room> list =
-        filteredRooms.where((p0) => p0.level?.id == levelId).toList();
+    List<Room> list = controller.filteredRooms
+        .where((p0) => p0.level?.id == levelId)
+        .toList();
     return SizedBox(
       height: 125,
       child: ListView.builder(
@@ -161,7 +163,7 @@ class Rooms extends GetView<RoomsController> {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0)), //this right here
       child: SizedBox(
-        width: Get.width / 2.2,
+        width: Get.width / 1.8,
         child: Obx(() => Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[

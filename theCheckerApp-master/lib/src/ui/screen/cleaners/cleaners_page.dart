@@ -13,15 +13,21 @@ import '../../../../src/ui/widget/textfield_widget.dart';
 import '../../../../src/utils/utils.dart';
 import '../../widget/button_widget.dart';
 
-class Cleaners extends GetView<CleanersController> {
+class Cleaners extends StatefulWidget {
+  const Cleaners({Key? key}) : super(key: key);
+
+  @override
+  State<Cleaners> createState() => _CleanersState();
+}
+
+class _CleanersState extends State<Cleaners> {
   TextEditingController controllerSearchBox = TextEditingController();
+
   late Room room;
 
   var previousRoute = '';
 
-  List<Cleaner> filteredCleaners = [];
-
-  Cleaners({Key? key}) : super(key: key);
+  CleanersController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +38,7 @@ class Cleaners extends GetView<CleanersController> {
 
         controller.getCleaners();
 
-        filteredCleaners = controller.cleanersList;
+        controller.filteredCleaners = controller.cleanersList;
       },
 
       // didUpdateWidget: (oldWidget, newWidget) {
@@ -70,21 +76,9 @@ class Cleaners extends GetView<CleanersController> {
                     child: Btn(
                       label: 'search'.tr,
                       onPressed: () {
-                        print('search');
-                        filteredCleaners = cleanersController.cleanersList
-                            .where(
-                              (cleaner) =>
-                                  cleaner.fullname!.toLowerCase().contains(
-                                        controllerSearchBox.text.toLowerCase(),
-                                      ),
-                            )
-                            .toList();
-
-                        cleanersController.update();
-
-                        for (var cleaner in filteredCleaners) {
-                          print(cleaner.fullname);
-                        }
+                        setState(() {
+                          controller.searchCleaners(controllerSearchBox.text);
+                        });
                       },
                     ),
                   ),
@@ -98,23 +92,26 @@ class Cleaners extends GetView<CleanersController> {
                   crossAxisSpacing: 0,
                   mainAxisSpacing: 0,
                 ),
-                itemCount: filteredCleaners.length,
+                itemCount: controller.filteredCleaners.length,
                 itemBuilder: (context, index) {
                   return FadeAnimation(
                     delay: .15 * index,
                     child: CleanerAvatar(
-                      image: '${filteredCleaners[index].avatar}',
-                      name: '${filteredCleaners[index].fullname}',
+                      image: '${controller.filteredCleaners[index].avatar}',
+                      name: '${controller.filteredCleaners[index].fullname}',
                       onTap: () {
                         if (previousRoute.toString().contains('/dashboard')) {
                           _showDialog(
                             context,
-                            filteredCleaners[index],
+                            controller.filteredCleaners[index],
                           );
                         } else {
                           Get.toNamed(
                             Routes.CHECKLIST,
-                            arguments: [room, filteredCleaners[index]],
+                            arguments: [
+                              room,
+                              controller.filteredCleaners[index]
+                            ],
                           );
                         }
                       },

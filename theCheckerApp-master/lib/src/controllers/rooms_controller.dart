@@ -74,23 +74,22 @@ class RoomsController extends Basic {
     }).catchError((error) {
       print(error);
     });
+  }
 
-    // "statusCode": 200,
-    // "data": {
-    //     "roomTypes": [
-    //         {
-    //             "_id": "639e3a9d359fbfa5a57ef605",
-    //             "title": "double",
-    //             "hotel": {
-    //                 "_id": "639e39856a36c3c227837d03",
-    //                 "username": "erfan"
-    //             },
-    //             "__v": 0,
-    //             "price": 120
-    //         },
-    //     ]
-    // }
+  var filteredRooms = RxList<Room>([]);
+  var filteredLevelsList = RxList<Room>([]);
 
-    // extract title into roomTypesList
+  searchRooms(String searchValue) {
+    filteredRooms = roomsList
+        .where((room) =>
+            room.name!.toLowerCase().contains(searchValue.toLowerCase()))
+        .toList()
+        .obs;
+    var set = <String?>{};
+    filteredLevelsList = filteredRooms
+        .where((element) => set.add(element.level?.id))
+        .toList()
+        .obs;
+    update();
   }
 }

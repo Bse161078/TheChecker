@@ -27,4 +27,24 @@ class CleanersController extends Basic {
       isLoading = false;
     }
   }
+
+  var filteredCleaners = RxList<Cleaner>([]);
+
+  searchCleaners(String searchValue){
+    print('search');
+    filteredCleaners = cleanersList
+        .where(
+          (cleaner) => cleaner.fullname!.toLowerCase().contains(
+                searchValue.toLowerCase().obs,
+              ),
+        )
+        .toList().obs;
+
+    update();
+
+    for (var cleaner in filteredCleaners) {
+      print(cleaner.fullname);
+    }
+  }
+
 }
