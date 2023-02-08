@@ -62,4 +62,23 @@ class ReceptionController extends Basic {
       log(this, e);
     }
   }
+
+  var filteredRoomsList = RxList<Room>([]);
+
+  searchReceptionRooms(String searchValue) {
+    print('$this, Searching Reception Rooms');
+    filteredRoomsList = roomsList
+        .where(
+          (room) => room.name!.toLowerCase().contains(
+                searchValue.toLowerCase(),
+              ),
+        )
+        .toList()
+        .obs;
+    update();
+
+    for (var i = 0; i < filteredRoomsList.length; i++) {
+      print(filteredRoomsList[i].name);
+    }
+  }
 }

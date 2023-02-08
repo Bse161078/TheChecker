@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:checkerapp/src/ui/screen/reception/widgets/room_row_view.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -15,26 +13,29 @@ import 'package:get/get.dart';
 import '../../../controllers/reception_controller.dart';
 import '../../../routes/app_pages.dart';
 import '../../widget/button_widget.dart';
-import '../../widget/fade_animation.dart';
 import '../../widget/tap_widget.dart';
 import 'widgets/send_alert_dialog.dart';
 
-class Reception extends GetView<ReceptionController> {
-  TextEditingController controllerSearchBox = TextEditingController();
-  List<Room> filteredRoomsList = [];
+class Reception extends StatefulWidget {
+  const Reception({super.key});
 
-  Reception({super.key});
+  @override
+  State<Reception> createState() => _ReceptionState();
+}
+
+class _ReceptionState extends State<Reception> {
+  TextEditingController controllerSearchBox = TextEditingController();
+
+  ReceptionController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return GetX<ReceptionController>(initState: (_) {
       // make a full screen container that vanishes after 4 seconds
 
-      
-
       controller.getRooms();
       controller.getProfile();
-      filteredRoomsList = controller.roomsList;
+      controller.filteredRoomsList = controller.roomsList;
     }, builder: (receptionController) {
       receptionController.isLoading;
 
@@ -89,19 +90,11 @@ class Reception extends GetView<ReceptionController> {
                     child: Btn(
                       label: 'search'.tr,
                       onPressed: () {
-                        print('search');
-                        filteredRoomsList = receptionController.roomsList
-                            .where(
-                              (room) => room.name!.toLowerCase().contains(
-                                    controllerSearchBox.text.toLowerCase(),
-                                  ),
-                            )
-                            .toList();
-                        receptionController.update();
-
-                        for (var i = 0; i < filteredRoomsList.length; i++) {
-                          print(filteredRoomsList[i].name);
-                        }
+                        print("Searched value is: ${controllerSearchBox.text}");
+                        setState(() {
+                          controller
+                              .searchReceptionRooms(controllerSearchBox.text);
+                        });
                       },
                     ),
                   ),
@@ -187,7 +180,7 @@ class Reception extends GetView<ReceptionController> {
                     child: ListView.builder(
                       itemBuilder: (BuildContext context, int index) {
                         // Room model = receptionController.roomsList[index];
-                        Room model = filteredRoomsList[index];
+                        Room model = controller.filteredRoomsList[index];
                         return RoomRowView(
                           label: '${model.name}',
                           type: '${model.roomType?.title}',
@@ -197,7 +190,7 @@ class Reception extends GetView<ReceptionController> {
                           },
                         );
                       },
-                      itemCount: filteredRoomsList.length,
+                      itemCount: controller.filteredRoomsList.length,
                     ),
                   ),
                 ),
