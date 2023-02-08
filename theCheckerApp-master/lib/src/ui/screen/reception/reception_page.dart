@@ -181,9 +181,11 @@ class _ReceptionState extends State<Reception> {
                       itemBuilder: (BuildContext context, int index) {
                         // Room model = receptionController.roomsList[index];
                         Room model = controller.filteredRoomsList[index];
+                        print(
+                            "Inside reception page ${model.name} has ${model.roomType}");
                         return RoomRowView(
                           label: '${model.name}',
-                          type: '${model.roomType?.title}',
+                          type: '${model.roomType}',
                           cleaningStatus: '${model.status}',
                           onTapAlert: () {
                             _submitAlertDialog(context, '${model.id}');
@@ -200,9 +202,9 @@ class _ReceptionState extends State<Reception> {
     });
   }
 
-  void _showFilterDialog(BuildContext context) {
+  void _showFilterDialog(BuildContext context) async {
     controller.receptionRoomTypesList = RxList<String>([]);
-    controller.getRoomTypes();
+    await controller.getRoomTypes();
 
     Dialog errorDialog = Dialog(
       shape: RoundedRectangleBorder(
@@ -389,7 +391,10 @@ class _ReceptionState extends State<Reception> {
       ),
     );
     showDialog(
-        context: context, builder: (BuildContext context) => errorDialog);
+        context: context,
+        builder: (BuildContext context) {
+          return errorDialog;
+        });
   }
 
   void _showSignoutDialog(BuildContext context) {

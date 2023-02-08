@@ -24,7 +24,7 @@ class RoomRowView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Inside Room Row View: $label has $cleaningStatus status");
+    print("Inside Room Row View: $label has $type type");
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [

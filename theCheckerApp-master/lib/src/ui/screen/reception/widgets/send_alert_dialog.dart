@@ -173,11 +173,13 @@ class _SendAlertDialogState extends State<SendAlertDialog> {
                       })),
               30.ph,
               SizedBox(
-                  width: Get.width / 4.2,
-                  child: Btn(
-                      label: 'send_alert'.tr,
-                      isLoading: isLoading,
-                      onPressed: () => sendAlert())),
+                width: Get.width / 4.2,
+                child: Btn(
+                  label: 'send_alert'.tr,
+                  isLoading: isLoading,
+                  onPressed: () => sendAlert(),
+                ),
+              ),
               34.ph,
             ],
           ),
@@ -198,19 +200,19 @@ class _SendAlertDialogState extends State<SendAlertDialog> {
       // CleanCheckout *
       // CleanAgain *
 
-      String status = 'RedCard';
+      List<String> status = ['Red Card'];
       if (CleanQuick) {
-        status = 'QuickClean';
+        status.add('QuickClean');
       } else if (ExtraBedNormal) {
-        status = 'ExtraBedNormal';
+        status.add('ExtraBedNormal');
       } else if (ExtraBedChild) {
-        status = 'ExtraBedChild';
+        status.add('ExtraBedChild');
       } else if (CleanStay) {
-        status = 'CleanStay';
+        status.add('CleanStay');
       } else if (CleanCheckout) {
-        status = 'CleanCheckOut';
+        status.add('CleanCheckOut');
       } else if (CleanAgain) {
-        status = 'CleanAgain';
+        status.add('CleanAgain');
       }
 
       ApiResponse res = await MainRepository().sendAlert(widget.roomId, status);

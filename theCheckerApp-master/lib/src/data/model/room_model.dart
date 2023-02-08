@@ -17,10 +17,9 @@ class Room {
     id = json['_id'];
     name = json['name'];
     nameDe = json['name_de'];
-    status = json['status'];
+    status = json['cleaning_status'];
     report = json['report'];
-    roomType =
-        json['roomType'] != null ? RoomType.fromJson(json['roomType']) : null;
+    roomType = json['roomType'];
     level = json['level'] != null ? Level.fromJson(json['level']) : null;
     hotel = json['hotel'];
     occupation_status = json['occupation_status'];
@@ -30,7 +29,7 @@ class Room {
   String? nameDe;
   String? status;
   String? report;
-  RoomType? roomType;
+  String? roomType;
   Level? level;
   String? hotel;
   String? occupation_status;
@@ -40,12 +39,10 @@ class Room {
     map['_id'] = id;
     map['name'] = name;
     map['name_de'] = nameDe;
-    map['status'] = status;
+    map['cleaning_status'] = status;
     map['report'] = report;
     map['occupation_status'] = occupation_status;
-    if (roomType != null) {
-      map['roomType'] = roomType?.toJson();
-    }
+    map['roomType'] = roomType;
     if (level != null) {
       map['level'] = level?.toJson();
     }

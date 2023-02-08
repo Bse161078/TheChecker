@@ -85,39 +85,75 @@ class _CleanersState extends State<Cleaners> {
                 ],
               ).paddingSymmetric(horizontal: 16),
 
-              GridView.builder(
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 0,
-                  mainAxisSpacing: 0,
+              Expanded(
+                child: GridView(
+                  primary: true,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 0,
+                    mainAxisSpacing: 0,
+                  ),
+                  children: [
+                    for (int index = 0;
+                        index < controller.filteredCleaners.length;
+                        index++)
+                      FadeAnimation(
+                        delay: .15 * index,
+                        child: CleanerAvatar(
+                          image: '${controller.filteredCleaners[index].avatar}',
+                          name:
+                              '${controller.filteredCleaners[index].fullname}',
+                          onTap: () {
+                            if (previousRoute
+                                .toString()
+                                .contains('/dashboard')) {
+                              _showDialog(
+                                context,
+                                controller.filteredCleaners[index],
+                              );
+                            } else {
+                              Get.toNamed(
+                                Routes.CHECKLIST,
+                                arguments: [
+                                  room,
+                                  controller.filteredCleaners[index]
+                                ],
+                              );
+                            }
+                          },
+                        ),
+                      ),
+                    for (int index = 0;
+                        index < controller.filteredCleaners.length;
+                        index++)
+                      FadeAnimation(
+                        delay: .15 * index,
+                        child: CleanerAvatar(
+                          image: '${controller.filteredCleaners[index].avatar}',
+                          name:
+                              '${controller.filteredCleaners[index].fullname}',
+                          onTap: () {
+                            if (previousRoute
+                                .toString()
+                                .contains('/dashboard')) {
+                              _showDialog(
+                                context,
+                                controller.filteredCleaners[index],
+                              );
+                            } else {
+                              Get.toNamed(
+                                Routes.CHECKLIST,
+                                arguments: [
+                                  room,
+                                  controller.filteredCleaners[index]
+                                ],
+                              );
+                            }
+                          },
+                        ),
+                      )
+                  ],
                 ),
-                itemCount: controller.filteredCleaners.length,
-                itemBuilder: (context, index) {
-                  return FadeAnimation(
-                    delay: .15 * index,
-                    child: CleanerAvatar(
-                      image: '${controller.filteredCleaners[index].avatar}',
-                      name: '${controller.filteredCleaners[index].fullname}',
-                      onTap: () {
-                        if (previousRoute.toString().contains('/dashboard')) {
-                          _showDialog(
-                            context,
-                            controller.filteredCleaners[index],
-                          );
-                        } else {
-                          Get.toNamed(
-                            Routes.CHECKLIST,
-                            arguments: [
-                              room,
-                              controller.filteredCleaners[index]
-                            ],
-                          );
-                        }
-                      },
-                    ),
-                  );
-                },
               ),
             ],
           ),

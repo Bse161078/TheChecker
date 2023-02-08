@@ -146,7 +146,7 @@ class _RoomsState extends State<Rooms> {
           return RoomBox(
             onTap: () => Get.toNamed(Routes.CLEANERS, arguments: room),
             title: '${room.name}',
-            type: '${room.roomType?.title}'.tr,
+            type: '${room.roomType}'.tr,
             status: room.status ?? '',
             report: room.report ?? '',
           );
@@ -177,7 +177,12 @@ class _RoomsState extends State<Rooms> {
                       onPressed: () => Get.back(),
                     ),
                     trailing: Tap(
-                      onTap: () => Get.back(),
+                      onTap: () {
+                        setState(() {
+                          controller.resetFilters();
+                        });
+                        Get.back();
+                      },
                       child: Text('reset'.tr).setStyle(color: Colors.red),
                     ),
                     middle: Text('filter_rooms'.tr),
@@ -310,10 +315,17 @@ class _RoomsState extends State<Rooms> {
                 ).paddingSymmetric(horizontal: 24),
                 42.ph,
                 SizedBox(
-                    width: Get.width / 4.8,
-                    child: Btn(
-                        label: 'apply_filters'.tr,
-                        onPressed: () => Get.back())),
+                  width: Get.width / 4.8,
+                  child: Btn(
+                    label: 'apply_filters'.tr,
+                    onPressed: () {
+                      setState(() {
+                        controller.applyFilters();
+                      });
+                      Get.back();
+                    },
+                  ),
+                ),
                 24.ph,
               ],
             )),

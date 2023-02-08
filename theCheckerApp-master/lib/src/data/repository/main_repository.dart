@@ -53,7 +53,7 @@ class MainRepository {
     return response;
   }
 
-  Future<dynamic> sendAlert(String roomId, String status) async {
+  Future<dynamic> sendAlert(String roomId, List<String> status) async {
     var data = {
       "roomID": roomId,
       "status": status,
