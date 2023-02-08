@@ -201,6 +201,9 @@ class _ReceptionState extends State<Reception> {
   }
 
   void _showFilterDialog(BuildContext context) {
+    controller.receptionRoomTypesList = RxList<String>([]);
+    controller.getRoomTypes();
+
     Dialog errorDialog = Dialog(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0)), //this right here
@@ -227,11 +230,10 @@ class _ReceptionState extends State<Reception> {
                     middle: Text('filter_rooms'.tr),
                   ),
                 ),
-
                 Row(
                   children: [
                     Text(
-                      'bed_type'.tr,
+                      'Room Type'.tr,
                       style: Get.textTheme.titleMedium,
                     )
                         .setStyle(size: 14, weight: FontWeight.w500)
@@ -239,67 +241,41 @@ class _ReceptionState extends State<Reception> {
                   ],
                 ),
                 8.ph,
-                Row(
-                  children: [
-                    Expanded(
-                      child: Checker(
-                        label: 'single_bed'.tr,
-                        state: controller.singleBedCheck.value,
-                        type: CheckerType.Check,
-                        onChanged: (newValue) =>
-                            controller.singleBedCheck.value = newValue,
-                        longText: false,
+                for (int i = 0;
+                    i < controller.receptionRoomTypesList.length;
+                    i += 2)
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Checker(
+                          label: controller.receptionRoomTypesList[i],
+                          state: controller.receptionRoomTypesChecks[i].value,
+                          type: CheckerType.Check,
+                          onChanged: (newValue) => {
+                            controller.receptionRoomTypesChecks[i].value =
+                                newValue
+                          },
+                          longText: false,
+                        ),
                       ),
-                    ),
-                    16.pw,
-                    Expanded(
-                      child: Checker(
-                          label: 'double_bed'.tr,
-                          state: controller.doubleBedCheck.value,
-                          type: CheckerType.Check,
-                          onChanged: (newValue) =>
-                              controller.doubleBedCheck.value = newValue,
-                          longText: false),
-                    ),
-                  ],
-                ).paddingSymmetric(horizontal: 24),
+                      16.pw,
+                      if (i + 1 < controller.receptionRoomTypesList.length)
+                        Expanded(
+                          child: Checker(
+                            label: controller.receptionRoomTypesList[i + 1],
+                            state: controller
+                                .receptionRoomTypesChecks[i + 1].value,
+                            type: CheckerType.Check,
+                            onChanged: (newValue) => {
+                              controller.receptionRoomTypesChecks[i + 1].value =
+                                  newValue
+                            },
+                            longText: false,
+                          ),
+                        ),
+                    ],
+                  ).paddingSymmetric(horizontal: 24, vertical: 12),
                 12.ph,
-                Row(
-                  children: [
-                    Expanded(
-                      child: Checker(
-                          label: 'suite'.tr,
-                          state: controller.suiteCheck.value,
-                          type: CheckerType.Check,
-                          onChanged: (newValue) =>
-                              controller.suiteCheck.value = newValue,
-                          longText: false),
-                    ),
-                    16.pw,
-                    const Expanded(
-                      child: SizedBox(),
-                    ),
-                  ],
-                ).paddingSymmetric(horizontal: 24),
-
-                // Row(
-                //   children: [
-                //     Text('status'.tr, style: Get.textTheme.subtitle1,).setStyle(size: 14, weight: FontWeight.w500).paddingOnly(left: 24, top: 24),
-                //   ],
-                // ),
-                // 8.ph,
-                // Row(
-                //   children: [
-                //     Expanded(
-                //       child: Checker(label: 'free'.tr, state: controller.freeCheck.value, type: CheckerType.Check, onChanged: (newValue)=>controller.freeCheck.value = newValue, longText: false),
-                //     ),
-                //     16.pw,
-                //     Expanded(
-                //       child: Checker(label: 'occupied'.tr, state: controller.occupiedCheck.value, type: CheckerType.Check, onChanged: (newValue)=>controller.occupiedCheck.value = newValue, longText: false),
-                //     ),
-                //   ],
-                // ).paddingSymmetric(horizontal: 24),
-
                 Row(
                   children: [
                     Text(
@@ -352,9 +328,7 @@ class _ReceptionState extends State<Reception> {
                     ),
                   ],
                 ).paddingSymmetric(horizontal: 24),
-
                 42.ph,
-
                 SizedBox(
                     width: Get.width / 4.8,
                     child: Btn(

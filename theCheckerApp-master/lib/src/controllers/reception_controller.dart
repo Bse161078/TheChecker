@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../../src/controllers/basic.dart';
@@ -81,4 +82,31 @@ class ReceptionController extends Basic {
       print(filteredRoomsList[i].name);
     }
   }
+
+  var receptionRoomTypesList = RxList<String>([]);
+  // list of RxBool
+  var receptionRoomTypesChecks = RxList<RxBool>([]);
+
+  getRoomTypes() async {
+    String endPoint = "/room-type";
+
+    Dio dio = Dio();
+    dio.options.headers["Authorization"] = 'Bearer ${Pref.to.tokenVal}';
+    dio.get('http://35.178.46.228:3010$endPoint').then((response) {
+      if (response.statusCode == 200) {
+        List<dynamic> roomTypes = response.data["data"]["roomTypes"];
+        for (var roomType in roomTypes) {
+          print("Room Type: " + roomType["title"]);
+          receptionRoomTypesList.add(roomType["title"]);
+          receptionRoomTypesChecks.add(RxBool(false));
+        }
+      } else {
+        print("Failed to get room types");
+      }
+    }).catchError((error) {
+      print(error);
+    });
+  }
+
+
 }

@@ -186,7 +186,7 @@ class _RoomsState extends State<Rooms> {
                 Row(
                   children: [
                     Text(
-                      'bed_type'.tr,
+                      'Room Type'.tr,
                       style: Get.textTheme.titleMedium,
                     )
                         .setStyle(size: 14, weight: FontWeight.w500)
@@ -200,7 +200,7 @@ class _RoomsState extends State<Rooms> {
                       Expanded(
                         child: Checker(
                           label: controller.roomTypesList[i],
-                          state: controller.singleBedCheck.value,
+                          state: controller.roomTypesChecks[i].value,
                           type: CheckerType.Check,
                           onChanged: (newValue) =>
                               {controller.roomTypesChecks[i].value = newValue},
@@ -212,7 +212,7 @@ class _RoomsState extends State<Rooms> {
                         Expanded(
                           child: Checker(
                             label: controller.roomTypesList[i + 1],
-                            state: controller.doubleBedCheck.value,
+                            state: controller.roomTypesChecks[i + 1].value,
                             type: CheckerType.Check,
                             onChanged: (newValue) => {
                               controller.roomTypesChecks[i + 1].value = newValue
