@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Splash extends StatefulWidget {
-  const Splash({Key? key}) : super(key: key);
+  const Splash({Key? key, this.hotelLogo}) : super(key: key);
+
+  final String? hotelLogo;
 
   @override
   _SplashState createState() => _SplashState();
@@ -42,9 +44,15 @@ class _SplashState extends State<Splash> {
         child: Center(
           child: SizedBox(
             width: Get.width / 3,
-            child: Image.asset(
-              'logo'.toPng,
-            ),
+            child: widget.hotelLogo == null
+                ? Image.asset(
+                    'logo'.toPng,
+                  )
+                : Image(
+                    image: NetworkImage(
+                      "https://35.178.46.228:3010/${widget.hotelLogo!}",
+                    ),
+                  ),
           ),
         ),
       ),

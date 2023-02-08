@@ -34,9 +34,26 @@ class AuthController extends Basic {
         Get.offNamed(Routes.DASHBOARD);
         Toast.success('you_are_login'.tr, 'login'.tr);
       } else if (role.toString().contains('HotelReception')) {
-        Future.delayed(const Duration(seconds: 0), () {
-          Get.to(const Splash());
-        });
+        late String hotelLogo;
+
+        try {
+          ApiResponse result = await repository.profile();
+          final id = result.body['data']['user']['_id'];
+
+          // FirebaseMessaging.instance.subscribeToTopic(id);
+
+          // Pref.to.setString(Pref.id, id);
+          hotelLogo = result.body['data']['user']['logo'];
+          print("This is the hotel logo in AUTH CONTROLLER: $hotelLogo");
+
+          log(this, 'get profile info: ${result.body['data']}');
+        } catch (e) {
+          log(this, e);
+        }
+
+        Get.to(Splash(
+          hotelLogo: hotelLogo,
+        ));
 
         Toast.success('you_are_login'.tr, 'login'.tr);
       } else {

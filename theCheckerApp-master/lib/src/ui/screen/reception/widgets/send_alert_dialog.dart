@@ -203,15 +203,20 @@ class _SendAlertDialogState extends State<SendAlertDialog> {
       List<String> status = ['Red Card'];
       if (CleanQuick) {
         status.add('QuickClean');
-      } else if (ExtraBedNormal) {
+      }
+      if (ExtraBedNormal) {
         status.add('ExtraBedNormal');
-      } else if (ExtraBedChild) {
+      }
+      if (ExtraBedChild) {
         status.add('ExtraBedChild');
-      } else if (CleanStay) {
+      }
+      if (CleanStay) {
         status.add('CleanStay');
-      } else if (CleanCheckout) {
+      }
+      if (CleanCheckout) {
         status.add('CleanCheckOut');
-      } else if (CleanAgain) {
+      }
+      if (CleanAgain) {
         status.add('CleanAgain');
       }
 
