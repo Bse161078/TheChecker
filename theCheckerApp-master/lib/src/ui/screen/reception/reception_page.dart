@@ -224,7 +224,12 @@ class _ReceptionState extends State<Reception> {
                       onPressed: () => Get.back(),
                     ),
                     trailing: Tap(
-                      onTap: () => Get.back(),
+                      onTap: () {
+                        setState(() {
+                          controller.resetFilters();
+                        });
+                        Get.back();
+                      },
                       child: Text('reset'.tr).setStyle(color: Colors.red),
                     ),
                     middle: Text('filter_rooms'.tr),
@@ -275,7 +280,41 @@ class _ReceptionState extends State<Reception> {
                         ),
                     ],
                   ).paddingSymmetric(horizontal: 24, vertical: 12),
-                12.ph,
+                Row(
+                  children: [
+                    Text(
+                      'Occupation Status',
+                      style: Get.textTheme.titleMedium,
+                    )
+                        .setStyle(size: 14, weight: FontWeight.w500)
+                        .paddingOnly(left: 24, top: 24),
+                  ],
+                ),
+                8.ph,
+                Row(
+                  children: [
+                    Expanded(
+                      child: Checker(
+                          label: 'free'.tr,
+                          state: controller.freeCheck.value,
+                          type: CheckerType.Check,
+                          onChanged: (newValue) =>
+                              controller.freeCheck.value = newValue,
+                          longText: false),
+                    ),
+                    16.pw,
+                    Expanded(
+                      child: Checker(
+                        label: 'occupied'.tr,
+                        state: controller.occupiedCheck.value,
+                        type: CheckerType.Check,
+                        onChanged: (newValue) =>
+                            controller.occupiedCheck.value = newValue,
+                        longText: false,
+                      ),
+                    ),
+                  ],
+                ).paddingSymmetric(horizontal: 24),
                 Row(
                   children: [
                     Text(
@@ -330,10 +369,18 @@ class _ReceptionState extends State<Reception> {
                 ).paddingSymmetric(horizontal: 24),
                 42.ph,
                 SizedBox(
-                    width: Get.width / 4.8,
-                    child: Btn(
-                        label: 'apply_filters'.tr,
-                        onPressed: () => Get.back())),
+                  width: Get.width / 4.8,
+                  child: Btn(
+                    label: 'apply_filters'.tr,
+                    onPressed: () {
+                      print("Applying filters pressed");
+                      setState(() {
+                        controller.applyFilters();
+                      });
+                      Get.back();
+                    },
+                  ),
+                ),
                 24.ph,
               ],
             ),

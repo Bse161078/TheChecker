@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, unused_local_variable, non_constant_identifier_names
+
 import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -13,13 +15,24 @@ class ReceptionController extends Basic {
   static ReceptionController get to => Get.find();
 
   final MainRepository repository;
-  ReceptionController({required this.repository});
+  ReceptionController({required this.repository}) {
+    // everyFilter.add(singleBedCheck);
+    // everyFilter.add(doubleBedCheck);
+    // everyFilter.add(suiteCheck);
+    // everyFilter.add(freeCheck);
+    // everyFilter.add(occupiedCheck);
+    // everyFilter.add(notCleanedCheck);
+    // everyFilter.add(inProgressCheck);
+    // everyFilter.add(cleanedCheck);
+
+    // for (var element in receptionRoomTypesChecks) {
+    //   everyFilter.add(element);
+    // }
+  }
 
   // rooms filters
   // bed type
-  final singleBedCheck = RxBool(false);
-  final doubleBedCheck = RxBool(false);
-  final suiteCheck = RxBool(false);
+
   // room status
   final freeCheck = RxBool(false);
   final occupiedCheck = RxBool(false);
@@ -108,5 +121,65 @@ class ReceptionController extends Basic {
     });
   }
 
+  // var everyFilter = RxList<RxBool>([]);
 
+  applyFilters() {
+    print("Applying Filters Function in $this");
+    filteredRoomsList = roomsList
+        .where((room) {
+          bool this_is_the_room = false;
+          if (freeCheck.value && room.occupation_status == "Free") {
+            this_is_the_room = true;
+          } else if (occupiedCheck.value &&
+              room.occupation_status == "Occupied") {
+            this_is_the_room = true;
+          } else {
+            this_is_the_room = false;
+          }
+
+          print("${room.name} cleaning status is ${room.status}");
+          if (notCleanedCheck.value && room.status == "Not Cleaned") {
+            this_is_the_room = true;
+          } else if (inProgressCheck.value && room.status == "In Progress") {
+            this_is_the_room = true;
+          } else if (cleanedCheck.value && room.status == "Cleaned") {
+            this_is_the_room = true;
+          } else {
+            this_is_the_room = false;
+          }
+
+          print("Room ${room.name} Type Is: ${room.roomType})");
+          for (var i = 0; i < receptionRoomTypesChecks.length; i++) {
+            if (receptionRoomTypesChecks[i].value &&
+                room.roomType == receptionRoomTypesList[i]) {
+              this_is_the_room = true;
+            } else {
+              this_is_the_room = false;
+            }
+          }
+
+          return this_is_the_room;
+        })
+        .toList()
+        .obs;
+    update();
+
+    for (var i = 0; i < filteredRoomsList.length; i++) {
+      print("Rooms after filter: ${filteredRoomsList[i].name}");
+    }
+  }
+
+  resetFilters() {
+    print("Resetting Filters Function in $this");
+    filteredRoomsList = roomsList;
+    freeCheck.value = false;
+    occupiedCheck.value = false;
+    notCleanedCheck.value = false;
+    inProgressCheck.value = false;
+    cleanedCheck.value = false;
+    for (var i = 0; i < receptionRoomTypesChecks.length; i++) {
+      receptionRoomTypesChecks[i].value = false;
+    }
+    update();
+  }
 }

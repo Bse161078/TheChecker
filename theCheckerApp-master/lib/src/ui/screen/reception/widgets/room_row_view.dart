@@ -24,6 +24,7 @@ class RoomRowView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Inside Room Row View: $label has $cleaningStatus status");
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -60,12 +61,16 @@ class RoomRowView extends StatelessWidget {
                       state: (cleaningStatus == 'Cleaned' ||
                               cleaningStatus == 'Damaged')
                           ? CleaningActions.cleaned
-                          : CleaningActions.notCleaned,
+                          : (cleaningStatus == "null" || cleaningStatus == "")
+                              ? CleaningActions.notAvailable
+                              : CleaningActions.notCleaned,
                     ),
                     DamagesActionsView(
                       state: (cleaningStatus == 'Damaged')
                           ? DamagesActions.damaged
-                          : DamagesActions.noDamages,
+                          : (cleaningStatus == "" || cleaningStatus == "null")
+                              ? DamagesActions.notAvailable
+                              : DamagesActions.noDamages,
                     ),
                     AlertView(
                       onTap: onTapAlert,
