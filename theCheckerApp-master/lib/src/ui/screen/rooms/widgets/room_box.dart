@@ -21,11 +21,15 @@ class RoomBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Inside room box");
+    for (var i = 0; i < report!.length; i++) {
+      print(report![i]);
+    }
     return CupertinoButton(
       padding: EdgeInsets.zero,
       onPressed: onTap,
       child: Container(
-        width: 160,
+        width: 180,
         margin: const EdgeInsets.only(right: 16),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
@@ -41,7 +45,7 @@ class RoomBox extends StatelessWidget {
                 Text(
                   title,
                   style: Get.theme.textTheme.titleMedium,
-                ).setStyle(size: 22, weight: FontWeight.bold),
+                ).setStyle(size: 26, weight: FontWeight.bold),
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,62 +76,80 @@ class RoomBox extends StatelessWidget {
                       color: greenColor,
                     ),
                     8.ph,
-                  ] else if (status.toString() == 'Damaged') ...[
+                  ],
+                  if (status.toString() == 'Damaged') ...[
                     const Icon(
                       Icons.close_rounded,
                       color: redColor,
                     ),
                     8.ph,
                   ],
-                  if (report.toString() == 'QuickClean') ...[
-                    Icon(
-                      Icons.warning_amber_rounded,
-                      color: Get.theme.highlightColor,
-                    ),
-                  ] else if (report.toString() == 'ExtraBedNormal') ...[
-                    Icon(
-                      Icons.bed,
-                      color: Get.theme.highlightColor,
-                    ),
-                  ] else if (report.toString() == 'ExtraBedChild') ...[
-                    Icon(
-                      Icons.child_friendly,
-                      color: Get.theme.highlightColor,
-                    ),
-                  ] else if (report.toString() == 'RedCard') ...[
-                    Container(
-                      margin: const EdgeInsets.only(right: 4, top: 4, left: 4),
-                      width: 16,
-                      height: 16,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(3),
-                        color: redColor,
-                        shape: BoxShape.rectangle,
-                      ),
-                    ),
-                  ] else if (report.toString() == 'CleanStay') ...[
-                    Container(
-                      margin: const EdgeInsets.only(right: 4, top: 4),
-                      width: 16,
-                      height: 16,
-                      decoration: const BoxDecoration(
-                          color: Colors.amber, shape: BoxShape.circle),
-                    ),
-                  ] else if (report.toString() == 'CleanCheckOut') ...[
-                    Container(
-                      margin: const EdgeInsets.only(right: 4, top: 4),
-                      width: 16,
-                      height: 16,
-                      decoration: const BoxDecoration(
-                          color: greenColor, shape: BoxShape.circle),
-                    ),
-                  ] else if (report.toString() == 'CleanAgain') ...[
-                    const Icon(
-                      Icons.sync_problem_rounded,
-                      color: redColor,
-                    ),
-                  ],
-                  8.ph,
+
+                  //////////////////// reports
+                  // for (var i = 0; i < report!.length; i++)
+                  //   if (report![i] == 'CleanQuick') ...[
+                  //     Icon(
+                  //       Icons.warning_amber_rounded,
+                  //       color: Get.theme.highlightColor,
+                  //     ),
+                  //     10.ph,
+                  //   ],
+                  // for (var i = 0; i < report!.length; i++)
+                  //   if (report![i] == 'ExtraBedNormal') ...[
+                  //     Icon(
+                  //       Icons.bed,
+                  //       color: Get.theme.highlightColor,
+                  //     ),
+                  //   ],
+                  // for (var i = 0; i < report!.length; i++)
+                  //   if (report![i] == 'ExtraBedChild') ...[
+                  //     Icon(
+                  //       Icons.child_friendly,
+                  //       color: Get.theme.highlightColor,
+                  //     ),
+                  //   ],
+                  // for (var i = 0; i < report!.length; i++)
+                  //   if (report![i] == 'RedCard') ...[
+                  //     Container(
+                  //       margin:
+                  //           const EdgeInsets.only(right: 4, top: 4, left: 4),
+                  //       width: 16,
+                  //       height: 16,
+                  //       decoration: BoxDecoration(
+                  //         borderRadius: BorderRadius.circular(3),
+                  //         color: redColor,
+                  //         shape: BoxShape.rectangle,
+                  //       ),
+                  //     ),
+                  //   ],
+                  // for (var i = 0; i < report!.length; i++)
+                  //   if (report![i] == 'CleanStay') ...[
+                  //     Container(
+                  //       margin: const EdgeInsets.only(right: 4, top: 4),
+                  //       width: 16,
+                  //       height: 16,
+                  //       decoration: const BoxDecoration(
+                  //           color: Colors.amber, shape: BoxShape.circle),
+                  //     ),
+                  //   ],
+                  // for (var i = 0; i < report!.length; i++)
+                  //   if (report![i] == 'CleanCheckOut') ...[
+                  //     Container(
+                  //       margin: const EdgeInsets.only(right: 4, top: 4),
+                  //       width: 16,
+                  //       height: 16,
+                  //       decoration: const BoxDecoration(
+                  //           color: greenColor, shape: BoxShape.circle),
+                  //     ),
+                  //   ],
+                  // for (var i = 0; i < report!.length; i++)
+                  //   if (report![i] == 'CleanAgain') ...[
+                  //     const Icon(
+                  //       Icons.sync_problem_rounded,
+                  //       color: redColor,
+                  //     ),
+                  //   ],
+                  // 8.ph,
                 ],
               ),
             ),
@@ -171,129 +193,145 @@ class RoomBox extends StatelessWidget {
                 middle: Text("Room No: $title"),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Icon(Icons.check, color: Colors.green),
-                Text(
-                  "Room Is Cleaned",
-                  style: Get.textTheme.titleMedium,
-                ).setStyle(size: 14, weight: FontWeight.w500)
-              ],
-            ).paddingAll(20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Icon(Icons.close_rounded, color: Colors.red),
-                Text(
-                  "Room Is Damaged",
-                  style: Get.textTheme.titleMedium,
-                ).setStyle(size: 14, weight: FontWeight.w500)
-              ],
-            ).paddingOnly(right: 20, left: 20, bottom: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Icon(
-                  Icons.warning_amber_rounded,
-                  color: Get.theme.highlightColor,
-                ),
-                Text(
-                  "Quick Clean",
-                  style: Get.textTheme.titleMedium,
-                ).setStyle(size: 14, weight: FontWeight.w500)
-              ],
-            ).paddingOnly(right: 20, left: 20, bottom: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Icon(
-                  Icons.bed,
-                  color: Get.theme.highlightColor,
-                ),
-                Text(
-                  "Extra Bed Normal",
-                  style: Get.textTheme.titleMedium,
-                ).setStyle(size: 14, weight: FontWeight.w500)
-              ],
-            ).paddingOnly(right: 20, left: 20, bottom: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Icon(
-                  Icons.child_friendly,
-                  color: Get.theme.highlightColor,
-                ),
-                Text(
-                  "Extra Bed Child",
-                  style: Get.textTheme.titleMedium,
-                ).setStyle(size: 14, weight: FontWeight.w500)
-              ],
-            ).paddingOnly(right: 20, left: 20, bottom: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(right: 4, top: 4, left: 4),
-                  width: 16,
-                  height: 16,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(3),
-                    color: redColor,
-                    shape: BoxShape.rectangle,
-                  ),
-                ),
-                Text(
-                  "Red Card",
-                  style: Get.textTheme.titleMedium,
-                ).setStyle(size: 14, weight: FontWeight.w500)
-              ],
-            ).paddingOnly(right: 20, left: 20, bottom: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(right: 4, top: 4),
-                  width: 16,
-                  height: 16,
-                  decoration: const BoxDecoration(
-                      color: Colors.amber, shape: BoxShape.circle),
-                ),
-                Text(
-                  "Clean Stay",
-                  style: Get.textTheme.titleMedium,
-                ).setStyle(size: 14, weight: FontWeight.w500)
-              ],
-            ).paddingOnly(right: 20, left: 20, bottom: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(right: 4, top: 4),
-                  width: 16,
-                  height: 16,
-                  decoration: const BoxDecoration(
-                      color: greenColor, shape: BoxShape.circle),
-                ),
-                Text(
-                  "Clean Checkout",
-                  style: Get.textTheme.titleMedium,
-                ).setStyle(size: 14, weight: FontWeight.w500)
-              ],
-            ).paddingOnly(right: 20, left: 20, bottom: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Icon(
-                  Icons.sync_problem_rounded,
-                  color: redColor,
-                ),
-                Text(
-                  "Clean Again",
-                  style: Get.textTheme.titleMedium,
-                ).setStyle(size: 14, weight: FontWeight.w500)
-              ],
-            ).paddingOnly(right: 20, left: 20, bottom: 20),
+            if (status.toString() == "Cleaned")
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Icon(Icons.check, color: Colors.green),
+                  Text(
+                    "Room Is Cleaned",
+                    style: Get.textTheme.titleMedium,
+                  ).setStyle(size: 14, weight: FontWeight.w500)
+                ],
+              ).paddingAll(20),
+            if (status.toString() == "Damaged")
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Icon(Icons.close_rounded, color: Colors.red),
+                  Text(
+                    "Room Is Damaged",
+                    style: Get.textTheme.titleMedium,
+                  ).setStyle(size: 14, weight: FontWeight.w500)
+                ],
+              ).paddingOnly(right: 20, left: 20, bottom: 20),
+            for (var i = 0; i < report!.length; i++)
+              if (report![i] == 'CleanQuick')
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(
+                      Icons.warning_amber_rounded,
+                      color: Get.theme.highlightColor,
+                    ),
+                    Text(
+                      "Quick Clean",
+                      style: Get.textTheme.titleMedium,
+                    ).setStyle(size: 14, weight: FontWeight.w500)
+                  ],
+                ).paddingOnly(right: 20, left: 20, bottom: 20),
+            for (var i = 0; i < report!.length; i++)
+              if (report![i] == 'ExtraBedNormal')
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(
+                      Icons.bed,
+                      color: Get.theme.highlightColor,
+                    ),
+                    Text(
+                      "Extra Bed Normal",
+                      style: Get.textTheme.titleMedium,
+                    ).setStyle(size: 14, weight: FontWeight.w500)
+                  ],
+                ).paddingOnly(right: 20, left: 20, bottom: 20),
+            for (var i = 0; i < report!.length; i++)
+              if (report![i] == 'ExtraBedChild')
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(
+                      Icons.child_friendly,
+                      color: Get.theme.highlightColor,
+                    ),
+                    Text(
+                      "Extra Bed Child",
+                      style: Get.textTheme.titleMedium,
+                    ).setStyle(size: 14, weight: FontWeight.w500)
+                  ],
+                ).paddingOnly(right: 20, left: 20, bottom: 20),
+            for (var i = 0; i < report!.length; i++)
+              if (report![i] == 'RedCard')
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(right: 4, top: 4, left: 4),
+                      width: 16,
+                      height: 16,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(3),
+                        color: redColor,
+                        shape: BoxShape.rectangle,
+                      ),
+                    ),
+                    Text(
+                      "Red Card",
+                      style: Get.textTheme.titleMedium,
+                    ).setStyle(size: 14, weight: FontWeight.w500)
+                  ],
+                ).paddingOnly(right: 20, left: 20, bottom: 20),
+            for (var i = 0; i < report!.length; i++)
+              if (report![i] == 'CleanStay')
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(right: 4, top: 4),
+                      width: 16,
+                      height: 16,
+                      decoration: const BoxDecoration(
+                          color: Colors.amber, shape: BoxShape.circle),
+                    ),
+                    Text(
+                      "Clean Stay",
+                      style: Get.textTheme.titleMedium,
+                    ).setStyle(size: 14, weight: FontWeight.w500)
+                  ],
+                ).paddingOnly(right: 20, left: 20, bottom: 20),
+            for (var i = 0; i < report!.length; i++)
+              if (report![i] == 'CleanCheckout')
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(right: 4, top: 4),
+                      width: 16,
+                      height: 16,
+                      decoration: const BoxDecoration(
+                          color: greenColor, shape: BoxShape.circle),
+                    ),
+                    Text(
+                      "Clean Checkout",
+                      style: Get.textTheme.titleMedium,
+                    ).setStyle(size: 14, weight: FontWeight.w500)
+                  ],
+                ).paddingOnly(right: 20, left: 20, bottom: 20),
+            for (var i = 0; i < report!.length; i++)
+              if (report![i] == 'CleanAgain')
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Icon(
+                      Icons.sync_problem_rounded,
+                      color: redColor,
+                    ),
+                    Text(
+                      "Clean Again",
+                      style: Get.textTheme.titleMedium,
+                    ).setStyle(size: 14, weight: FontWeight.w500)
+                  ],
+                ).paddingOnly(right: 20, left: 20, bottom: 20),
           ],
         ),
       ),

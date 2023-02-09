@@ -31,12 +31,11 @@ class Room {
     nameDe = json['name_de'];
     status = json['cleaning_status'];
 
-    report = json["report"].toString().split(',').map((e) => e.trim()).toList();
-
-    print("Report list: ");
-    report?.forEach((element) {
-      print(element);
-    });
+    report = json["report"].toString().split(',').map((e) {
+      String r1 = e.trim().replaceFirstMapped("[", (match) => "");
+      String r2 = r1.replaceFirstMapped("]", (match) => "");
+      return r2;
+    }).toList();
 
     roomType = json['roomType'];
     level = json['level'] != null ? Level.fromJson(json['level']) : null;
