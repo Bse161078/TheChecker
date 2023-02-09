@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../src/utils/utils.dart';
-import '../../../widget/tap_widget.dart';
 
 class RoomBox extends StatelessWidget {
   final String title;
@@ -26,8 +25,7 @@ class RoomBox extends StatelessWidget {
       padding: EdgeInsets.zero,
       onPressed: onTap,
       child: Container(
-        width: 140,
-        height: 140,
+        width: 160,
         margin: const EdgeInsets.only(right: 16),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
@@ -102,9 +100,10 @@ class RoomBox extends StatelessWidget {
                       width: 16,
                       height: 16,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(3),
-                          color: redColor,
-                          shape: BoxShape.rectangle),
+                        borderRadius: BorderRadius.circular(3),
+                        color: redColor,
+                        shape: BoxShape.rectangle,
+                      ),
                     ),
                   ] else if (report.toString() == 'CleanStay') ...[
                     Container(
@@ -160,7 +159,7 @@ class RoomBox extends StatelessWidget {
         width: Get.width / 2.2,
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
+          children: [
             ClipRRect(
               borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(12), topLeft: Radius.circular(12)),
@@ -169,58 +168,132 @@ class RoomBox extends StatelessWidget {
                   previousPageTitle: 'cancel'.tr,
                   onPressed: () => Get.back(),
                 ),
-                trailing: Tap(
-                  onTap: () => Get.back(),
-                  child: Text('reset'.tr).setStyle(color: Colors.red),
-                ),
-                middle: Text('filter_rooms'.tr),
+                middle: Text("Room No: $title"),
               ),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                const Icon(Icons.check, color: Colors.green),
                 Text(
-                  "Room Name: $title",
+                  "Room Is Cleaned",
                   style: Get.textTheme.titleMedium,
-                )
-                    .setStyle(size: 14, weight: FontWeight.w500)
-                    .paddingOnly(left: 24, top: 24),
+                ).setStyle(size: 14, weight: FontWeight.w500)
               ],
-            ),
-            8.ph,
+            ).paddingAll(20),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                const Icon(Icons.close_rounded, color: Colors.red),
                 Text(
-                  type.isNotEmpty ? "Type: $type" : "Type: None",
+                  "Room Is Damaged",
                   style: Get.textTheme.titleMedium,
-                )
-                    .setStyle(size: 14, weight: FontWeight.w500)
-                    .paddingOnly(left: 24, top: 24),
+                ).setStyle(size: 14, weight: FontWeight.w500)
               ],
-            ),
-            8.ph,
+            ).paddingOnly(right: 20, left: 20, bottom: 20),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Icon(
+                  Icons.warning_amber_rounded,
+                  color: Get.theme.highlightColor,
+                ),
                 Text(
-                  report.isNotEmpty ? "Report: $report" : "Report: None",
+                  "Quick Clean",
                   style: Get.textTheme.titleMedium,
-                )
-                    .setStyle(size: 14, weight: FontWeight.w500)
-                    .paddingOnly(left: 24, top: 24),
+                ).setStyle(size: 14, weight: FontWeight.w500)
               ],
-            ),
-            8.ph,
+            ).paddingOnly(right: 20, left: 20, bottom: 20),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Icon(
+                  Icons.bed,
+                  color: Get.theme.highlightColor,
+                ),
                 Text(
-                  status.isNotEmpty ? "Status: $status" : "Status: None",
+                  "Extra Bed Normal",
                   style: Get.textTheme.titleMedium,
-                )
-                    .setStyle(size: 14, weight: FontWeight.w500)
-                    .paddingOnly(left: 24, top: 24),
+                ).setStyle(size: 14, weight: FontWeight.w500)
               ],
-            ),
-            8.ph,
-            12.ph,
+            ).paddingOnly(right: 20, left: 20, bottom: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Icon(
+                  Icons.child_friendly,
+                  color: Get.theme.highlightColor,
+                ),
+                Text(
+                  "Extra Bed Child",
+                  style: Get.textTheme.titleMedium,
+                ).setStyle(size: 14, weight: FontWeight.w500)
+              ],
+            ).paddingOnly(right: 20, left: 20, bottom: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(right: 4, top: 4, left: 4),
+                  width: 16,
+                  height: 16,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(3),
+                    color: redColor,
+                    shape: BoxShape.rectangle,
+                  ),
+                ),
+                Text(
+                  "Red Card",
+                  style: Get.textTheme.titleMedium,
+                ).setStyle(size: 14, weight: FontWeight.w500)
+              ],
+            ).paddingOnly(right: 20, left: 20, bottom: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(right: 4, top: 4),
+                  width: 16,
+                  height: 16,
+                  decoration: const BoxDecoration(
+                      color: Colors.amber, shape: BoxShape.circle),
+                ),
+                Text(
+                  "Clean Stay",
+                  style: Get.textTheme.titleMedium,
+                ).setStyle(size: 14, weight: FontWeight.w500)
+              ],
+            ).paddingOnly(right: 20, left: 20, bottom: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(right: 4, top: 4),
+                  width: 16,
+                  height: 16,
+                  decoration: const BoxDecoration(
+                      color: greenColor, shape: BoxShape.circle),
+                ),
+                Text(
+                  "Clean Checkout",
+                  style: Get.textTheme.titleMedium,
+                ).setStyle(size: 14, weight: FontWeight.w500)
+              ],
+            ).paddingOnly(right: 20, left: 20, bottom: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Icon(
+                  Icons.sync_problem_rounded,
+                  color: redColor,
+                ),
+                Text(
+                  "Clean Again",
+                  style: Get.textTheme.titleMedium,
+                ).setStyle(size: 14, weight: FontWeight.w500)
+              ],
+            ).paddingOnly(right: 20, left: 20, bottom: 20),
           ],
         ),
       ),

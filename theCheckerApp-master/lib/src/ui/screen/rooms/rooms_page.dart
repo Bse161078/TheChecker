@@ -136,7 +136,7 @@ class _RoomsState extends State<Rooms> {
         .where((p0) => p0.level?.id == levelId)
         .toList();
     return SizedBox(
-      height: 125,
+      height: 160,
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
