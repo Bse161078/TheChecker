@@ -8,7 +8,6 @@ import '../../../widget/tap_widget.dart';
 /// Created by amir on 10, December, 2022
 
 class AlertView extends StatelessWidget {
-
   final VoidCallback onTap;
   const AlertView({Key? key, required this.onTap}) : super(key: key);
 
@@ -19,16 +18,19 @@ class AlertView extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 155,
+            width: 140,
             decoration: BoxDecoration(
                 color: Get.theme.cardColor,
-                borderRadius: BorderRadius.circular(8)
-            ),
+                borderRadius: BorderRadius.circular(8)),
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.warning_amber_rounded, color: redColor, size: 22,),
+                const Icon(
+                  Icons.warning_amber_rounded,
+                  color: redColor,
+                  size: 22,
+                ),
                 8.pw,
                 Text('send_alert'.tr),
               ],

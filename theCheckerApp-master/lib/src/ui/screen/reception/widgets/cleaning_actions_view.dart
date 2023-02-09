@@ -16,7 +16,7 @@ class CleaningActionsView extends StatelessWidget {
     return Row(
       children: [
         Container(
-          width: 150,
+          width: 140,
           decoration: BoxDecoration(
               color: state == CleaningActions.cleaned
                   ? greenColor
@@ -42,7 +42,7 @@ class CleaningActionsView extends StatelessWidget {
               // Icon(Icons.keyboard_arrow_down_sharp, color: Get.theme.highlightColor, size: 22,),
             ],
           ).paddingSymmetric(vertical: 6),
-        ),
+        ).paddingOnly(left: 15),
       ],
     );
   }

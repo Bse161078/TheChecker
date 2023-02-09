@@ -39,19 +39,13 @@ class RoomRowView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(label)
-                      .setStyle(size: 23)
-                      .paddingOnly(left: 22, top: 6, bottom: 6),
+                      .setStyle(size: 22)
+                      .paddingOnly(left: 18, top: 6, bottom: 6),
                   // Checker(label: '$label', state: false, type: CheckerType.Check, onChanged: (newValue){}, fontSize: 20, longText: false),
                   Text(type.tr).setStyle(color: Get.theme.hintColor),
                 ],
-              ).paddingOnly(right: 22),
+              ).paddingOnly(right: 40),
             ),
-            Container(
-              width: 1.5,
-              height: 35,
-              color: Get.theme.dividerColor,
-            ),
-            16.pw,
             Expanded(
                 flex: 8,
                 child: Row(

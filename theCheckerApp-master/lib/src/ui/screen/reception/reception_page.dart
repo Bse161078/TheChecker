@@ -122,7 +122,7 @@ class _ReceptionState extends State<Reception> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Expanded(
-                      flex: 3,
+                      flex: 4,
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -130,42 +130,49 @@ class _ReceptionState extends State<Reception> {
                           Text(
                             'room'.tr,
                             style: Get.textTheme.titleMedium,
+                            textAlign: TextAlign.center,
                           ).setStyle(size: 14).paddingOnly(left: 16),
+                          Text(
+                            'Room Type',
+                            style: Get.textTheme.titleMedium,
+                          ).setStyle(size: 14).paddingOnly(right: 24),
                         ],
                       ).paddingOnly(right: 22),
                     ),
-                    Container(
-                      width: 1.5,
-                      height: 35,
-                      color: Colors.transparent,
-                    ),
-                    16.pw,
+                    // Container(
+                    //   width: 1.5,
+                    //   height: 35,
+                    //   color: Colors.transparent,
+                    // ),
+                    // 16.pw,
                     Expanded(
-                        flex: 8,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // SizedBox(width: 150,child: Text('status'.tr, style: Get.textTheme.subtitle1,).setStyle(size: 14).paddingOnly(left: 0)),
-                            SizedBox(
-                                width: 150,
-                                child: Text(
-                                  'status'.tr,
-                                  style: Get.textTheme.titleMedium,
-                                ).setStyle(size: 14).paddingOnly(left: 0)),
-                            SizedBox(
-                                width: 180,
-                                child: Text(
-                                  'damages'.tr,
-                                  style: Get.textTheme.titleMedium,
-                                ).setStyle(size: 14).paddingOnly(left: 0)),
-                            SizedBox(
-                                width: 155,
-                                child: Text(
-                                  'alert'.tr,
-                                  style: Get.textTheme.titleMedium,
-                                ).setStyle(size: 14).paddingOnly(left: 0)),
-                          ],
-                        )),
+                      flex: 8,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                              width: 150,
+                              child: Text(
+                                'status'.tr,
+                                style: Get.textTheme.titleMedium,
+                              ).setStyle(size: 14).paddingOnly(left: 20)),
+                          SizedBox(
+                              width: 150,
+                              child: Text(
+                                'damages'.tr,
+                                style: Get.textTheme.titleMedium,
+                                textAlign: TextAlign.center,
+                              ).setStyle(size: 14).paddingOnly(right: 40)),
+                          SizedBox(
+                              width: 150,
+                              child: Text(
+                                'alert'.tr,
+                                style: Get.textTheme.titleMedium,
+                                textAlign: TextAlign.center,
+                              ).setStyle(size: 14).paddingOnly(left: 0)),
+                        ],
+                      ),
+                    ),
                     16.pw,
                   ],
                 ).paddingOnly(top: 6, bottom: 4),

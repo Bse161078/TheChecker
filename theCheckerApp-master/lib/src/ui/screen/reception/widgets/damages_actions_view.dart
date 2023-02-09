@@ -17,7 +17,7 @@ class DamagesActionsView extends StatelessWidget {
     return Row(
       children: [
         Container(
-          width: 180,
+          width: 160,
           decoration: BoxDecoration(
               color: Get.theme.cardColor,
               borderRadius: BorderRadius.circular(24)),
