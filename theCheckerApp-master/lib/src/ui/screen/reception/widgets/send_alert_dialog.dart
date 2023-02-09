@@ -202,22 +202,25 @@ class _SendAlertDialogState extends State<SendAlertDialog> {
 
       List<String> status = ['Red Card'];
       if (CleanQuick) {
-        status.add('QuickClean');
+        status.add('Clean Quick Guest Waiting');
       }
       if (ExtraBedNormal) {
-        status.add('ExtraBedNormal');
+        status.add('Extra Bed Normal');
       }
       if (ExtraBedChild) {
-        status.add('ExtraBedChild');
+        status.add('Extra Bed Child');
       }
       if (CleanStay) {
-        status.add('CleanStay');
+        status.add('Clean Stay');
       }
       if (CleanCheckout) {
-        status.add('CleanCheckOut');
+        status.add('Clean Checkout');
       }
       if (CleanAgain) {
-        status.add('CleanAgain');
+        status.add('Clean Again');
+      }
+      if (RedCard) {
+        status.add('Red Card');
       }
 
       ApiResponse res = await MainRepository().sendAlert(widget.roomId, status);

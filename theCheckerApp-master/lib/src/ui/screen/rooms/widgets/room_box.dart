@@ -216,7 +216,7 @@ class RoomBox extends StatelessWidget {
                 ],
               ).paddingOnly(right: 20, left: 20, bottom: 20),
             for (var i = 0; i < report!.length; i++)
-              if (report![i] == 'CleanQuick')
+              if (report![i] == 'Clean Quick Guest Waiting')
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -225,13 +225,13 @@ class RoomBox extends StatelessWidget {
                       color: Get.theme.highlightColor,
                     ),
                     Text(
-                      "Quick Clean",
+                      "Clean Quick Guest Waiting",
                       style: Get.textTheme.titleMedium,
                     ).setStyle(size: 14, weight: FontWeight.w500)
                   ],
                 ).paddingOnly(right: 20, left: 20, bottom: 20),
             for (var i = 0; i < report!.length; i++)
-              if (report![i] == 'ExtraBedNormal')
+              if (report![i] == 'Extra Bed Normal')
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -246,7 +246,7 @@ class RoomBox extends StatelessWidget {
                   ],
                 ).paddingOnly(right: 20, left: 20, bottom: 20),
             for (var i = 0; i < report!.length; i++)
-              if (report![i] == 'ExtraBedChild')
+              if (report![i] == 'Extra Bed Child')
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -261,7 +261,7 @@ class RoomBox extends StatelessWidget {
                   ],
                 ).paddingOnly(right: 20, left: 20, bottom: 20),
             for (var i = 0; i < report!.length; i++)
-              if (report![i] == 'RedCard')
+              if (report![i] == 'Red Card')
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -282,7 +282,7 @@ class RoomBox extends StatelessWidget {
                   ],
                 ).paddingOnly(right: 20, left: 20, bottom: 20),
             for (var i = 0; i < report!.length; i++)
-              if (report![i] == 'CleanStay')
+              if (report![i] == 'Clean Stay')
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -300,7 +300,7 @@ class RoomBox extends StatelessWidget {
                   ],
                 ).paddingOnly(right: 20, left: 20, bottom: 20),
             for (var i = 0; i < report!.length; i++)
-              if (report![i] == 'CleanCheckout')
+              if (report![i] == 'Clean Checkout')
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -318,7 +318,7 @@ class RoomBox extends StatelessWidget {
                   ],
                 ).paddingOnly(right: 20, left: 20, bottom: 20),
             for (var i = 0; i < report!.length; i++)
-              if (report![i] == 'CleanAgain')
+              if (report![i] == 'Clean Again')
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

@@ -58,6 +58,7 @@ class MainRepository {
       "roomID": roomId,
       "status": status,
     };
+    print(status);
     final response = await ServiceProvider.execute(
         Routes.send_alert, Method.POST, data, [200, 201]);
     return response;
