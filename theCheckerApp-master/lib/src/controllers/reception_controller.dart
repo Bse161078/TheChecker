@@ -48,12 +48,11 @@ class ReceptionController extends Basic {
       isLoading = true;
       ApiResponse result = await repository.rooms();
       final list = result.body['data']['rooms'];
-      print(
-          "data from api response in reception controller : ${list.toString()}");
+      print("data from api response in reception controller : ${list.toString()}");
       roomsList.value = Room.fromJsonList(list);
       log(this, 'Inside reception controller rooms list is ${list.length}');
-    } catch (e, s) {
-      log(this, 'rooms error $e $s');
+    } catch (e) {
+      log(this, 'rooms error $e ');
     } finally {
       isLoading = false;
     }

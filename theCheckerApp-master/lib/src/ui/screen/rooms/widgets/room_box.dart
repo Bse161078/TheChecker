@@ -7,7 +7,7 @@ import '../../../../../src/utils/utils.dart';
 class RoomBox extends StatelessWidget {
   final String title;
   final String type;
-  final String report;
+  final List<String>? report;
   final String status;
   final VoidCallback? onTap;
   const RoomBox(

@@ -21,8 +21,6 @@ class ServiceProvider {
         'Authorization': token
       };
 
-      
-
       print("header: $header");
 
       http.Response res;

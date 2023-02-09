@@ -44,7 +44,7 @@ class RoomsController extends Basic {
       levelsList.value =
           roomsList.where((element) => set.add(element.level?.id)).toList();
     } catch (e) {
-      log(this, e);
+      log(this, "Error in get rooms $e");
     } finally {
       isLoading = false;
     }

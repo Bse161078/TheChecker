@@ -148,7 +148,7 @@ class _RoomsState extends State<Rooms> {
             title: '${room.name}',
             type: '${room.roomType}'.tr,
             status: room.status ?? '',
-            report: room.report ?? '',
+            report: room.report ?? [],
           );
         },
       ).paddingOnly(left: 16),
