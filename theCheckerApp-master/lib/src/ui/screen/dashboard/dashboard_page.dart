@@ -57,26 +57,29 @@ class Dashboard extends GetView<DashboardController> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     16.ph,
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CleanersBoxView(
-                            onTap: () => Get.toNamed(Routes.CLEANERS),
-                            cleanersNo:
-                                '${CleanersController.to.cleanersList.length}',
-                          ),
-                          RoomsBoxView(
-                            onTap: () => Get.toNamed(Routes.ROOMS),
-                            roomsNo: '${RoomsController.to.roomsList.length}',
-                          ),
-                          MaterialBoxView(
-                            onTap: () => Get.toNamed(Routes.MATERIALS),
-                            itemNo:
-                                '${MaterialsController.to.materialList.length}',
-                          )
-                        ],
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CleanersBoxView(
+                              onTap: () => Get.toNamed(Routes.CLEANERS),
+                              cleanersNo:
+                                  '${CleanersController.to.cleanersList.length}',
+                            ),
+                            RoomsBoxView(
+                              onTap: () => Get.toNamed(Routes.ROOMS),
+                              roomsNo: '${RoomsController.to.roomsList.length}',
+                            ),
+                            MaterialBoxView(
+                              onTap: () => Get.toNamed(Routes.MATERIALS),
+                              itemNo:
+                                  '${MaterialsController.to.materialList.length}',
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     Row(
