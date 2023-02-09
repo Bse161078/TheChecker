@@ -218,7 +218,7 @@ class _ReceptionState extends State<Reception> {
           borderRadius: BorderRadius.circular(12.0)), //this right here
       child: SingleChildScrollView(
         child: SizedBox(
-          width: Get.width / 2.2,
+          width: Get.width / 1.8,
           child: Obx(
             () => Column(
               mainAxisSize: MainAxisSize.min,

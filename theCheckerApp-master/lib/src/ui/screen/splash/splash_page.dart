@@ -50,7 +50,7 @@ class _SplashState extends State<Splash> {
                   )
                 : Image(
                     image: NetworkImage(
-                      "https://35.178.46.228:3010/${widget.hotelLogo!}",
+                      "http://35.178.46.228:3010/${widget.hotelLogo!}",
                     ),
                   ),
           ),
