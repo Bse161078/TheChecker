@@ -48,7 +48,8 @@ class ReceptionController extends Basic {
       isLoading = true;
       ApiResponse result = await repository.rooms();
       final list = result.body['data']['rooms'];
-      print("data from api response in reception controller : ${list.toString()}");
+      print(
+          "data from api response in reception controller : ${list.toString()}");
       roomsList.value = Room.fromJsonList(list);
       log(this, 'Inside reception controller rooms list is ${list.length}');
     } catch (e) {
@@ -125,36 +126,49 @@ class ReceptionController extends Basic {
 
   applyFilters() {
     print("Applying Filters Function in $this");
+    if (!freeCheck.value &&
+        !occupiedCheck.value &&
+        !notCleanedCheck.value &&
+        !inProgressCheck.value &&
+        !cleanedCheck.value &&
+        !receptionRoomTypesChecks.any((element) => element.value)) {
+      resetFilters();
+      return;
+    }
     filteredRoomsList = roomsList
         .where((room) {
           bool this_is_the_room = false;
-          if (freeCheck.value && room.occupation_status == "Free") {
-            this_is_the_room = true;
-          } else if (occupiedCheck.value &&
-              room.occupation_status == "Occupied") {
-            this_is_the_room = true;
-          } else {
-            this_is_the_room = false;
+          if (freeCheck.value) {
+            if (room.occupation_status == "Free") {
+              this_is_the_room = true;
+            }
+          } else if (occupiedCheck.value) {
+            if (room.occupation_status == "Occupied") {
+              this_is_the_room = true;
+            }
           }
 
           print("${room.name} cleaning status is ${room.status}");
-          if (notCleanedCheck.value && room.status == "Not Cleaned") {
-            this_is_the_room = true;
-          } else if (inProgressCheck.value && room.status == "In Progress") {
-            this_is_the_room = true;
-          } else if (cleanedCheck.value && room.status == "Cleaned") {
-            this_is_the_room = true;
-          } else {
-            this_is_the_room = false;
+          if (notCleanedCheck.value) {
+            if (room.status == "Not Cleaned") {
+              this_is_the_room = true;
+            }
+          } else if (inProgressCheck.value) {
+            if (room.status == "In Progress") {
+              this_is_the_room = true;
+            }
+          } else if (cleanedCheck.value) {
+            if (room.status == "Cleaned") {
+              this_is_the_room = true;
+            }
           }
 
           print("Room ${room.name} Type Is: ${room.roomType})");
           for (var i = 0; i < receptionRoomTypesChecks.length; i++) {
-            if (receptionRoomTypesChecks[i].value &&
-                room.roomType == receptionRoomTypesList[i]) {
-              this_is_the_room = true;
-            } else {
-              this_is_the_room = false;
+            if (receptionRoomTypesChecks[i].value) {
+              if (room.roomType == receptionRoomTypesList[i]) {
+                this_is_the_room = true;
+              }
             }
           }
 

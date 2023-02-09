@@ -100,6 +100,7 @@ class RoomsController extends Basic {
         !inProgressCheck.value &&
         !cleanedCheck.value &&
         !roomTypesChecks.any((element) => element.value)) {
+      resetFilters();
       return;
     }
 
