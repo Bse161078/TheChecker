@@ -200,7 +200,7 @@ class _SendAlertDialogState extends State<SendAlertDialog> {
       // CleanCheckout *
       // CleanAgain *
 
-      List<String> status = ['Red Card'];
+      List<String> status = [];
       if (CleanQuick) {
         status.add('Clean Quick Guest Waiting');
       }
@@ -222,6 +222,9 @@ class _SendAlertDialogState extends State<SendAlertDialog> {
       if (RedCard) {
         status.add('Red Card');
       }
+
+      // there should be no duplicate status
+      status = status.toSet().toList();
 
       ApiResponse res = await MainRepository().sendAlert(widget.roomId, status);
       log(this, res.status);

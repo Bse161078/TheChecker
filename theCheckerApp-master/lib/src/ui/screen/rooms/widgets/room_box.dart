@@ -29,7 +29,7 @@ class RoomBox extends StatelessWidget {
       padding: EdgeInsets.zero,
       onPressed: onTap,
       child: Container(
-        width: 180,
+        width: 200,
         margin: const EdgeInsets.only(right: 16),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
@@ -65,93 +65,68 @@ class RoomBox extends StatelessWidget {
                 ),
               ],
             ),
-            Align(
-              alignment: Alignment.topRight,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (status.toString() == 'Cleaned') ...[
-                    const Icon(
-                      Icons.check,
-                      color: greenColor,
-                    ),
-                    8.ph,
-                  ],
-                  if (status.toString() == 'Damaged') ...[
-                    const Icon(
-                      Icons.close_rounded,
-                      color: redColor,
-                    ),
-                    8.ph,
-                  ],
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Column(
+                    children: [
+                      if (status.toString() == 'Cleaned') ...[
+                        const Icon(
+                          Icons.check,
+                          color: greenColor,
+                        ),
+                        8.ph,
+                      ],
+                      if (status.toString() == 'Damaged') ...[
+                        const Icon(
+                          Icons.close_rounded,
+                          color: redColor,
+                        ),
+                        8.ph,
+                      ],
+                    ],
+                  ),
+                ),
 
-                  //////////////////// reports
-                  // for (var i = 0; i < report!.length; i++)
-                  //   if (report![i] == 'CleanQuick') ...[
-                  //     Icon(
-                  //       Icons.warning_amber_rounded,
-                  //       color: Get.theme.highlightColor,
-                  //     ),
-                  //     10.ph,
-                  //   ],
-                  // for (var i = 0; i < report!.length; i++)
-                  //   if (report![i] == 'ExtraBedNormal') ...[
-                  //     Icon(
-                  //       Icons.bed,
-                  //       color: Get.theme.highlightColor,
-                  //     ),
-                  //   ],
-                  // for (var i = 0; i < report!.length; i++)
-                  //   if (report![i] == 'ExtraBedChild') ...[
-                  //     Icon(
-                  //       Icons.child_friendly,
-                  //       color: Get.theme.highlightColor,
-                  //     ),
-                  //   ],
-                  // for (var i = 0; i < report!.length; i++)
-                  //   if (report![i] == 'RedCard') ...[
-                  //     Container(
-                  //       margin:
-                  //           const EdgeInsets.only(right: 4, top: 4, left: 4),
-                  //       width: 16,
-                  //       height: 16,
-                  //       decoration: BoxDecoration(
-                  //         borderRadius: BorderRadius.circular(3),
-                  //         color: redColor,
-                  //         shape: BoxShape.rectangle,
-                  //       ),
-                  //     ),
-                  //   ],
-                  // for (var i = 0; i < report!.length; i++)
-                  //   if (report![i] == 'CleanStay') ...[
-                  //     Container(
-                  //       margin: const EdgeInsets.only(right: 4, top: 4),
-                  //       width: 16,
-                  //       height: 16,
-                  //       decoration: const BoxDecoration(
-                  //           color: Colors.amber, shape: BoxShape.circle),
-                  //     ),
-                  //   ],
-                  // for (var i = 0; i < report!.length; i++)
-                  //   if (report![i] == 'CleanCheckOut') ...[
-                  //     Container(
-                  //       margin: const EdgeInsets.only(right: 4, top: 4),
-                  //       width: 16,
-                  //       height: 16,
-                  //       decoration: const BoxDecoration(
-                  //           color: greenColor, shape: BoxShape.circle),
-                  //     ),
-                  //   ],
-                  // for (var i = 0; i < report!.length; i++)
-                  //   if (report![i] == 'CleanAgain') ...[
-                  //     const Icon(
-                  //       Icons.sync_problem_rounded,
-                  //       color: redColor,
-                  //     ),
-                  //   ],
-                  // 8.ph,
-                ],
-              ),
+                //////////////////// reports
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Column(
+                    children: [
+                      10.ph,
+                      for (var i = 0; i < report!.length; i++)
+                        if (report![i] == 'Clean Quick Guest Waiting') ...[
+                          Icon(
+                            Icons.warning_amber_rounded,
+                            color: Get.theme.highlightColor,
+                            size: 20,
+                          ),
+                          10.ph,
+                        ],
+                      for (var i = 0; i < report!.length; i++)
+                        if (report![i] == 'Extra Bed Normal') ...[
+                          Icon(
+                            Icons.bed,
+                            color: Get.theme.highlightColor,
+                            size: 20,
+                          ),
+                          10.ph,
+                        ],
+                      for (var i = 0; i < report!.length; i++)
+                        if (report![i] == 'Extra Bed Child') ...[
+                          Icon(
+                            Icons.child_friendly,
+                            color: Get.theme.highlightColor,
+                            size: 20,
+                          ),
+                          10.ph,
+                        ],
+                    ],
+                  ),
+                ),
+              ],
             ),
             Align(
               alignment: Alignment.bottomRight,
@@ -164,6 +139,61 @@ class RoomBox extends StatelessWidget {
                   child: Icon(
                     Icons.info_outline_rounded,
                   ),
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 45,
+              left: 0,
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: Row(
+                  children: [
+                    for (var i = 0; i < report!.length; i++)
+                      if (report![i] == 'Red Card') ...[
+                        Container(
+                          margin:
+                              const EdgeInsets.only(right: 4, top: 4, left: 4),
+                          width: 13,
+                          height: 13,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(3),
+                            color: redColor,
+                            shape: BoxShape.rectangle,
+                          ),
+                        ),
+                        5.pw,
+                      ],
+                    for (var i = 0; i < report!.length; i++)
+                      if (report![i] == 'Clean Stay') ...[
+                        Container(
+                          margin: const EdgeInsets.only(right: 4, top: 4),
+                          width: 14,
+                          height: 14,
+                          decoration: const BoxDecoration(
+                              color: Colors.amber, shape: BoxShape.circle),
+                        ),
+                        5.pw,
+                      ],
+                    for (var i = 0; i < report!.length; i++)
+                      if (report![i] == 'Clean Checkout') ...[
+                        Container(
+                          margin: const EdgeInsets.only(right: 4, top: 4),
+                          width: 14,
+                          height: 14,
+                          decoration: const BoxDecoration(
+                              color: greenColor, shape: BoxShape.circle),
+                        ),
+                        5.pw,
+                      ],
+                    for (var i = 0; i < report!.length; i++)
+                      if (report![i] == 'Clean Again')
+                        const Icon(
+                          Icons.sync_problem,
+                          color: redColor,
+                          size: 20,
+                        ),
+                  ],
                 ),
               ),
             ),

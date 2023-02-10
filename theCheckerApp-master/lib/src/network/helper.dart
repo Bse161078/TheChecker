@@ -26,6 +26,7 @@ class ServiceProvider {
       http.Response res;
       switch (method) {
         case Method.POST:
+          print("Posting to $url with data: $data ");
           res = await http
               .post(uri, headers: header, body: jsonEncode(data))
               .timeout(Duration(seconds: serviceTimeout));
