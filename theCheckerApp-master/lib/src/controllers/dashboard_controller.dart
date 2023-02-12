@@ -20,7 +20,17 @@ class DashboardController extends Basic {
 
       ApiResponse result = await repository.profile();
       final id = result.body['data']['user']['_id'];
-      final name = result.body['data']['user']['name'];
+      print("id is $id");
+      final name = result.body['data']['user']['fullname'];
+      print("name is $name");
+
+      final userAvatar = result.body['data']['user']['avatar'];
+      print("userAvatar is $userAvatar");
+      Pref.to.setString(Pref.userAvatar, userAvatar);
+
+      final hotelLogo = result.body['data']['user']['hotel']['avatar'];
+      print("hotelLogo is $hotelLogo");
+      Pref.to.setString(Pref.hotelLogoChecker, hotelLogo);
 
       // print("id: $id");
       // print("name: $name");
@@ -34,8 +44,7 @@ class DashboardController extends Basic {
 
       log(this, 'get profile info: ${result.body['data']}');
     } catch (e) {
-      // print("error in profile");
-      log(this, e);
+      log(this, "error in dashboard controller $e");
     }
   }
 

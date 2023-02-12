@@ -21,7 +21,7 @@ class ServiceProvider {
         'Authorization': token
       };
 
-      print("header: $header");
+      print("Inside Service Provider, header is: $header");
 
       http.Response res;
       switch (method) {
@@ -32,6 +32,7 @@ class ServiceProvider {
               .timeout(Duration(seconds: serviceTimeout));
           break;
         case Method.GET:
+          print("Get request to $url ");
           res = await http
               .get(uri, headers: header)
               .timeout(Duration(seconds: serviceTimeout));

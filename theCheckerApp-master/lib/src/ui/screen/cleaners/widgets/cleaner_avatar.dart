@@ -48,7 +48,9 @@ class CleanerAvatar extends StatelessWidget {
             ] else ...[
               CircleAvatar(
                 radius: 80, // Image radius
-                backgroundImage: Image.network(image).image,
+                backgroundImage: NetworkImage(
+                  "http://35.178.46.228:3010/$image",
+                ),
               ),
             ],
             8.ph,

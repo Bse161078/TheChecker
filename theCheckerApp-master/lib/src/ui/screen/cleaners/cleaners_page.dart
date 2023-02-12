@@ -39,6 +39,8 @@ class _CleanersState extends State<Cleaners> {
         controller.getCleaners();
 
         controller.filteredCleaners = controller.cleanersList;
+        print(
+            "Filtered cleaners number: ${controller.filteredCleaners.length}");
       },
 
       // didUpdateWidget: (oldWidget, newWidget) {
@@ -123,35 +125,6 @@ class _CleanersState extends State<Cleaners> {
                           },
                         ),
                       ),
-                    for (int index = 0;
-                        index < controller.filteredCleaners.length;
-                        index++)
-                      FadeAnimation(
-                        delay: .15 * index,
-                        child: CleanerAvatar(
-                          image: '${controller.filteredCleaners[index].avatar}',
-                          name:
-                              '${controller.filteredCleaners[index].fullname}',
-                          onTap: () {
-                            if (previousRoute
-                                .toString()
-                                .contains('/dashboard')) {
-                              _showDialog(
-                                context,
-                                controller.filteredCleaners[index],
-                              );
-                            } else {
-                              Get.toNamed(
-                                Routes.CHECKLIST,
-                                arguments: [
-                                  room,
-                                  controller.filteredCleaners[index]
-                                ],
-                              );
-                            }
-                          },
-                        ),
-                      )
                   ],
                 ),
               ),

@@ -22,11 +22,16 @@ class AuthController extends Basic {
   login(String userName, String pass) async {
     try {
       isLoading = true;
+      log(this, "User Name: $userName and Password: $pass ");
 
       ApiResponse result = await repository.login(userName, pass);
 
+      print("$this, Inside Auth Controller, Login Response ${result.body}");
+
       final role = result.body['data']['loginResult']['role'];
+      print("Inside Auth Controller: role is: $role");
       final token = result.body['data']['loginResult']['accessToken'];
+      print("Inside Auth Controller: token is: $token");
       Pref.to.setString(Pref.token, token);
       Pref.to.setString(Pref.role, role);
 
@@ -40,20 +45,17 @@ class AuthController extends Basic {
           ApiResponse result = await repository.profile();
           final id = result.body['data']['user']['_id'];
 
-          // FirebaseMessaging.instance.subscribeToTopic(id);
-
-          // Pref.to.setString(Pref.id, id);
-          hotelLogo = result.body['data']['user']['logo'];
+          hotelLogo = result.body['data']['user']['hotel']['avatar'];
           print("This is the hotel logo in AUTH CONTROLLER: $hotelLogo");
 
-          log(this, 'get profile info: ${result.body['data']}');
+          log(this, 'get profile info: ${result.body}');
         } catch (e) {
           log(this, e);
         }
 
-        Get.to(Splash(
-          hotelLogo: hotelLogo,
-        ));
+        Get.to(() => Splash(
+              hotelLogo: hotelLogo,
+            ));
 
         Toast.success('you_are_login'.tr, 'login'.tr);
       } else {

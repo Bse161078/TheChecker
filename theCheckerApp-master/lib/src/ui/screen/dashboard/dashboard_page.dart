@@ -43,10 +43,14 @@ class Dashboard extends GetView<DashboardController> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Center(
-                        child: Image.asset(
-                      'logo'.toPng,
-                      width: Get.width / 4.5,
-                    )),
+                      child: Image(
+                        width: 200,
+                        height: 200,
+                        image: NetworkImage(
+                          "http://35.178.46.228:3010/${Pref.to.hotelLogoCheckerVal}",
+                        ),
+                      ),
+                    ),
                     1.ph,
                   ],
                 ).background(Get.theme.cardColor),
@@ -129,7 +133,9 @@ class Dashboard extends GetView<DashboardController> {
                         children: [
                           CircleAvatar(
                             radius: 60, // Image radius
-                            backgroundImage: AssetImage('face2'.toJpeg),
+                            backgroundImage: NetworkImage(
+                              "http://35.178.46.228:3010/${Pref.to.userAvatarVal}",
+                            ),
                           ),
                           14.ph,
                           Text(
