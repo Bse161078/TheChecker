@@ -1,15 +1,9 @@
-import 'dart:io';
-
-import '../../widget/tap_widget.dart';
-import 'package:image_picker/image_picker.dart';
 import '../../../controllers/checklist_controller.dart';
 import 'widgets/add_photos_view.dart';
 import '../../widget/checker.dart';
 import '../../../utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../widget/answer_yes_no_widget.dart';
 
 class FloorSection extends GetView<CheckListController> {
   TextEditingController controllerReport = TextEditingController();
@@ -38,74 +32,74 @@ class FloorSection extends GetView<CheckListController> {
             16.ph,
             Row(
               children: [
-                Expanded(
-                  child: Container(
-                    height: 110,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Get.theme.splashColor,
-                    ),
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          'is_floor_vacuumed'.tr,
-                          style: Get.textTheme.titleMedium,
-                        ).setStyle(size: 16),
-                        10.ph,
-                        AnswerYesNoWidget(
-                            state: controller.floorRoomIsVacuumed.value,
-                            onChangeValue: (newState) =>
-                                controller.floorRoomIsVacuumed.value = newState)
-                      ],
-                    ),
-                  ),
-                ),
+                // Expanded(
+                //   child: Container(
+                //     height: 110,
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(8),
+                //       color: Get.theme.splashColor,
+                //     ),
+                //     padding: const EdgeInsets.all(16),
+                //     child: Column(
+                //       crossAxisAlignment: CrossAxisAlignment.start,
+                //       mainAxisSize: MainAxisSize.min,
+                //       children: [
+                //         Text(
+                //           'is_floor_vacuumed'.tr,
+                //           style: Get.textTheme.titleMedium,
+                //         ).setStyle(size: 16),
+                //         10.ph,
+                //         AnswerYesNoWidget(
+                //             state: controller.floorRoomIsVacuumed.value,
+                //             onChangeValue: (newState) =>
+                //                 controller.floorRoomIsVacuumed.value = newState)
+                //       ],
+                //     ),
+                //   ),
+                // ),
                 16.pw,
-                Tap(
-                  onTap: () async {
-                    final XFile? photo = await ImagePicker()
-                        .pickImage(source: ImageSource.gallery);
-                    if (photo == null) {
-                      return;
-                    }
-                    _.floorRoomIsVacuumedPhoto.add(photo.path);
-                  },
-                  child: Container(
-                    child: _.floorRoomIsVacuumedPhoto.isNotEmpty
-                        ? ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.file(
-                              File(_.floorRoomIsVacuumedPhoto.last),
-                              width: 170,
-                              height: 110,
-                              fit: BoxFit.cover,
-                            ))
-                        : Container(
-                            width: 170,
-                            height: 110,
-                            decoration: BoxDecoration(
-                                color: Get.theme.splashColor,
-                                borderRadius: BorderRadius.circular(8)),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.photo,
-                                  color: Get.theme.primaryColor,
-                                  size: 30,
-                                ),
-                                8.ph,
-                                Text('add_photos'.tr)
-                                    .setStyle(color: Colors.white, size: 16)
-                              ],
-                            ),
-                          ),
-                  ),
-                )
+                // Tap(
+                //   onTap: () async {
+                //     final XFile? photo = await ImagePicker()
+                //         .pickImage(source: ImageSource.gallery);
+                //     if (photo == null) {
+                //       return;
+                //     }
+                //     _.floorRoomIsVacuumedPhoto.add(photo.path);
+                //   },
+                //   child: Container(
+                //     child: _.floorRoomIsVacuumedPhoto.isNotEmpty
+                //         ? ClipRRect(
+                //             borderRadius: BorderRadius.circular(8),
+                //             child: Image.file(
+                //               File(_.floorRoomIsVacuumedPhoto.last),
+                //               width: 170,
+                //               height: 110,
+                //               fit: BoxFit.cover,
+                //             ))
+                //         : Container(
+                //             width: 170,
+                //             height: 110,
+                //             decoration: BoxDecoration(
+                //                 color: Get.theme.splashColor,
+                //                 borderRadius: BorderRadius.circular(8)),
+                //             child: Column(
+                //               crossAxisAlignment: CrossAxisAlignment.center,
+                //               mainAxisAlignment: MainAxisAlignment.center,
+                //               children: [
+                //                 Icon(
+                //                   Icons.photo,
+                //                   color: Get.theme.primaryColor,
+                //                   size: 30,
+                //                 ),
+                //                 8.ph,
+                //                 Text('add_photos'.tr)
+                //                     .setStyle(color: Colors.white, size: 16)
+                //               ],
+                //             ),
+                //           ),
+                //   ),
+                // )
               ],
             ),
             22.ph,

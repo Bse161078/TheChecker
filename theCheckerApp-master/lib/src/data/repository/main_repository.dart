@@ -98,7 +98,7 @@ class MainRepository {
       List<String> DamageCausedByGuestsPhotos,
       String DamageReportText,
       List<String> DamageReportPhotos) async {
-    var url = '${Routes.floor}/$roomId';
+    var url = '${Routes.baseURL}/room/$roomId/mistakes';
 
     log(this, 'floor data url $url');
 
@@ -106,13 +106,13 @@ class MainRepository {
     dio.options.headers["Authorization"] = 'Bearer ${Pref.to.tokenVal}';
 
     final formData = FormData.fromMap({
-      "topQuestionStatus": topQuestionStatus,
-      "samplePhotoTopQuestion": [
-        if (samplePhotoTopQuestion.isNotEmpty)
-          await MultipartFile.fromFile(samplePhotoTopQuestion.last)
-        // for (var filePath in samplePhotoTopQuestion)
-        //   await MultipartFile.fromFile(filePath),
-      ],
+      // "topQuestionStatus": topQuestionStatus,
+      // "samplePhotoTopQuestion": [
+      //   if (samplePhotoTopQuestion.isNotEmpty)
+      //     await MultipartFile.fromFile(samplePhotoTopQuestion.last)
+      //   // for (var filePath in samplePhotoTopQuestion)
+      //   //   await MultipartFile.fromFile(filePath),
+      // ],
       "roomIsNotVacuumedStatus": roomIsNotVacuumedStatus,
       "roomIsNotVacuumedPhotos": [
         if (roomIsNotVacuumedPhotos.isNotEmpty)
@@ -130,15 +130,15 @@ class MainRepository {
         // for (var filePath in roomHasStrongStainsThatCanNotBeCleanedByUsPhotos)
         //   await MultipartFile.fromFile(filePath),
       ],
-      "DamageCausedByGuestsStatus": DamageCausedByGuestsStatus,
-      "DamageCausedByGuestsPhotos": [
+      "damageCausedByGuestsStatus": DamageCausedByGuestsStatus,
+      "damageCausedByGuestsPhotos": [
         if (DamageCausedByGuestsPhotos.isNotEmpty)
           await MultipartFile.fromFile(DamageCausedByGuestsPhotos.last)
         // for (var filePath in DamageCausedByGuestsPhotos)
         //   await MultipartFile.fromFile(filePath),
       ],
-      "DamageReportText": DamageReportText,
-      "DamageReportPhotos": [
+      "reportStatus": true,
+      "reportPhotos": [
         if (DamageReportPhotos.isNotEmpty)
           await MultipartFile.fromFile(DamageReportPhotos.last)
         // for (var filePath in DamageReportPhotos)
@@ -146,12 +146,17 @@ class MainRepository {
       ],
     });
 
+    // print all data in formData
+    for (var element in formData.fields) {
+      print(element);
+    }
+
     try {
       final response = await dio.post(url, data: formData);
       log(this, 'floor data  status ${response.statusCode}');
       log(this, 'floor data  body ${response.data}');
     } catch (e) {
-      log(this, 'z $e');
+      log(this, 'Error While Posting Floor Data:  $e');
     }
 
     return true;
