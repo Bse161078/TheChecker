@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../../../controllers/cleaners_controller.dart';
@@ -17,6 +18,7 @@ import 'package:get/get.dart';
 import '../../../controllers/dashboard_controller.dart';
 import '../../../../src/utils/utils.dart';
 import '../../../routes/app_pages.dart';
+import 'package:checkerapp/src/network/routes.dart' as Route;
 
 class Dashboard extends GetView<DashboardController> {
   const Dashboard({super.key});
@@ -43,12 +45,12 @@ class Dashboard extends GetView<DashboardController> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Center(
-                      child: Image(
-                        width: 200,
-                        height: 200,
-                        image: NetworkImage(
-                          "http://35.178.46.228:3010/${Pref.to.hotelLogoCheckerVal}",
-                        ),
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            "${Route.Routes.baseURL}/${Pref.to.hotelLogoCheckerVal}",
+                        placeholder: (context, url) =>
+                            const CircularProgressIndicator(),
+                        errorWidget: (context, url, error) => Container(),
                       ),
                     ),
                     1.ph,
@@ -134,7 +136,7 @@ class Dashboard extends GetView<DashboardController> {
                           CircleAvatar(
                             radius: 60, // Image radius
                             backgroundImage: NetworkImage(
-                              "http://35.178.46.228:3010/${Pref.to.userAvatarVal}",
+                              "${Route.Routes.baseURL}/${Pref.to.userAvatarVal}",
                             ),
                           ),
                           14.ph,

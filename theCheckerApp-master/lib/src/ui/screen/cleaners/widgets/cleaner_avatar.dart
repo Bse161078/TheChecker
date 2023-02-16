@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:checkerapp/src/ui/widget/tap_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -6,6 +7,8 @@ import '../../../../../../../src/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 import '../../../theme/app_colors.dart';
+
+import 'package:checkerapp/src/network/routes.dart';
 
 class CleanerAvatar extends StatelessWidget {
   final String image;
@@ -48,8 +51,12 @@ class CleanerAvatar extends StatelessWidget {
             ] else ...[
               CircleAvatar(
                 radius: 80, // Image radius
-                backgroundImage: NetworkImage(
-                  "http://35.178.46.228:3010/$image",
+                child: CachedNetworkImage(
+                  imageUrl: "${Routes.baseURL}/$image",
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) =>
+                      const Icon(Icons.person),
                 ),
               ),
             ],

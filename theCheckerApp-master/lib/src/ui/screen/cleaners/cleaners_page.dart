@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,8 @@ import '../../../../src/controllers/cleaners_controller.dart';
 import '../../../../src/ui/widget/textfield_widget.dart';
 import '../../../../src/utils/utils.dart';
 import '../../widget/button_widget.dart';
+
+import 'package:checkerapp/src/network/routes.dart' as Route;
 
 class Cleaners extends StatefulWidget {
   const Cleaners({Key? key}) : super(key: key);
@@ -155,15 +158,7 @@ class _CleanersState extends State<Cleaners> {
                 middle: Text('cleaner_profile'.tr),
               ),
             ),
-
-            // Row(
-            //   children: [
-            //     Text('enter_detail_of_new_cleaner'.tr, style: Get.textTheme.subtitle1,).setStyle(size: 16).paddingOnly(left: 24, top: 24),
-            //   ],
-            // ),
-
             24.ph,
-
             CupertinoButton(
               padding: EdgeInsets.zero,
               onPressed: () {},
@@ -171,11 +166,6 @@ class _CleanersState extends State<Cleaners> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // CircleAvatar(
-                  //   radius: 80, // Image radius
-                  //   backgroundImage: NetworkImage('${cleaner.avatar}'.toImageUrl),
-                  // ),
-
                   if (cleaner.avatar == '' || cleaner.avatar == 'null') ...[
                     CircleAvatar(
                       radius: 80, // Image radius
@@ -188,29 +178,20 @@ class _CleanersState extends State<Cleaners> {
                             color: primaryColor,
                             size: 60,
                           ),
-                          // Text('add_photo'.tr,style: Get.textTheme.subtitle1).setStyle(size: 16, weight: FontWeight.w600),
                         ],
                       ),
                     ),
-                  ] else ...[
+                  ] else
                     CircleAvatar(
                       radius: 80, // Image radius
-                      backgroundImage:
-                          NetworkImage(cleaner.avatar.toString().toImageUrl),
+                      child: CachedNetworkImage(
+                        imageUrl: "${Route.Routes.baseURL}/${cleaner.avatar}",
+                        placeholder: (context, url) =>
+                            const CircularProgressIndicator(),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.person),
+                      ),
                     ),
-                  ],
-
-                  // CircleAvatar(
-                  //   radius: 80, // Image radius
-                  //   backgroundColor: const Color(0x330BBBEF),
-                  //   child: Column(
-                  //     mainAxisSize: MainAxisSize.min,
-                  //     children: [
-                  //       const Icon(CupertinoIcons.person_fill, color: primaryColor, size: 60,),
-                  //       Text('add_photo'.tr,style: Get.textTheme.subtitle1).setStyle(size: 16, weight: FontWeight.w600),
-                  //     ],
-                  //   ),
-                  // ),
                 ],
               ),
             ),
@@ -220,9 +201,6 @@ class _CleanersState extends State<Cleaners> {
                     readOnly: true,
                     label: 'full_name'.tr)
                 .paddingSymmetric(horizontal: 24),
-            // 12.ph,
-            // TxtField(controller: TextEditingController(), label: 'phone'.tr).paddingSymmetric(horizontal: 24),
-
             28.ph,
           ],
         ),
