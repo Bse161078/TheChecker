@@ -32,6 +32,9 @@ class Dashboard extends GetView<DashboardController> {
       controller.getProfile();
     }, builder: (_) {
       _.isLoading;
+      print("Hotel logo: ${Pref.to.hotelLogoCheckerVal}");
+      print("Name: ${Pref.to.nameVal}");
+      print("User avatar: ${Pref.to.userAvatarVal}");
       return Scaffold(
           body: Stack(
         children: [

@@ -18,17 +18,21 @@ class DashboardController extends Basic {
     try {
       _getFCMToken();
 
+      print("Inside dashboard controller");
+
       ApiResponse result = await repository.profile();
+      print(result.body);
       final id = result.body['data']['user']['_id'];
       print("id is $id");
       final name = result.body['data']['user']['fullname'];
+      Pref.to.setString(Pref.name, name);
       print("name is $name");
 
       final userAvatar = result.body['data']['user']['avatar'];
       print("userAvatar is $userAvatar");
       Pref.to.setString(Pref.userAvatar, userAvatar);
 
-      final hotelLogo = result.body['data']['user']['hotel']['avatar'];
+      var hotelLogo = result.body['data']['user']['hotel']['avatar'];
       print("hotelLogo is $hotelLogo");
       Pref.to.setString(Pref.hotelLogoChecker, hotelLogo);
 
