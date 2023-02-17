@@ -27,7 +27,7 @@ class DashboardController extends Basic {
       final name = result.body['data']['user']['fullname'];
       Pref.to.setString(Pref.name, name);
       print("name is $name");
-
+ 
       final userAvatar = result.body['data']['user']['avatar'];
       print("userAvatar is $userAvatar");
       Pref.to.setString(Pref.userAvatar, userAvatar);

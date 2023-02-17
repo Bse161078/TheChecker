@@ -48,12 +48,14 @@ class Dashboard extends GetView<DashboardController> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Center(
-                      child: CachedNetworkImage(
-                        imageUrl:
-                            "${Route.Routes.baseURL}/${Pref.to.hotelLogoCheckerVal}",
-                        placeholder: (context, url) =>
-                            const CircularProgressIndicator(),
-                        errorWidget: (context, url, error) => Container(),
+                      child: CircleAvatar(
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              "${Route.Routes.baseURL}/${Pref.to.hotelLogoCheckerVal}",
+                          placeholder: (context, url) =>
+                              const CircularProgressIndicator(),
+                          errorWidget: (context, url, error) => Container(),
+                        ),
                       ),
                     ),
                     1.ph,
