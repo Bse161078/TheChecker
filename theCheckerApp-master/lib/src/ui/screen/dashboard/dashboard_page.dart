@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import '../../../controllers/cleaners_controller.dart';
 import '../../../controllers/materials_controller.dart';
 import '../../../controllers/rooms_controller.dart';
+import '../../../utils/widgets/cached_image.dart';
 import 'widget/material_box_view.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -48,14 +49,14 @@ class Dashboard extends GetView<DashboardController> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Center(
-                      child: CircleAvatar(
-                        child: CachedNetworkImage(
-                          imageUrl:
-                              "${Route.Routes.baseURL}/${Pref.to.hotelLogoCheckerVal}",
-                          placeholder: (context, url) =>
-                              const CircularProgressIndicator(),
-                          errorWidget: (context, url, error) => Container(),
-                        ),
+                      child: CachedNetworkImage(
+                        height: 90,
+                        width: 90,
+                        imageUrl:
+                            "${Route.Routes.baseURL}/${Pref.to.hotelLogoCheckerVal}",
+                        placeholder: (context, url) =>
+                            const CircularProgressIndicator(),
+                        errorWidget: (context, url, error) => Container(),
                       ),
                     ),
                     1.ph,
@@ -138,11 +139,15 @@ class Dashboard extends GetView<DashboardController> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          CircleAvatar(
-                            radius: 60, // Image radius
-                            backgroundImage: NetworkImage(
-                              "${Route.Routes.baseURL}/${Pref.to.userAvatarVal}",
-                            ),
+                          CachedImageWidget(
+                            image:
+                                "${Route.Routes.baseURL}/${Pref.to.userAvatarVal}",
+                            errorWidget: (context, url, error) {
+                              return const CircleAvatar(
+                                radius: 80,
+                                child: Icon(Icons.person),
+                              );
+                            },
                           ),
                           14.ph,
                           Text(

@@ -4,10 +4,13 @@ import 'package:get/get.dart';
 import '../../../data/model/cleaner_model.dart';
 import '../../../routes/app_pages.dart';
 import '../../../storage/pref.dart';
+import '../../../utils/widgets/cached_image.dart';
 import '../../widget/tap_widget.dart';
 import '../../../controllers/checklist_controller.dart';
 import "../../../utils/utils.dart";
 import 'widgets/menu_item.dart';
+
+import 'package:checkerapp/src/network/routes.dart' as Route;
 
 class CheckMenu extends GetView<CheckListController> {
   final Cleaner cleaner;
@@ -145,7 +148,17 @@ class CheckMenu extends GetView<CheckListController> {
                               radius: 22.5, // Image radius
                               child: CircleAvatar(
                                 radius: 20,
-                                backgroundImage: AssetImage('face2'.toJpeg),
+                                child: ClipOval(
+                                  child: CachedImageWidget(
+                                    image:
+                                        "${Route.Routes.baseURL}/${Pref.to.userAvatarVal}",
+                                    errorWidget: (context, url, error) =>
+                                        const CircleAvatar(
+                                      radius: 80,
+                                      child: Icon(Icons.person),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                             8.pw,

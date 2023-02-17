@@ -1,10 +1,14 @@
 import 'dart:async';
+import 'package:cached_network_image/cached_network_image.dart';
+
 import '../../../../src/ui/widget/fade_animation.dart';
 import '../../../../src/utils/utils.dart';
 import '../../../routes/app_pages.dart';
 import '../../../storage/pref.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'package:checkerapp/src/network/routes.dart' as Route;
 
 class Splash extends StatefulWidget {
   const Splash({Key? key, this.hotelLogo}) : super(key: key);
@@ -48,10 +52,11 @@ class _SplashState extends State<Splash> {
                 ? Image.asset(
                     'logo'.toPng,
                   )
-                : Image(
-                    image: NetworkImage(
-                      "http://35.178.46.228:3010/${widget.hotelLogo!}",
-                    ),
+                : CachedNetworkImage(
+                    imageUrl: "${Route.Routes.baseURL}/${widget.hotelLogo!}",
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(),
+                    errorWidget: (context, url, error) => Container(),
                   ),
           ),
         ),

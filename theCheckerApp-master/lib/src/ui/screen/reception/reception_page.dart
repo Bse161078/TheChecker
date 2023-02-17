@@ -35,6 +35,7 @@ class _ReceptionState extends State<Reception> {
 
       controller.getRooms();
       controller.getProfile();
+
       controller.filteredRoomsList = controller.roomsList;
     }, builder: (receptionController) {
       receptionController.isLoading;
@@ -130,21 +131,14 @@ class _ReceptionState extends State<Reception> {
                           Text(
                             'room'.tr,
                             style: Get.textTheme.titleMedium,
-                            textAlign: TextAlign.center,
                           ).setStyle(size: 14).paddingOnly(left: 16),
                           Text(
                             'Room Type',
                             style: Get.textTheme.titleMedium,
-                          ).setStyle(size: 14).paddingOnly(right: 24),
+                          ).setStyle(size: 14),
                         ],
-                      ).paddingOnly(right: 22),
+                      ).paddingOnly(right: 80),
                     ),
-                    // Container(
-                    //   width: 1.5,
-                    //   height: 35,
-                    //   color: Colors.transparent,
-                    // ),
-                    // 16.pw,
                     Expanded(
                       flex: 8,
                       child: Row(
@@ -194,6 +188,7 @@ class _ReceptionState extends State<Reception> {
                           label: '${model.name}',
                           type: '${model.roomType}',
                           cleaningStatus: '${model.status}',
+                          reportsList: model.report,
                           onTapAlert: () {
                             _submitAlertDialog(context, '${model.id}');
                           },

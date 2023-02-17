@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:checkerapp/src/utils/widgets/cached_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -182,14 +182,11 @@ class _CleanersState extends State<Cleaners> {
                       ),
                     ),
                   ] else
-                    CircleAvatar(
-                      radius: 80, // Image radius
-                      child: CachedNetworkImage(
-                        imageUrl: "${Route.Routes.baseURL}/${cleaner.avatar}",
-                        placeholder: (context, url) =>
-                            const CircularProgressIndicator(),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.person),
+                    CachedImageWidget(
+                      image: "${Route.Routes.baseURL}/${cleaner.avatar}",
+                      errorWidget: (a, b, c) => const CircleAvatar(
+                        radius: 80,
+                        child: Icon(Icons.person),
                       ),
                     ),
                 ],

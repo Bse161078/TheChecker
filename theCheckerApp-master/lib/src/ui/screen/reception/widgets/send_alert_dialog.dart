@@ -1,3 +1,4 @@
+import 'package:checkerapp/src/controllers/reception_controller.dart';
 import 'package:checkerapp/src/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -228,6 +229,9 @@ class _SendAlertDialogState extends State<SendAlertDialog> {
 
       ApiResponse res = await MainRepository().sendAlert(widget.roomId, status);
       log(this, res.status);
+
+      ReceptionController receptionController = Get.find();
+      receptionController.getRooms();
 
       Get.back();
       Toast.success('request_submitted'.tr, 'submitted'.tr);

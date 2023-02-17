@@ -57,7 +57,7 @@ class CurtainsSection extends GetView<CheckListController> {
                         ).setStyle(size: 16),
                         10.ph,
                         AnswerYesNoWidget(
-                            state: controller.bedIsMadeUp.value,
+                            state: controller.curtainsTopQuestion.value,
                             onChangeValue: (newState) =>
                                 controller.curtainsTopQuestion.value = newState)
                       ],
@@ -135,7 +135,7 @@ class CurtainsSection extends GetView<CheckListController> {
                         state: controller.curtainsNotClean.value,
                         type: CheckerType.Check,
                         onChanged: (newValue) =>
-                            controller.bedNotFresh.value = newValue,
+                            controller.curtainsNotClean.value = newValue,
                       ),
                       AddPhotosView(
                           onSelectPhoto: (photoPath) {
@@ -154,11 +154,12 @@ class CurtainsSection extends GetView<CheckListController> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Checker(
-                          label: 'Curtains Have Wrinkles',
-                          state: controller.curtainsHaveWrinkles.value,
-                          type: CheckerType.Check,
-                          onChanged: (newValue) => controller
-                              .curtainsHaveWrinklesPhoto.value = newValue),
+                        label: 'Curtains Have Wrinkles',
+                        state: controller.curtainsHaveWrinkles.value,
+                        type: CheckerType.Check,
+                        onChanged: (newValue) =>
+                            controller.curtainsHaveWrinkles.value = newValue,
+                      ),
                       AddPhotosView(
                           onSelectPhoto: (photoPath) {
                             _.curtainsHaveWrinklesPhoto.add(photoPath);

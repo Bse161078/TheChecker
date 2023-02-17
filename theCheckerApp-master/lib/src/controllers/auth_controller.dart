@@ -43,6 +43,10 @@ class AuthController extends Basic {
 
         try {
           ApiResponse result = await repository.profile();
+
+          print("Inside auth controller while logging in reception");
+          print(result.body);
+
           final id = result.body['data']['user']['_id'];
 
           hotelLogo = result.body['data']['user']['hotel']['avatar'];
