@@ -223,6 +223,10 @@ class RoomBox extends StatelessWidget {
                 middle: Text("Room No: $title"),
               ),
             ),
+            10.ph,
+            const Text("Room Alerts")
+                .setStyle(size: 18, weight: FontWeight.w600),
+            20.ph,
             if (status.toString() == "Cleaned")
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

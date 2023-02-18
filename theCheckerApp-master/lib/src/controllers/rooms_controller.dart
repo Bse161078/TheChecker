@@ -182,4 +182,15 @@ class RoomsController extends Basic {
     }
     update();
   }
+
+  int notifNumber = 0;
+
+  int getNotifNumber() {
+    for (var element in roomsList) {
+      if (element.report!.isNotEmpty) {
+        notifNumber++;
+      }
+    }
+    return notifNumber;
+  }
 }

@@ -11,7 +11,7 @@ import 'damages_actions_view.dart';
 
 /// Created by amir on 22, December, 2022
 
-class RoomRowView extends StatelessWidget {
+class RoomRowView extends StatefulWidget {
   final String label;
   final String type;
   final String cleaningStatus;
@@ -27,8 +27,15 @@ class RoomRowView extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<RoomRowView> createState() => _RoomRowViewState();
+}
+
+class _RoomRowViewState extends State<RoomRowView> {
+  bool reportIsEmpty = true;
+
+  @override
   Widget build(BuildContext context) {
-    print("Inside Room Row View: $label has $type type");
+    print("Inside Room Row View: ${widget.label} has ${widget.type} type");
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -42,16 +49,29 @@ class RoomRowView extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(label)
+                  Text(widget.label)
                       .setStyle(size: 22)
                       .paddingOnly(left: 18, top: 6, bottom: 6),
                   IconButton(
                     icon: const Icon(Icons.info, color: Colors.grey),
                     onPressed: () {
+                      if (widget.reportsList!.isEmpty) {
+                        print("Reports List is empty");
+                        setState(() {
+                          reportIsEmpty = true;
+                        });
+                      } else {
+                        print("Reports List is not empty");
+                        print(widget.reportsList!.length);
+                        print(widget.reportsList);
+                        setState(() {
+                          reportIsEmpty = false;
+                        });
+                      }
                       showRoomInfoDialog(context);
                     },
                   ),
-                  Text(type.tr).setStyle(color: Get.theme.hintColor),
+                  Text(widget.type.tr).setStyle(color: Get.theme.hintColor),
                 ],
               ).paddingOnly(right: 40),
             ),
@@ -61,22 +81,24 @@ class RoomRowView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CleaningActionsView(
-                      state: (cleaningStatus == 'Cleaned' ||
-                              cleaningStatus == 'Damaged')
+                      state: (widget.cleaningStatus == 'Cleaned' ||
+                              widget.cleaningStatus == 'Damaged')
                           ? CleaningActions.cleaned
-                          : (cleaningStatus == "null" || cleaningStatus == "")
+                          : (widget.cleaningStatus == "null" ||
+                                  widget.cleaningStatus == "")
                               ? CleaningActions.notAvailable
                               : CleaningActions.notCleaned,
                     ),
                     DamagesActionsView(
-                      state: (cleaningStatus == 'Damaged')
+                      state: (widget.cleaningStatus == 'Damaged')
                           ? DamagesActions.damaged
-                          : (cleaningStatus == "" || cleaningStatus == "null")
+                          : (widget.cleaningStatus == "" ||
+                                  widget.cleaningStatus == "null")
                               ? DamagesActions.notAvailable
                               : DamagesActions.noDamages,
                     ),
                     AlertView(
-                      onTap: onTapAlert,
+                      onTap: widget.onTapAlert,
                     ),
                   ],
                 )),
@@ -91,6 +113,8 @@ class RoomRowView extends StatelessWidget {
   }
 
   void showRoomInfoDialog(BuildContext context) {
+    // if nothing in the list, show no report available
+
     Dialog errorDialog = Dialog(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0)), //this right here
@@ -109,11 +133,15 @@ class RoomRowView extends StatelessWidget {
                     Get.back();
                   },
                 ),
-                middle: Text("Room No: $label"),
+                middle: Text("Room No: ${widget.label}"),
               ),
             ),
             10.ph,
-            if (cleaningStatus.toString() == "Cleaned")
+            if (reportIsEmpty)
+              const Text("No Room Report Available")
+                  .setStyle(size: 16, weight: FontWeight.w500)
+                  .paddingSymmetric(vertical: 10),
+            if (widget.cleaningStatus.toString() == "Cleaned")
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -124,7 +152,7 @@ class RoomRowView extends StatelessWidget {
                   ).setStyle(size: 14, weight: FontWeight.w500)
                 ],
               ).paddingAll(20),
-            if (cleaningStatus.toString() == "Damaged")
+            if (widget.cleaningStatus.toString() == "Damaged")
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -135,8 +163,8 @@ class RoomRowView extends StatelessWidget {
                   ).setStyle(size: 14, weight: FontWeight.w500)
                 ],
               ).paddingOnly(right: 20, left: 20, bottom: 20),
-            for (var i = 0; i < reportsList!.length; i++)
-              if (reportsList![i] == 'Clean Quick Guest Waiting')
+            for (var i = 0; i < widget.reportsList!.length; i++)
+              if (widget.reportsList![i] == 'Clean Quick Guest Waiting')
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -150,8 +178,8 @@ class RoomRowView extends StatelessWidget {
                     ).setStyle(size: 14, weight: FontWeight.w500)
                   ],
                 ).paddingOnly(right: 20, left: 20, bottom: 20),
-            for (var i = 0; i < reportsList!.length; i++)
-              if (reportsList![i] == 'Extra Bed Normal')
+            for (var i = 0; i < widget.reportsList!.length; i++)
+              if (widget.reportsList![i] == 'Extra Bed Normal')
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -165,8 +193,8 @@ class RoomRowView extends StatelessWidget {
                     ).setStyle(size: 14, weight: FontWeight.w500)
                   ],
                 ).paddingOnly(right: 20, left: 20, bottom: 20),
-            for (var i = 0; i < reportsList!.length; i++)
-              if (reportsList![i] == 'Extra Bed Child')
+            for (var i = 0; i < widget.reportsList!.length; i++)
+              if (widget.reportsList![i] == 'Extra Bed Child')
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -180,8 +208,8 @@ class RoomRowView extends StatelessWidget {
                     ).setStyle(size: 14, weight: FontWeight.w500)
                   ],
                 ).paddingOnly(right: 20, left: 20, bottom: 20),
-            for (var i = 0; i < reportsList!.length; i++)
-              if (reportsList![i] == 'Red Card')
+            for (var i = 0; i < widget.reportsList!.length; i++)
+              if (widget.reportsList![i] == 'Red Card')
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -201,8 +229,8 @@ class RoomRowView extends StatelessWidget {
                     ).setStyle(size: 14, weight: FontWeight.w500)
                   ],
                 ).paddingOnly(right: 20, left: 20, bottom: 20),
-            for (var i = 0; i < reportsList!.length; i++)
-              if (reportsList![i] == 'Clean Stay')
+            for (var i = 0; i < widget.reportsList!.length; i++)
+              if (widget.reportsList![i] == 'Clean Stay')
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -219,8 +247,8 @@ class RoomRowView extends StatelessWidget {
                     ).setStyle(size: 14, weight: FontWeight.w500)
                   ],
                 ).paddingOnly(right: 20, left: 20, bottom: 20),
-            for (var i = 0; i < reportsList!.length; i++)
-              if (reportsList![i] == 'Clean Checkout')
+            for (var i = 0; i < widget.reportsList!.length; i++)
+              if (widget.reportsList![i] == 'Clean Checkout')
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -237,8 +265,8 @@ class RoomRowView extends StatelessWidget {
                     ).setStyle(size: 14, weight: FontWeight.w500)
                   ],
                 ).paddingOnly(right: 20, left: 20, bottom: 20),
-            for (var i = 0; i < reportsList!.length; i++)
-              if (reportsList![i] == 'Clean Again')
+            for (var i = 0; i < widget.reportsList!.length; i++)
+              if (widget.reportsList![i] == 'Clean Again')
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

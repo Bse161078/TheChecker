@@ -11,4 +11,5 @@ abstract class Routes{
   static const RECEPTION = '/reception';
   static const CONTINUE_ORDER = '/continue_order';
   static const MATERIALS = '/materials';
+  static const NOTIFICATIONS = "/notifications";
 }

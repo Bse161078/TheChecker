@@ -224,9 +224,6 @@ class _SendAlertDialogState extends State<SendAlertDialog> {
         status.add('Red Card');
       }
 
-      // there should be no duplicate status
-      status = status.toSet().toList();
-
       ApiResponse res = await MainRepository().sendAlert(widget.roomId, status);
       log(this, res.status);
 

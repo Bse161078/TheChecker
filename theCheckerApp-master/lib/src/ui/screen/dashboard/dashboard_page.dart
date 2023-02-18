@@ -12,6 +12,7 @@ import '../../../storage/pref.dart';
 import '../../widget/button_widget.dart';
 import '../../widget/tap_widget.dart';
 import 'widget/cleaners_box_view.dart';
+import 'widget/notification_box_view.dart';
 import 'widget/rooms_box_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,12 +31,13 @@ class Dashboard extends GetView<DashboardController> {
       CleanersController.to.getCleaners();
       RoomsController.to.getRooms();
       MaterialsController.to.getMaterials();
+
+      // if .report in any roomsList isNotEmpty then add 1 to notifNumber
+
       controller.getProfile();
     }, builder: (_) {
       _.isLoading;
-      print("Hotel logo: ${Pref.to.hotelLogoCheckerVal}");
-      print("Name: ${Pref.to.nameVal}");
-      print("User avatar: ${Pref.to.userAvatarVal}");
+
       return Scaffold(
           body: Stack(
         children: [
@@ -89,6 +91,12 @@ class Dashboard extends GetView<DashboardController> {
                               onTap: () => Get.toNamed(Routes.MATERIALS),
                               itemNo:
                                   '${MaterialsController.to.materialList.length}',
+                            ),
+                            NotficationBoxView(
+                              onTap: () => Get.toNamed(Routes.NOTIFICATIONS),
+                              itemNo: RoomsController.to
+                                  .getNotifNumber()
+                                  .toString(),
                             )
                           ],
                         ),
@@ -226,23 +234,24 @@ class Dashboard extends GetView<DashboardController> {
                             horizontal: 18, vertical: 9))),
                 16.pw,
                 Expanded(
-                    flex: 1,
-                    child: Btn(
-                      label: 'sign_out'.tr,
-                      onPressed: () {
-                        Pref.to.clear();
-                        Get.offNamed(Routes.SPLASH);
-                        try {
-                          FirebaseMessaging.instance
-                              .unsubscribeFromTopic(Pref.to.idVal);
-                        } catch (e) {
-                          log(this, 'e: $e');
-                        }
-                      },
-                      secondaryBtn: true,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 18, vertical: 7),
-                    )),
+                  flex: 1,
+                  child: Btn(
+                    label: 'sign_out'.tr,
+                    onPressed: () {
+                      Pref.to.clear();
+                      Get.offNamed(Routes.SPLASH);
+                      try {
+                        FirebaseMessaging.instance
+                            .unsubscribeFromTopic(Pref.to.idVal);
+                      } catch (e) {
+                        log(this, 'e: $e');
+                      }
+                    },
+                    secondaryBtn: true,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 18, vertical: 7),
+                  ),
+                ),
               ],
             ).paddingSymmetric(horizontal: 24),
             24.ph,
