@@ -1,4 +1,5 @@
 import 'package:checkerapp/src/ui/theme/app_colors.dart';
+import 'package:checkerapp/src/utils/report_notification_getter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -250,122 +251,21 @@ class RoomBox extends StatelessWidget {
                 ],
               ).paddingOnly(right: 20, left: 20, bottom: 20),
             for (var i = 0; i < report!.length; i++)
-              if (report![i] == 'Clean Quick Guest Waiting')
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Icon(
-                      Icons.warning_amber_rounded,
-                      color: Get.theme.highlightColor,
-                    ),
-                    Text(
-                      "Clean Quick Guest Waiting",
-                      style: Get.textTheme.titleMedium,
-                    ).setStyle(size: 14, weight: FontWeight.w500)
-                  ],
-                ).paddingOnly(right: 20, left: 20, bottom: 20),
-            for (var i = 0; i < report!.length; i++)
-              if (report![i] == 'Extra Bed Normal')
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Icon(
-                      Icons.bed,
-                      color: Get.theme.highlightColor,
-                    ),
-                    Text(
-                      "Extra Bed Normal",
-                      style: Get.textTheme.titleMedium,
-                    ).setStyle(size: 14, weight: FontWeight.w500)
-                  ],
-                ).paddingOnly(right: 20, left: 20, bottom: 20),
-            for (var i = 0; i < report!.length; i++)
-              if (report![i] == 'Extra Bed Child')
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Icon(
-                      Icons.child_friendly,
-                      color: Get.theme.highlightColor,
-                    ),
-                    Text(
-                      "Extra Bed Child",
-                      style: Get.textTheme.titleMedium,
-                    ).setStyle(size: 14, weight: FontWeight.w500)
-                  ],
-                ).paddingOnly(right: 20, left: 20, bottom: 20),
-            for (var i = 0; i < report!.length; i++)
-              if (report![i] == 'Red Card')
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(right: 4, top: 4, left: 4),
-                      width: 16,
-                      height: 16,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(3),
-                        color: redColor,
-                        shape: BoxShape.rectangle,
-                      ),
-                    ),
-                    Text(
-                      "Red Card",
-                      style: Get.textTheme.titleMedium,
-                    ).setStyle(size: 14, weight: FontWeight.w500)
-                  ],
-                ).paddingOnly(right: 20, left: 20, bottom: 20),
-            for (var i = 0; i < report!.length; i++)
-              if (report![i] == 'Clean Stay')
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(right: 4, top: 4),
-                      width: 16,
-                      height: 16,
-                      decoration: const BoxDecoration(
-                          color: Colors.amber, shape: BoxShape.circle),
-                    ),
-                    Text(
-                      "Clean Stay",
-                      style: Get.textTheme.titleMedium,
-                    ).setStyle(size: 14, weight: FontWeight.w500)
-                  ],
-                ).paddingOnly(right: 20, left: 20, bottom: 20),
-            for (var i = 0; i < report!.length; i++)
-              if (report![i] == 'Clean Checkout')
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(right: 4, top: 4),
-                      width: 16,
-                      height: 16,
-                      decoration: const BoxDecoration(
-                          color: greenColor, shape: BoxShape.circle),
-                    ),
-                    Text(
-                      "Clean Checkout",
-                      style: Get.textTheme.titleMedium,
-                    ).setStyle(size: 14, weight: FontWeight.w500)
-                  ],
-                ).paddingOnly(right: 20, left: 20, bottom: 20),
-            for (var i = 0; i < report!.length; i++)
-              if (report![i] == 'Clean Again')
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Icon(
-                      Icons.sync_problem_rounded,
-                      color: redColor,
-                    ),
-                    Text(
-                      "Clean Again",
-                      style: Get.textTheme.titleMedium,
-                    ).setStyle(size: 14, weight: FontWeight.w500)
-                  ],
-                ).paddingOnly(right: 20, left: 20, bottom: 20),
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        report![i],
+                        style: Get.textTheme.titleMedium,
+                      ).setStyle(size: 14, weight: FontWeight.w500),
+                      ...getNotificationIcon(report![i]),
+                    ],
+                  ).paddingSymmetric(horizontal: 20),
+                  20.ph,
+                ],
+              )
           ],
         ),
       ),

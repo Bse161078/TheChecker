@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:checkerapp/src/controllers/notifications_controller.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../../../controllers/cleaners_controller.dart';
@@ -94,7 +95,7 @@ class Dashboard extends GetView<DashboardController> {
                             ),
                             NotficationBoxView(
                               onTap: () => Get.toNamed(Routes.NOTIFICATIONS),
-                              itemNo: RoomsController.to
+                              itemNo: NotificationController.to
                                   .getNotifNumber()
                                   .toString(),
                             )

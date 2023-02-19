@@ -1,8 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../network/routes.dart';
-
 class CachedImageWidget extends StatelessWidget {
   const CachedImageWidget({
     super.key,
@@ -16,7 +14,7 @@ class CachedImageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
-      imageUrl: "$image",
+      imageUrl: image,
       imageBuilder: (context, imageProvider) => CircleAvatar(
         radius: 80,
         backgroundColor: Colors.white,

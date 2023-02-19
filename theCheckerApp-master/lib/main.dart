@@ -1,18 +1,18 @@
-import 'src/storage/pref.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
-import 'src/utils/utils.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
+
 import '../src/binding/main_binding.dart';
 import '../src/ui/theme/app_translations.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'src/routes/app_pages.dart';
 import 'src/storage/locale_pref.dart';
+import 'src/storage/pref.dart';
 import 'src/ui/theme/app_theme.dart';
 import 'src/ui/widget/runtime_error.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'src/utils/utils.dart';
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
   'high_importance_channel', // id

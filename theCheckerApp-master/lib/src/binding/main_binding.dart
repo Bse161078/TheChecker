@@ -16,6 +16,6 @@ class MainBinding implements Bindings {
     Get.put(RoomsController(repository: MainRepository()));
     Get.put(CleanersController(repository: MainRepository()));
     Get.put(MaterialsController(repository: MainRepository()));
-    // Get.put(NotificationsController(repository: MainRepository()));
+    Get.put(NotificationController(repository: MainRepository()));
   }
 }
