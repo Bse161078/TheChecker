@@ -28,6 +28,8 @@ class _ReceptionState extends State<Reception> {
 
   ReceptionController controller = Get.find();
 
+  late double screenWidth;
+
   @override
   Widget build(BuildContext context) {
     return GetX<ReceptionController>(initState: (_) {
@@ -35,6 +37,9 @@ class _ReceptionState extends State<Reception> {
 
       controller.getRooms();
       controller.getProfile();
+
+      screenWidth = Get.width;
+      print(screenWidth);
 
       controller.filteredRoomsList = controller.roomsList;
     }, builder: (receptionController) {
@@ -123,7 +128,8 @@ class _ReceptionState extends State<Reception> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Expanded(
-                      flex: 4,
+                      // 6 for big i pad,
+                      flex: 6,
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -132,15 +138,17 @@ class _ReceptionState extends State<Reception> {
                             'room'.tr,
                             style: Get.textTheme.titleMedium,
                           ).setStyle(size: 14).paddingOnly(left: 16),
+                          const Text("Room Alerts").setStyle(size: 14),
                           Text(
                             'Room Type',
                             style: Get.textTheme.titleMedium,
                           ).setStyle(size: 14),
                         ],
-                      ).paddingOnly(right: 80),
+                      ).paddingOnly(right: 50),
                     ),
                     Expanded(
-                      flex: 8,
+                      // 8 for big ipad
+                      flex: screenWidth > 800 ? 8 : 8,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -158,7 +166,7 @@ class _ReceptionState extends State<Reception> {
                                 textAlign: TextAlign.center,
                               ).setStyle(size: 14).paddingOnly(right: 40)),
                           SizedBox(
-                              width: 150,
+                              width: screenWidth > 800 ? 150 : 70,
                               child: Text(
                                 'alert'.tr,
                                 style: Get.textTheme.titleMedium,

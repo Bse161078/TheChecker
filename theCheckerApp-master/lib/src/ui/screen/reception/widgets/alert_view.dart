@@ -18,7 +18,7 @@ class AlertView extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 140,
+            width: Get.width > 800 ? 150 : 120,
             decoration: BoxDecoration(
                 color: Get.theme.cardColor,
                 borderRadius: BorderRadius.circular(8)),

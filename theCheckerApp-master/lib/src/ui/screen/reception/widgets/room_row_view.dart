@@ -33,6 +33,8 @@ class RoomRowView extends StatefulWidget {
 class _RoomRowViewState extends State<RoomRowView> {
   bool reportIsEmpty = true;
 
+  double screenWidth = Get.width;
+
   @override
   Widget build(BuildContext context) {
     print("Inside Room Row View: ${widget.label} has ${widget.type} type");
@@ -44,7 +46,8 @@ class _RoomRowViewState extends State<RoomRowView> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              flex: 3,
+              // 6 for big ipad
+              flex: screenWidth > 800 ? 6 : 4,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,50 +55,43 @@ class _RoomRowViewState extends State<RoomRowView> {
                   Text(widget.label)
                       .setStyle(size: 22)
                       .paddingOnly(left: 18, top: 6, bottom: 6),
-                  IconButton(
-                    icon: const Icon(Icons.info, color: Colors.grey),
-                    onPressed: () {
-                      if (widget.reportsList!.isEmpty) {
-                        print("Reports List is empty");
-                        setState(() {
-                          reportIsEmpty = true;
-                        });
-                      } else {
-                        print("Reports List is not empty");
-                        print(widget.reportsList!.length);
-                        print(widget.reportsList);
-                        setState(() {
-                          reportIsEmpty = false;
-                        });
-                      }
-                      showRoomInfoDialog(context);
-                    },
+                  Container(
+                    child: IconButton(
+                      icon: const Icon(Icons.info, color: Colors.grey),
+                      onPressed: () {
+                        if (widget.reportsList!.isEmpty) {
+                          setState(() {
+                            reportIsEmpty = true;
+                          });
+                        } else {
+                          setState(() {
+                            reportIsEmpty = false;
+                          });
+                        }
+                        showRoomInfoDialog(context);
+                      },
+                    ),
                   ),
-                  Text(widget.type.tr).setStyle(color: Get.theme.hintColor),
+                  SizedBox(
+                    width: 90,
+                    child: Text(
+                      widget.type.tr,
+                      textAlign: TextAlign.center,
+                    ).setStyle(color: Get.theme.hintColor),
+                  ),
                 ],
-              ).paddingOnly(right: 40),
+              ).paddingOnly(right: 30),
             ),
             Expanded(
-                flex: 8,
+                // 8 for big ipad
+                flex: screenWidth > 800 ? 8 : 6,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CleaningActionsView(
-                      state: (widget.cleaningStatus == 'Cleaned' ||
-                              widget.cleaningStatus == 'Damaged')
-                          ? CleaningActions.cleaned
-                          : (widget.cleaningStatus == "null" ||
-                                  widget.cleaningStatus == "")
-                              ? CleaningActions.notAvailable
-                              : CleaningActions.notCleaned,
-                    ),
+                        state: getCleaningAction(widget.cleaningStatus)),
                     DamagesActionsView(
-                      state: (widget.cleaningStatus == 'Damaged')
-                          ? DamagesActions.damaged
-                          : (widget.cleaningStatus == "" ||
-                                  widget.cleaningStatus == "null")
-                              ? DamagesActions.notAvailable
-                              : DamagesActions.noDamages,
+                      state: getDamagesAction(widget.cleaningStatus),
                     ),
                     AlertView(
                       onTap: widget.onTapAlert,
@@ -110,6 +106,28 @@ class _RoomRowViewState extends State<RoomRowView> {
         ),
       ],
     );
+  }
+
+  CleaningActions getCleaningAction(String cleaningStatus) {
+    if (cleaningStatus == 'Cleaned' || cleaningStatus == 'Damaged') {
+      return CleaningActions.cleaned;
+    } else if (cleaningStatus == "IN_PROGRESS") {
+      return CleaningActions.inProgress;
+    } else if (cleaningStatus == "null" || cleaningStatus == "") {
+      return CleaningActions.notAvailable;
+    } else {
+      return CleaningActions.notCleaned;
+    }
+  }
+
+  DamagesActions getDamagesAction(String cleaningStatus) {
+    if (cleaningStatus == 'Damaged') {
+      return DamagesActions.damaged;
+    } else if (cleaningStatus == "null" || cleaningStatus == "") {
+      return DamagesActions.notAvailable;
+    } else {
+      return DamagesActions.noDamages;
+    }
   }
 
   void showRoomInfoDialog(BuildContext context) {
@@ -136,6 +154,10 @@ class _RoomRowViewState extends State<RoomRowView> {
                 middle: Text("Room No: ${widget.label}"),
               ),
             ),
+            if (!reportIsEmpty) 10.ph,
+            if (!reportIsEmpty)
+              const Text("Room Reports")
+                  .setStyle(size: 16, weight: FontWeight.w500),
             10.ph,
             if (reportIsEmpty)
               const Text("No Room Report Available")

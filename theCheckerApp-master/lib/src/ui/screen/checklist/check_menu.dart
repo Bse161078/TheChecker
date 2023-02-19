@@ -145,16 +145,16 @@ class CheckMenu extends GetView<CheckListController> {
                           children: [
                             CircleAvatar(
                               backgroundColor: Colors.white,
-                              radius: 22.5, // Image radius
+                              radius: 12, // Image radius
                               child: CircleAvatar(
-                                radius: 20,
+                                radius: 11,
                                 child: ClipOval(
                                   child: CachedImageWidget(
                                     image:
                                         "${Route.Routes.baseURL}/${Pref.to.userAvatarVal}",
                                     errorWidget: (context, url, error) =>
                                         const CircleAvatar(
-                                      radius: 80,
+                                      radius: 70,
                                       child: Icon(Icons.person),
                                     ),
                                   ),

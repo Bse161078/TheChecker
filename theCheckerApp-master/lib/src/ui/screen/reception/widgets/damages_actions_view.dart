@@ -17,11 +17,10 @@ class DamagesActionsView extends StatelessWidget {
     return Row(
       children: [
         Container(
-          width: 160,
+          width: Get.width > 800 ? 150 : 135,
           decoration: BoxDecoration(
               color: Get.theme.cardColor,
               borderRadius: BorderRadius.circular(24)),
-          padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +52,7 @@ class DamagesActionsView extends StatelessWidget {
               ),
               // Icon(Icons.keyboard_arrow_down_sharp, color: Get.theme.highlightColor, size: 22,),
             ],
-          ).paddingSymmetric(vertical: 6),
+          ).paddingSymmetric(vertical: 8),
         ),
       ],
     );

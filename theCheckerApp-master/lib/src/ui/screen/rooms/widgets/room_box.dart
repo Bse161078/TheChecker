@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../src/utils/utils.dart';
 
-class RoomBox extends StatelessWidget {
+class RoomBox extends StatefulWidget {
   final String title;
   final String type;
   final List<String>? report;
@@ -21,14 +21,20 @@ class RoomBox extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<RoomBox> createState() => _RoomBoxState();
+}
+
+class _RoomBoxState extends State<RoomBox> {
+  bool reportIsEmpty = true;
+  @override
   Widget build(BuildContext context) {
     print("Inside room box");
-    for (var i = 0; i < report!.length; i++) {
-      print(report![i]);
+    for (var i = 0; i < widget.report!.length; i++) {
+      print(widget.report![i]);
     }
     return CupertinoButton(
       padding: EdgeInsets.zero,
-      onPressed: onTap,
+      onPressed: widget.onTap,
       child: Container(
         width: 200,
         margin: const EdgeInsets.only(right: 16),
@@ -44,7 +50,7 @@ class RoomBox extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  title,
+                  widget.title,
                   style: Get.theme.textTheme.titleMedium,
                 ).setStyle(size: 26, weight: FontWeight.bold),
                 Column(
@@ -59,7 +65,7 @@ class RoomBox extends StatelessWidget {
                     ),
                     2.ph,
                     Text(
-                      type,
+                      widget.type,
                       style: Get.theme.textTheme.titleMedium,
                     ).setStyle(weight: FontWeight.w600, size: 12),
                   ],
@@ -73,14 +79,14 @@ class RoomBox extends StatelessWidget {
                   alignment: Alignment.topRight,
                   child: Column(
                     children: [
-                      if (status.toString() == 'Cleaned') ...[
+                      if (widget.status.toString() == 'Cleaned') ...[
                         const Icon(
                           Icons.check,
                           color: greenColor,
                         ),
                         8.ph,
                       ],
-                      if (status.toString() == 'Damaged') ...[
+                      if (widget.status.toString() == 'Damaged') ...[
                         const Icon(
                           Icons.close_rounded,
                           color: redColor,
@@ -97,8 +103,9 @@ class RoomBox extends StatelessWidget {
                   child: Column(
                     children: [
                       10.ph,
-                      for (var i = 0; i < report!.length; i++)
-                        if (report![i] == 'Clean Quick Guest Waiting') ...[
+                      for (var i = 0; i < widget.report!.length; i++)
+                        if (widget.report![i] ==
+                            'Clean Quick Guest Waiting') ...[
                           Icon(
                             Icons.warning_amber_rounded,
                             color: Get.theme.highlightColor,
@@ -106,8 +113,8 @@ class RoomBox extends StatelessWidget {
                           ),
                           10.ph,
                         ],
-                      for (var i = 0; i < report!.length; i++)
-                        if (report![i] == 'Extra Bed Normal') ...[
+                      for (var i = 0; i < widget.report!.length; i++)
+                        if (widget.report![i] == 'Extra Bed Normal') ...[
                           Icon(
                             Icons.bed,
                             color: Get.theme.highlightColor,
@@ -115,8 +122,8 @@ class RoomBox extends StatelessWidget {
                           ),
                           10.ph,
                         ],
-                      for (var i = 0; i < report!.length; i++)
-                        if (report![i] == 'Extra Bed Child') ...[
+                      for (var i = 0; i < widget.report!.length; i++)
+                        if (widget.report![i] == 'Extra Bed Child') ...[
                           Icon(
                             Icons.child_friendly,
                             color: Get.theme.highlightColor,
@@ -133,7 +140,15 @@ class RoomBox extends StatelessWidget {
               alignment: Alignment.bottomRight,
               child: GestureDetector(
                 onTap: () {
-                  print('info icon button tapped');
+                  if (widget.report!.isEmpty) {
+                    setState(() {
+                      reportIsEmpty = true;
+                    });
+                  } else {
+                    setState(() {
+                      reportIsEmpty = false;
+                    });
+                  }
                   showRoomInfoDialog(context);
                 },
                 child: const SizedBox(
@@ -150,8 +165,8 @@ class RoomBox extends StatelessWidget {
                 alignment: Alignment.bottomLeft,
                 child: Row(
                   children: [
-                    for (var i = 0; i < report!.length; i++)
-                      if (report![i] == 'Red Card') ...[
+                    for (var i = 0; i < widget.report!.length; i++)
+                      if (widget.report![i] == 'Red Card') ...[
                         Container(
                           margin:
                               const EdgeInsets.only(right: 4, top: 4, left: 4),
@@ -165,8 +180,8 @@ class RoomBox extends StatelessWidget {
                         ),
                         5.pw,
                       ],
-                    for (var i = 0; i < report!.length; i++)
-                      if (report![i] == 'Clean Stay') ...[
+                    for (var i = 0; i < widget.report!.length; i++)
+                      if (widget.report![i] == 'Clean Stay') ...[
                         Container(
                           margin: const EdgeInsets.only(right: 4, top: 4),
                           width: 14,
@@ -176,8 +191,8 @@ class RoomBox extends StatelessWidget {
                         ),
                         5.pw,
                       ],
-                    for (var i = 0; i < report!.length; i++)
-                      if (report![i] == 'Clean Checkout') ...[
+                    for (var i = 0; i < widget.report!.length; i++)
+                      if (widget.report![i] == 'Clean Checkout') ...[
                         Container(
                           margin: const EdgeInsets.only(right: 4, top: 4),
                           width: 14,
@@ -187,8 +202,8 @@ class RoomBox extends StatelessWidget {
                         ),
                         5.pw,
                       ],
-                    for (var i = 0; i < report!.length; i++)
-                      if (report![i] == 'Clean Again')
+                    for (var i = 0; i < widget.report!.length; i++)
+                      if (widget.report![i] == 'Clean Again')
                         const Icon(
                           Icons.sync_problem,
                           color: redColor,
@@ -221,14 +236,18 @@ class RoomBox extends StatelessWidget {
                   previousPageTitle: 'cancel'.tr,
                   onPressed: () => Get.back(),
                 ),
-                middle: Text("Room No: $title"),
+                middle: Text("Room No: ${widget.title}"),
               ),
             ),
-            10.ph,
-            const Text("Room Alerts")
-                .setStyle(size: 18, weight: FontWeight.w600),
-            20.ph,
-            if (status.toString() == "Cleaned")
+            if (!reportIsEmpty) 10.ph,
+            if (!reportIsEmpty)
+              const Text("Room Alerts")
+                  .setStyle(size: 18, weight: FontWeight.w600),
+            if (reportIsEmpty)
+              const Text("No Room Report Available")
+                  .setStyle(size: 16, weight: FontWeight.w500)
+                  .paddingSymmetric(vertical: 10),
+            if (widget.status.toString() == "Cleaned")
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -239,7 +258,7 @@ class RoomBox extends StatelessWidget {
                   ).setStyle(size: 14, weight: FontWeight.w500)
                 ],
               ).paddingAll(20),
-            if (status.toString() == "Damaged")
+            if (widget.status.toString() == "Damaged")
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -250,17 +269,17 @@ class RoomBox extends StatelessWidget {
                   ).setStyle(size: 14, weight: FontWeight.w500)
                 ],
               ).paddingOnly(right: 20, left: 20, bottom: 20),
-            for (var i = 0; i < report!.length; i++)
+            for (var i = 0; i < widget.report!.length; i++)
               Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        report![i],
+                        widget.report![i],
                         style: Get.textTheme.titleMedium,
                       ).setStyle(size: 14, weight: FontWeight.w500),
-                      ...getNotificationIcon(report![i]),
+                      ...getNotificationIcon(widget.report![i]),
                     ],
                   ).paddingSymmetric(horizontal: 20),
                   20.ph,

@@ -74,34 +74,68 @@ class Dashboard extends GetView<DashboardController> {
                     16.ph,
                     Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CleanersBoxView(
-                              onTap: () => Get.toNamed(Routes.CLEANERS),
-                              cleanersNo:
-                                  '${CleanersController.to.cleanersList.length}',
-                            ),
-                            RoomsBoxView(
-                              onTap: () => Get.toNamed(Routes.ROOMS),
-                              roomsNo: '${RoomsController.to.roomsList.length}',
-                            ),
-                            MaterialBoxView(
-                              onTap: () => Get.toNamed(Routes.MATERIALS),
-                              itemNo:
-                                  '${MaterialsController.to.materialList.length}',
-                            ),
-                            NotficationBoxView(
-                              onTap: () => Get.toNamed(Routes.NOTIFICATIONS),
-                              itemNo: NotificationController.to
-                                  .getNotifNumber()
-                                  .toString(),
+                      child: Get.width > 800
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CleanersBoxView(
+                                  onTap: () => Get.toNamed(Routes.CLEANERS),
+                                  cleanersNo:
+                                      '${CleanersController.to.cleanersList.length}',
+                                ),
+                                RoomsBoxView(
+                                  onTap: () => Get.toNamed(Routes.ROOMS),
+                                  roomsNo:
+                                      '${RoomsController.to.roomsList.length}',
+                                ),
+                                MaterialBoxView(
+                                  onTap: () => Get.toNamed(Routes.MATERIALS),
+                                  itemNo:
+                                      '${MaterialsController.to.materialList.length}',
+                                ),
+                                NotficationBoxView(
+                                  onTap: () =>
+                                      Get.toNamed(Routes.NOTIFICATIONS),
+                                  itemNo: NotificationController.to
+                                      .getNotifNumber()
+                                      .toString(),
+                                )
+                              ],
                             )
-                          ],
-                        ),
-                      ),
+                          : GridView(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: 2,
+                                mainAxisSpacing: 15,
+                              ),
+                              children: [
+                                CleanersBoxView(
+                                  onTap: () => Get.toNamed(Routes.CLEANERS),
+                                  cleanersNo:
+                                      '${CleanersController.to.cleanersList.length}',
+                                ),
+                                RoomsBoxView(
+                                  onTap: () => Get.toNamed(Routes.ROOMS),
+                                  roomsNo:
+                                      '${RoomsController.to.roomsList.length}',
+                                ),
+                                MaterialBoxView(
+                                  onTap: () => Get.toNamed(Routes.MATERIALS),
+                                  itemNo:
+                                      '${MaterialsController.to.materialList.length}',
+                                ),
+                                NotficationBoxView(
+                                  onTap: () =>
+                                      Get.toNamed(Routes.NOTIFICATIONS),
+                                  itemNo: NotificationController.to
+                                      .getNotifNumber()
+                                      .toString(),
+                                )
+                              ],
+                            ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
