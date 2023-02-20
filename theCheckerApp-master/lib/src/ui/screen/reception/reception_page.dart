@@ -198,7 +198,7 @@ class _ReceptionState extends State<Reception> {
                           cleaningStatus: '${model.status}',
                           reportsList: model.report,
                           onTapAlert: () {
-                            _submitAlertDialog(context, '${model.id}');
+                            _submitAlertDialog(context, model);
                           },
                         );
                       },
@@ -476,12 +476,12 @@ class _ReceptionState extends State<Reception> {
         context: context, builder: (BuildContext context) => errorDialog);
   }
 
-  _submitAlertDialog(BuildContext context, String roomID) {
+  _submitAlertDialog(BuildContext context, Room room) {
     Dialog errorDialog = Dialog(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0)), //this right here
       child: SendAlertDialog(
-        roomId: roomID,
+        room: room,
       ),
     );
     showDialog(

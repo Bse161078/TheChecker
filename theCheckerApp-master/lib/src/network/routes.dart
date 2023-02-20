@@ -13,5 +13,4 @@ class Routes {
   static const String set_room_status = "$baseURL/room/set-room-status";
   static const String send_alert = "$baseURL/room/send-alert";
   static const String materials = "$baseURL/material-list";
-  static const String set_material = "$baseURL/check-list";
 }

@@ -117,13 +117,23 @@ class _CleanersState extends State<Cleaners> {
                                 controller.filteredCleaners[index],
                               );
                             } else {
-                              Get.toNamed(
-                                Routes.CHECKLIST,
-                                arguments: [
-                                  room,
-                                  controller.filteredCleaners[index]
-                                ],
-                              );
+                              if (room.status == "IN_PROGRESS") {
+                                Get.toNamed(
+                                  Routes.CHECKLIST,
+                                  arguments: [
+                                    room,
+                                    controller.filteredCleaners[index]
+                                  ],
+                                );
+                              } else {
+                                Get.toNamed(
+                                  Routes.CONTINUE_ORDER,
+                                  arguments: [
+                                    room,
+                                    controller.filteredCleaners[index]
+                                  ],
+                                );
+                              }
                             }
                           },
                         ),

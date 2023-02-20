@@ -26,7 +26,7 @@ class AppPages {
     GetPage(name: Routes.LOGIN, page: () => Login(), binding: AuthBinding()),
     GetPage(
       name: Routes.DASHBOARD,
-      page: () => Dashboard(),
+      page: () => const Dashboard(),
       binding: DashboardBinding(),
     ),
     GetPage(

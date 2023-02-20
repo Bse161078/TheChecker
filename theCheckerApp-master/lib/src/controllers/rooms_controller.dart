@@ -127,7 +127,7 @@ class RoomsController extends Basic {
               thisIsTheRoom = true;
             }
           } else if (inProgressCheck.value) {
-            if (room.status == "In Progress") {
+            if (room.status == "IN_PROGRESS") {
               thisIsTheRoom = true;
             }
           } else if (cleanedCheck.value) {

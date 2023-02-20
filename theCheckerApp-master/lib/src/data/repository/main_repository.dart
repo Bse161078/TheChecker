@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:checkerapp/src/network/response.dart';
 import 'package:dio/dio.dart';
 
 import '../../network/helper.dart';
@@ -71,18 +72,17 @@ class MainRepository {
   }
 
   Future<dynamic> setMaterial(List<Material> materials, String supplier) async {
-    var data = {
-      "materials": [
-        for (int i = 0; i < materials.length; i++)
-          {
-            "material": "${materials[i].id}",
-            "quantity": int.parse(materials[i].quantity.toString())
-          },
-      ],
-      "supplier": supplier
-    };
-    final response = await ServiceProvider.execute(
-        Routes.set_material, Method.POST, data, [200, 201]);
+    late ApiResponse response;
+
+    for (int i = 0; i < materials.length; i++) {
+      print("${materials[i].name!} ${materials[i].quantity}");
+      var id = materials[i].id;
+      var data = {"quantity": int.parse(materials[i].quantity.toString())};
+
+      response = await ServiceProvider.execute(
+          "${Routes.materials}/$id/order", Method.POST, data, [200, 201]);
+      print(response.body);
+    }
     return response;
   }
 

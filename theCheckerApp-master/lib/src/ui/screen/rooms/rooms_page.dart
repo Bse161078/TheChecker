@@ -144,7 +144,9 @@ class _RoomsState extends State<Rooms> {
         itemBuilder: (context, index) {
           Room room = list[index];
           return RoomBox(
-            onTap: () => Get.toNamed(Routes.CLEANERS, arguments: room),
+            onTap: () {
+              Get.toNamed(Routes.CLEANERS, arguments: room);
+            },
             title: '${room.name}',
             type: '${room.roomType}'.tr,
             status: room.status ?? '',

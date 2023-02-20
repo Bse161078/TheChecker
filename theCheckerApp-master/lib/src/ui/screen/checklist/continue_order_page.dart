@@ -48,7 +48,9 @@ class _ContinueOrderState extends State<ContinueOrder> {
           automaticallyImplyLeading: false,
           leading: CupertinoNavigationBarBackButton(
             previousPageTitle: 'Check List'.tr,
-            onPressed: () => Get.back(),
+            onPressed: () {
+              Get.back();
+            },
           ),
           middle: Text('Continue'.tr),
         ),

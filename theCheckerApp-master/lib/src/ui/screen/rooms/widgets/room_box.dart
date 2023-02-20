@@ -93,6 +93,13 @@ class _RoomBoxState extends State<RoomBox> {
                         ),
                         8.ph,
                       ],
+                      if (widget.status.toString() == 'IN_PROGRESS') ...[
+                        const Icon(
+                          Icons.timelapse_outlined,
+                          color: Colors.amber,
+                        ),
+                        8.ph,
+                      ],
                     ],
                   ),
                 ),

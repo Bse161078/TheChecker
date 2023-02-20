@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../data/model/room_model.dart';
 import '../../../../data/repository/main_repository.dart';
 import '../../../../network/response.dart';
 import '../../../theme/app_colors.dart';
@@ -13,8 +14,8 @@ import '../../../widget/checker.dart';
 /// Created by amir on 22, December, 2022
 
 class SendAlertDialog extends StatefulWidget {
-  final String roomId;
-  const SendAlertDialog({Key? key, required this.roomId}) : super(key: key);
+  final Room room;
+  const SendAlertDialog({Key? key, required this.room}) : super(key: key);
 
   @override
   _SendAlertDialogState createState() => _SendAlertDialogState();
@@ -223,8 +224,14 @@ class _SendAlertDialogState extends State<SendAlertDialog> {
       if (RedCard) {
         status.add('Red Card');
       }
+      // // if the status contains "Clean Quick Guest Waiting" then also send request at set-room-status
+      // if (status.contains('Clean Quick Guest Waiting')) {
+      // await MainRepository().setRoomStatus(widget.room.id!, "Not Cleaned",
+      //       "63ef70c8c14410c9c3f1477a", widget.room.occupation_status!);
+      // }
 
-      ApiResponse res = await MainRepository().sendAlert(widget.roomId, status);
+      ApiResponse res =
+          await MainRepository().sendAlert(widget.room.id!, status);
       log(this, res.status);
 
       ReceptionController receptionController = Get.find();
