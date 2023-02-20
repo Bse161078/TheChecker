@@ -224,11 +224,11 @@ class _SendAlertDialogState extends State<SendAlertDialog> {
       if (RedCard) {
         status.add('Red Card');
       }
-      // // if the status contains "Clean Quick Guest Waiting" then also send request at set-room-status
-      // if (status.contains('Clean Quick Guest Waiting')) {
-      // await MainRepository().setRoomStatus(widget.room.id!, "Not Cleaned",
-      //       "63ef70c8c14410c9c3f1477a", widget.room.occupation_status!);
-      // }
+      // if the status contains "Clean Quick Guest Waiting" then also send request at set-room-status
+      if (status.contains('Clean Quick Guest Waiting')) {
+      await MainRepository().setRoomStatus(widget.room.id!, "Not Cleaned",
+             widget.room.occupation_status!);
+      }
 
       ApiResponse res =
           await MainRepository().sendAlert(widget.room.id!, status);

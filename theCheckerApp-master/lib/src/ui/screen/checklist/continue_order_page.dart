@@ -238,7 +238,7 @@ class _ContinueOrderState extends State<ContinueOrder> {
       }
 
       ApiResponse res = await MainRepository()
-          .setRoomStatus(roomId, status, cleanerId, occupation_status);
+          .setRoomStatus(roomId, status, occupation_status);
       log(this, res.status);
 
       RoomsController.to.getRooms();

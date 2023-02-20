@@ -40,12 +40,11 @@ class MainRepository {
     return response;
   }
 
-  Future<dynamic> setRoomStatus(String roomId, String status, String cleanerId,
-      String occupationStatus) async {
+  Future<dynamic> setRoomStatus(
+      String roomId, String status, String occupationStatus) async {
     var data = {
       "roomId": roomId,
       "clean_status": status,
-      "cleanerId": cleanerId,
       "occupation_status": occupationStatus,
     };
     print("Data is $data");
