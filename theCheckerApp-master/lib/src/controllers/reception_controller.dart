@@ -106,7 +106,7 @@ class ReceptionController extends Basic {
 
     Dio dio = Dio();
     dio.options.headers["Authorization"] = 'Bearer ${Pref.to.tokenVal}';
-    dio.get('http://35.178.46.228:3010$endPoint').then((response) {
+    dio.get('https://184.169.179.30:3020$endPoint').then((response) {
       if (response.statusCode == 200) {
         List<dynamic> roomTypes = response.data["data"]["roomTypes"];
         for (var roomType in roomTypes) {

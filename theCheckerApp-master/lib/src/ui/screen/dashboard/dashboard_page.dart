@@ -28,9 +28,12 @@ class Dashboard extends GetView<DashboardController> {
 
   @override
   Widget build(BuildContext context) {
-    return GetX<DashboardController>(initState: (_) {
+    return GetX<DashboardController>(
+      initState: (_) async {
       CleanersController.to.getCleaners();
-      RoomsController.to.getRooms();
+      await RoomsController.to.getRooms().then((value) {
+        RoomsController.to.setNotCleaned();
+      });
       MaterialsController.to.getMaterials();
 
       // if .report in any roomsList isNotEmpty then add 1 to notifNumber

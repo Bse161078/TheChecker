@@ -167,22 +167,22 @@ class _RoomRowViewState extends State<RoomRowView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Icon(Icons.check, color: Colors.green),
                   Text(
                     "Room Is Cleaned",
                     style: Get.textTheme.titleMedium,
-                  ).setStyle(size: 14, weight: FontWeight.w500)
+                  ).setStyle(size: 14, weight: FontWeight.w500),
+                  const Icon(Icons.check, color: Colors.green),
                 ],
               ).paddingAll(20),
             if (widget.cleaningStatus.toString() == "Damaged")
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Icon(Icons.close_rounded, color: Colors.red),
                   Text(
                     "Room Is Damaged",
                     style: Get.textTheme.titleMedium,
-                  ).setStyle(size: 14, weight: FontWeight.w500)
+                  ).setStyle(size: 14, weight: FontWeight.w500),
+                  const Icon(Icons.close_rounded, color: Colors.red),
                 ],
               ).paddingOnly(right: 20, left: 20, bottom: 20),
             for (var i = 0; i < widget.reportsList!.length; i++)

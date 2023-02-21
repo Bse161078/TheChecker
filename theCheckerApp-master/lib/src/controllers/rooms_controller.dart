@@ -50,6 +50,19 @@ class RoomsController extends Basic {
     }
   }
 
+  setNotCleaned() async {
+    print("Set not cleaned call");
+    for (var p0 in roomsList) {
+      print("Room Name: ${p0.name!}");
+      if (p0.report!.contains("Clean Quick Guest Waiting")) {
+        print("Inside If");
+        ApiResponse result = await repository.setRoomStatus(
+            p0.id!, "NotCleaned", p0.occupation_status!);
+        print("Status: ${result.body!}");
+      }
+    }
+  }
+
   var roomTypesList = RxList<String>([]);
   // list of RxBool
   var roomTypesChecks = RxList<RxBool>([]);
@@ -59,7 +72,7 @@ class RoomsController extends Basic {
 
     Dio dio = Dio();
     dio.options.headers["Authorization"] = 'Bearer ${Pref.to.tokenVal}';
-    dio.get('http://35.178.46.228:3010$endPoint').then((response) {
+    dio.get('https://184.169.179.30:3020$endPoint').then((response) {
       if (response.statusCode == 200) {
         List<dynamic> roomTypes = response.data["data"]["roomTypes"];
         for (var roomType in roomTypes) {
