@@ -1,4 +1,3 @@
-
 import 'package:checkerapp/src/data/model/material_model.dart';
 
 import '../../src/controllers/basic.dart';
@@ -21,42 +20,40 @@ class MaterialsController extends Basic {
   final orderHotelManagement = RxBool(false);
   final orderCleaningCompany = RxBool(false);
 
-  getMaterials() async{
-    try{
+  getMaterials() async {
+    try {
       isLoading = true;
       ApiResponse result = await repository.materials();
       final list = result.body['data']['materials'];
       materialList.value = Material.fromJsonList(list);
       log(this, 'material list ${list.length}');
-
-    }catch(e, s){
+    } catch (e) {
       log(this, e);
-    }finally{
+    } finally {
       isLoading = false;
     }
   }
 
-  saveMaterials() async{
-    try{
-      if(secondaryIsLoading){
+  saveMaterials() async {
+    try {
+      if (secondaryIsLoading) {
         return;
       }
       secondaryIsLoading = true;
 
-      String supplier = 'Company';
-      if(orderHotelManagement.value){
-        supplier = 'Hotel';
+      String supplier = 'company';
+      if (orderHotelManagement.value) {
+        supplier = 'hotel';
       }
       ApiResponse result = await repository.setMaterial(materialList, supplier);
       log(this, 'material set ${result.status}');
       Get.back();
       Get.back();
       Toast.success('request_submitted'.tr, 'order'.tr);
-    }catch(e, s){
+    } catch (e) {
       log(this, e);
-    }finally{
+    } finally {
       secondaryIsLoading = false;
     }
   }
-
 }

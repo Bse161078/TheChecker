@@ -74,9 +74,12 @@ class MainRepository {
     late ApiResponse response;
 
     for (int i = 0; i < materials.length; i++) {
-      print("${materials[i].name!} ${materials[i].quantity}");
+      print("${materials[i].name!} ${materials[i].quantity} $supplier");
       var id = materials[i].id;
-      var data = {"quantity": int.parse(materials[i].quantity.toString())};
+      var data = {
+        "quantity": int.parse(materials[i].quantity.toString()),
+        "emailTo": supplier,
+      };
 
       response = await ServiceProvider.execute(
           "${Routes.materials}/$id/order", Method.POST, data, [200, 201]);

@@ -52,9 +52,12 @@ class _RoomRowViewState extends State<RoomRowView> {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(widget.label)
-                      .setStyle(size: 22)
-                      .paddingOnly(left: 18, top: 6, bottom: 6),
+                  SizedBox(
+                    width: screenWidth > 800 ? 85 : 40,
+                    child: Text(widget.label)
+                        .setStyle(size: 22)
+                        .paddingOnly(left: 18, top: 6, bottom: 6),
+                  ),
                   Container(
                     child: IconButton(
                       icon: const Icon(Icons.info, color: Colors.grey),

@@ -55,7 +55,7 @@ class _SplashState extends State<Splash> {
                 : CachedNetworkImage(
                     imageUrl: "${Route.Routes.baseURL}/${widget.hotelLogo!}",
                     placeholder: (context, url) =>
-                        const CircularProgressIndicator(),
+                        const Center(child: CircularProgressIndicator()),
                     errorWidget: (context, url, error) => Container(),
                   ),
           ),

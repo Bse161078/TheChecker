@@ -1,6 +1,5 @@
-import 'package:checkerapp/src/ui/theme/app_colors.dart';
-
 import '../../widget/button_widget.dart';
+import '../../widget/checker.dart';
 import 'widgets/material_row_view.dart';
 import '../../../controllers/materials_controller.dart';
 import 'package:flutter/cupertino.dart';
@@ -127,44 +126,50 @@ class Materials extends GetView<MaterialsController> {
                     SizedBox(
                         width: Get.width / 3.5,
                         child: Text(
-                          'Are you sure?',
+                          'select_where_order_sent'.tr,
                           style: Get.textTheme.titleMedium,
                         ).setStyle(size: 16).paddingOnly(left: 24, top: 24)),
                   ],
                 ),
                 30.ph,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(
-                      width: Get.width / 4.8,
-                      child: Btn(
-                        label: 'Yes'.tr,
+                SizedBox(
+                    width: Get.width / 4.8,
+                    child: Checker(
+                        label: 'hotel_management'.tr,
+                        hasBorder: true,
+                        state: controller.orderHotelManagement.value,
+                        type: CheckerType.Radio,
+                        longText: false,
+                        onChanged: (value) {
+                          controller.orderHotelManagement.value = true;
+                          controller.orderCleaningCompany.value = false;
+                        })),
+                10.ph,
+                SizedBox(
+                    width: Get.width / 4.8,
+                    child: Checker(
+                        label: 'cleaning_company'.tr,
+                        hasBorder: true,
+                        state: controller.orderCleaningCompany.value,
+                        type: CheckerType.Radio,
+                        longText: false,
+                        onChanged: (value) {
+                          controller.orderHotelManagement.value = false;
+                          controller.orderCleaningCompany.value = true;
+                        })),
+                10.ph,
+                SizedBox(
+                    width: Get.width / 4.8,
+                    child: Btn(
+                        label: 'order'.tr,
                         isLoading: controller.secondaryIsLoading,
                         onPressed: () {
+                          if (controller.orderHotelManagement.value == false &&
+                              controller.orderCleaningCompany.value == false) {
+                            return;
+                          }
                           controller.saveMaterials();
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      width: Get.width / 4.8,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          foregroundColor: Colors.white,
-                          backgroundColor: redColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                        child: Text('No'.tr),
-                        onPressed: () {
-                          Get.back();
-                        },
-                      ),
-                    ),
-                  ],
-                ),
+                        })),
                 34.ph,
               ],
             )),
