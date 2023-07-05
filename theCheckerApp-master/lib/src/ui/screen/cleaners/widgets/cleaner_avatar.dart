@@ -48,22 +48,38 @@ class CleanerAvatar extends StatelessWidget {
                 ),
               ),
             ] else ...[
-              CachedImageWidget(
-                image: "${Routes.baseURL}/$image",
-                errorWidget: (context, url, error) {
-                  return const CircleAvatar(
-                    radius: 80,
-                    child: Icon(Icons.person),
-                  );
-                },
-              ),
+              FutureBuilder(
+                  future: Utils.getValidatedNetworkImageWidget(
+                      "${Routes.baseURL}/$image",
+                      const CircleAvatar(
+                        radius: 80,
+                        child: Icon(Icons.person),
+                      )),
+                  builder: (context, snapshot) {
+                    return snapshot.hasData == true
+                        ? snapshot.data as Widget
+                        : const CircularProgressIndicator();
+                  }),
+              // CachedImageWidget(
+              //   image: "${Routes.baseURL}/$image",
+              //   errorWidget: (context, url, error) {
+              //     return const CircleAvatar(
+              //       radius: 80,
+              //       child: Icon(Icons.person),
+              //     );
+              //   },
+              // ),
             ],
             // "${Routes.baseURL}/$image",
             8.ph,
-            Text(
-              name,
-              style: Get.theme.textTheme.titleMedium,
-            ).setStyle(size: 15, weight: FontWeight.w600),
+            SizedBox(
+              width: 160,
+              child: Text(
+                name,
+                overflow: TextOverflow.ellipsis,
+                style: Get.theme.textTheme.titleMedium,
+              ).setStyle(size: 15, weight: FontWeight.w600),
+            ),
           ],
         ),
       ),

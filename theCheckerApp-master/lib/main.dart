@@ -1,5 +1,5 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -23,45 +23,45 @@ const AndroidNotificationChannel channel = AndroidNotificationChannel(
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  print('Handling a background message ${message.messageId}');
-}
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+// await Firebase.initializeApp();
+//   print('Handling a background message ${message.messageId}');
+// }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  // await Firebase.initializeApp();
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight,
   ]);
 
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
 
-  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
+  // await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+  //   alert: true,
+  //   badge: true,
+  //   sound: true,
+  // );
 
-  NotificationSettings settings =
-      await FirebaseMessaging.instance.requestPermission(
-    alert: true,
-    announcement: false,
-    badge: true,
-    carPlay: false,
-    criticalAlert: false,
-    provisional: false,
-    sound: true,
-  );
+  // NotificationSettings settings =
+  //     await FirebaseMessaging.instance.requestPermission(
+  //   alert: true,
+  //   announcement: false,
+  //   badge: true,
+  //   carPlay: false,
+  //   criticalAlert: false,
+  //   provisional: false,
+  //   sound: true,
+  // );
 
-  print('User granted permission: ${settings.authorizationStatus}');
+  // print('User granted permission: ${settings.authorizationStatus}');
 
   runApp(const CheckerApp());
 }
@@ -90,32 +90,32 @@ class _CheckerAppState extends State<CheckerApp> {
   void initState() {
     super.initState();
 
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
-      if (notification != null && android != null) {
-        flutterLocalNotificationsPlugin.show(
-            notification.hashCode,
-            notification.title,
-            notification.body,
-            NotificationDetails(
-              android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,
-                icon: '@mipmap/ic_launcher',
-              ),
-            ));
-      }
-    });
+    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    //   RemoteNotification? notification = message.notification;
+    //   AndroidNotification? android = message.notification?.android;
+    //   if (notification != null && android != null) {
+    //     flutterLocalNotificationsPlugin.show(
+    //         notification.hashCode,
+    //         notification.title,
+    //         notification.body,
+    //         NotificationDetails(
+    //           android: AndroidNotificationDetails(
+    //             channel.id,
+    //             channel.name,
+    //             icon: '@mipmap/ic_launcher',
+    //           ),
+    //         ));
+    //   }
+    // });
 
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print('A new onMessageOpenedApp event was published!');
-      if (Pref.to.roleVal == 'Checker') {
-        Get.offNamed(Routes.DASHBOARD);
-      } else {
-        Get.offNamed(Routes.RECEPTION);
-      }
-    });
+    // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    //   print('A new onMessageOpenedApp event was published!');
+    //   if (Pref.to.roleVal == 'Checker') {
+    //     Get.offNamed(Routes.DASHBOARD);
+    //   } else {
+    //     Get.offNamed(Routes.RECEPTION);
+    //   }
+    // });
   }
 
   @override

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,7 +23,6 @@ class _GalleryState extends State<Gallery> {
     super.initState();
     // post = Post.fromJson(Get.arguments);
     _pageController = PageController(initialPage: 0);
-
   }
 
   @override
@@ -99,32 +97,32 @@ class _GalleryState extends State<Gallery> {
     });
   }
 
-  Widget image(String url) {
-    return CachedNetworkImage(
-      width: Get.width,
-      fit: BoxFit.fitWidth,
-      imageUrl: url.toString(),
-      placeholder: (context, url) => Container(
-        width: Get.width,
-        height: 400,
-        decoration: BoxDecoration(
-          color: Colors.grey[300],
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: const [
-            SizedBox(
-                width: 22,
-                height: 22,
-                child: CircularProgressIndicator(
-                  color: Colors.black,
-                  strokeWidth: .7,
-                )),
-          ],
-        ),
-      ),
-      errorWidget: (context, url, error) => const Icon(Icons.error),
-    );
-  }
+  // Widget image(String url) {
+  //   return CachedNetworkImage(
+  //     width: Get.width,
+  //     fit: BoxFit.fitWidth,
+  //     imageUrl: url.toString(),
+  //     placeholder: (context, url) => Container(
+  //       width: Get.width,
+  //       height: 400,
+  //       decoration: BoxDecoration(
+  //         color: Colors.grey[300],
+  //       ),
+  //       child: Column(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         mainAxisSize: MainAxisSize.min,
+  //         children: const [
+  //           SizedBox(
+  //               width: 22,
+  //               height: 22,
+  //               child: CircularProgressIndicator(
+  //                 color: Colors.black,
+  //                 strokeWidth: .7,
+  //               )),
+  //         ],
+  //       ),
+  //     ),
+  //     errorWidget: (context, url, error) => const Icon(Icons.error),
+  //   );
+  // }
 }

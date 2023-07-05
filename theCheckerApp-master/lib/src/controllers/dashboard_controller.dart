@@ -1,4 +1,4 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../../src/controllers/basic.dart';
 import 'package:get/get.dart';
@@ -16,7 +16,7 @@ class DashboardController extends Basic {
 
   getProfile() async {
     try {
-      _getFCMToken();
+      // _getFCMToken();
 
       print("Inside dashboard controller");
 
@@ -27,7 +27,7 @@ class DashboardController extends Basic {
       final name = result.body['data']['user']['fullname'];
       Pref.to.setString(Pref.name, name);
       print("name is $name");
- 
+
       final userAvatar = result.body['data']['user']['avatar'];
       print("userAvatar is $userAvatar");
       Pref.to.setString(Pref.userAvatar, userAvatar);
@@ -39,7 +39,7 @@ class DashboardController extends Basic {
       // print("id: $id");
       // print("name: $name");
 
-      FirebaseMessaging.instance.subscribeToTopic(id);
+      // FirebaseMessaging.instance.subscribeToTopic(id);
 
       Pref.to.setString(Pref.id, id);
       Pref.to.setString(Pref.name, name);
@@ -52,10 +52,10 @@ class DashboardController extends Basic {
     }
   }
 
-  _getFCMToken() async {
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
-    messaging.getToken().then((value) {
-      log(this, 'FCM token: $value');
-    });
-  }
+  // _getFCMToken() async {
+  //   // FirebaseMessaging messaging = FirebaseMessaging.instance;
+  //   messaging.getToken().then((value) {
+  //     log(this, 'FCM token: $value');
+  //   });
+  // }
 }

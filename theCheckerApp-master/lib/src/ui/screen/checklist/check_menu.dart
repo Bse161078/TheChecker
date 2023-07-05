@@ -149,15 +149,27 @@ class CheckMenu extends GetView<CheckListController> {
                               child: CircleAvatar(
                                 radius: 11,
                                 child: ClipOval(
-                                  child: CachedImageWidget(
-                                    image:
-                                        "${Route.Routes.baseURL}/${Pref.to.userAvatarVal}",
-                                    errorWidget: (context, url, error) =>
-                                        const CircleAvatar(
-                                      radius: 70,
-                                      child: Icon(Icons.person),
-                                    ),
-                                  ),
+                                  child: FutureBuilder(
+                                      future: Utils.getValidatedNetworkImageWidget(
+                                          "${Route.Routes.baseURL}/${Pref.to.userAvatarVal}",
+                                          const CircleAvatar(
+                                            radius: 80,
+                                            child: Icon(Icons.person),
+                                          )),
+                                      builder: (context, snapshot) {
+                                        return snapshot.hasData == true
+                                            ? snapshot.data as Widget
+                                            : const CircularProgressIndicator();
+                                      }),
+                                  // CachedImageWidget(
+                                  //   image:
+                                  //       "${Route.Routes.baseURL}/${Pref.to.userAvatarVal}",
+                                  //   errorWidget: (context, url, error) =>
+                                  //       const CircleAvatar(
+                                  //     radius: 70,
+                                  //     child: Icon(Icons.person),
+                                  //   ),
+                                  // ),
                                 ),
                               ),
                             ),

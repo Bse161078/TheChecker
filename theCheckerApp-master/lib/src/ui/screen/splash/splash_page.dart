@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../../../src/ui/widget/fade_animation.dart';
 import '../../../../src/utils/utils.dart';
@@ -47,18 +46,29 @@ class _SplashState extends State<Splash> {
         delay: 1,
         child: Center(
           child: SizedBox(
-            width: Get.width / 3,
-            child: widget.hotelLogo == null
-                ? Image.asset(
-                    'logo'.toPng,
-                  )
-                : CachedNetworkImage(
-                    imageUrl: "${Route.Routes.baseURL}/${widget.hotelLogo!}",
-                    placeholder: (context, url) =>
-                        const Center(child: CircularProgressIndicator()),
-                    errorWidget: (context, url, error) => Container(),
-                  ),
-          ),
+              width: Get.width / 3,
+              child: widget.hotelLogo == null
+                  ? Image.asset(
+                      'logo'.toPng,
+                    )
+                  : FutureBuilder(
+                      future: Utils.getValidatedNetworkImageWidget(
+                          "${Route.Routes.baseURL}/${widget.hotelLogo!}",
+                          const CircleAvatar(
+                            radius: 80,
+                          )),
+                      builder: (context, snapshot) {
+                        return snapshot.hasData == true
+                            ? snapshot.data as Widget
+                            : const Center(child: CircularProgressIndicator());
+                      })
+              // CachedNetworkImage(
+              //     imageUrl: "${Route.Routes.baseURL}/${widget.hotelLogo!}",
+              //     placeholder: (context, url) =>
+              //         const Center(child: CircularProgressIndicator()),
+              //     errorWidget: (context, url, error) => Container(),
+              //   ),
+              ),
         ),
       ),
     );

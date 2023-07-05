@@ -58,8 +58,17 @@ class Checker extends StatelessWidget {
             longText
                 ? SizedBox(
                     width: Get.width / 3,
-                    child: Text(label).setStyle(size: fontSize))
-                : Text(label).setStyle(size: fontSize),
+                    child: Text(
+                      label,
+                      overflow: TextOverflow.ellipsis,
+                    ).setStyle(size: fontSize))
+                : SizedBox(
+                    width: 100,
+                    child: Text(
+                      label,
+                      overflow: TextOverflow.ellipsis,
+                    ).setStyle(size: fontSize),
+                  ),
           ],
         ),
       ),
