@@ -107,7 +107,7 @@ class _RoomRowViewState extends State<RoomRowView> {
                           });
                     },
                     child: SizedBox(
-                      width: 80,
+                      width: 110,
                       child: Text(
                         widget.type.tr,
                         textAlign: TextAlign.center,

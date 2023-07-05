@@ -1,5 +1,5 @@
 class Routes {
-  static const String baseURL = 'http://35.178.46.228:3010';
+  static const String baseURL = 'https://the-checkerapp.com:3000';
 
   static const String login = "$baseURL/auth/login";
   static const String profile = "$baseURL/auth/check-login";
