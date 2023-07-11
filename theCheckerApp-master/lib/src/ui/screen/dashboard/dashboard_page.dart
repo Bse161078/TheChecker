@@ -1,6 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:checkerapp/src/controllers/notifications_controller.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../../../controllers/cleaners_controller.dart';
 import '../../../controllers/materials_controller.dart';
@@ -28,8 +27,7 @@ class Dashboard extends GetView<DashboardController> {
 
   @override
   Widget build(BuildContext context) {
-    return GetX<DashboardController>(
-      initState: (_) async {
+    return GetX<DashboardController>(initState: (_) async {
       CleanersController.to.getCleaners();
       await RoomsController.to.getRooms().then((value) {
         RoomsController.to.setNotCleaned();
@@ -55,15 +53,17 @@ class Dashboard extends GetView<DashboardController> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Center(
-                      child: CachedNetworkImage(
-                        height: 90,
-                        width: 90,
-                        imageUrl:
-                            "${Route.Routes.baseURL}/${Pref.to.hotelLogoCheckerVal}",
-                        placeholder: (context, url) =>
-                            const CircularProgressIndicator(),
-                        errorWidget: (context, url, error) => Container(),
-                      ),
+                      child: FutureBuilder(
+                          future: Utils.getValidatedNetworkImageWidget(
+                              "${Route.Routes.baseURL}/${Pref.to.hotelLogoCheckerVal}",
+                              Container()),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return snapshot.data as Widget;
+                            } else {
+                              return const CircularProgressIndicator();
+                            }
+                          }),
                     ),
                     1.ph,
                   ],
@@ -185,15 +185,21 @@ class Dashboard extends GetView<DashboardController> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          CachedImageWidget(
-                            image:
-                                "${Route.Routes.baseURL}/${Pref.to.userAvatarVal}",
-                            errorWidget: (context, url, error) {
-                              return const CircleAvatar(
-                                radius: 80,
-                                child: Icon(Icons.person),
-                              );
-                            },
+                          Center(
+                            child: FutureBuilder(
+                                future: Utils.getValidatedNetworkImageWidget(
+                                  "${Route.Routes.baseURL}/${Pref.to.userAvatarVal}",
+                                  const CircleAvatar(
+                                    radius: 60,
+                                  ),
+                                ),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    return snapshot.data as Widget;
+                                  } else {
+                                    return const CircularProgressIndicator();
+                                  }
+                                }),
                           ),
                           14.ph,
                           Text(
@@ -278,12 +284,12 @@ class Dashboard extends GetView<DashboardController> {
                     onPressed: () {
                       Pref.to.clear();
                       Get.offNamed(Routes.SPLASH);
-                      try {
-                        FirebaseMessaging.instance
-                            .unsubscribeFromTopic(Pref.to.idVal);
-                      } catch (e) {
-                        log(this, 'e: $e');
-                      }
+                      // try {
+                      //   FirebaseMessaging.instance
+                      //       .unsubscribeFromTopic(Pref.to.idVal);
+                      // } catch (e) {
+                      //   log(this, 'e: $e');
+                      // }
                     },
                     secondaryBtn: true,
                     padding:

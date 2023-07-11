@@ -1,4 +1,3 @@
-
 export 'ext/image.dart';
 export 'extension.dart';
 export 'ext/padding.dart';
@@ -13,47 +12,51 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
-class Utils{
+import 'package:http/http.dart' as http;
 
-  static copy(value){
+import "package:checkerapp/src/utils/logger.dart";
+
+class Utils {
+  static copy(value) {
     Clipboard.setData(ClipboardData(text: value));
   }
 
-  static Future<String> paste() async{
+  static Future<String> paste() async {
     ClipboardData? cdata = await Clipboard.getData(Clipboard.kTextPlain);
     return '${cdata?.text.toString()}';
   }
 
   static bool validateMobile(String value) {
-
-    if(!RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$').hasMatch(value)){
+    if (!RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
+        .hasMatch(value)) {
       return false;
     }
 
-    if (value.length >= 10 && value.length <= 12){
-
-      if(value.length == 10){
+    if (value.length >= 10 && value.length <= 12) {
+      if (value.length == 10) {
         return true;
       }
 
-      if(value.length == 11 && value.startsWith('1')){
+      if (value.length == 11 && value.startsWith('1')) {
         return true;
       }
 
-      if(value.length == 12 && value.startsWith('+1')){
+      if (value.length == 12 && value.startsWith('+1')) {
         return true;
       }
 
       return false;
-
-    }else{
+    } else {
       return false;
     }
-
   }
 
-  static String rmUnusedChar(value){
-    return value.toString().replaceAll('Optional', '').replaceAll('(', '').replaceAll(')', '');
+  static String rmUnusedChar(value) {
+    return value
+        .toString()
+        .replaceAll('Optional', '')
+        .replaceAll('(', '')
+        .replaceAll(')', '');
   }
 
   static String fileExtension(String path) {
@@ -79,38 +82,39 @@ class Utils{
   //   }
   // }
 
-  static timestampToDate(int millis){
-    try{
+  static timestampToDate(int millis) {
+    try {
       var dd = DateTime.fromMillisecondsSinceEpoch(millis * 1000);
       return DateFormat("hh:mm a").format(dd);
       // var d12 = DateFormat('MM/dd/yyyy, hh:mm a').format(dt); // 12/31/2000, 10:00 PM
       // var d24 = DateFormat('dd/MM/yyyy, HH:mm').format(dt); // 31/12/2000, 22:00
-    }catch(_){
+    } catch (_) {
       return '$millis';
     }
   }
 
-  static formatDateTimeFromUtc(dynamic time){
+  static formatDateTimeFromUtc(dynamic time) {
     try {
-      return DateFormat("E d MMM hh:mm a").format( DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(time));
-    } catch (e){
-      return DateFormat("yyyy-MM-dd hh:mm:ss").format( DateTime.now());
+      return DateFormat("E d MMM hh:mm a")
+          .format(DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(time));
+    } catch (e) {
+      return DateFormat("yyyy-MM-dd hh:mm:ss").format(DateTime.now());
     }
   }
 
-  static dateTimeFromUtc(dynamic time){
+  static dateTimeFromUtc(dynamic time) {
     try {
       return DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(time);
-    } catch (e){
+    } catch (e) {
       return DateTime.now();
     }
   }
 
-  static String remoteAddressToExtension(String remoteAddress){
+  static String remoteAddressToExtension(String remoteAddress) {
     String adr = remoteAddress.toString();
-    if(adr.contains('@')){
+    if (adr.contains('@')) {
       return adr.split('@').first.replaceAll('sip:', '');
-    }else{
+    } else {
       return adr;
     }
   }
@@ -150,7 +154,6 @@ class Utils{
     return connected;
   }
 
-
   static Color randomOpaqueColor() {
     return Color(Random().nextInt(0xffffffff)).withAlpha(0xff);
   }
@@ -159,7 +162,8 @@ class Utils{
     assert(amount >= 0 && amount <= 1);
 
     final hsl = HSLColor.fromColor(color);
-    final hslLight = hsl.withLightness((hsl.lightness + amount).clamp(0.0, 0.4));
+    final hslLight =
+        hsl.withLightness((hsl.lightness + amount).clamp(0.0, 0.4));
 
     return hslLight.toColor();
   }
@@ -178,7 +182,7 @@ class Utils{
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
       statusBarBrightness:
-      Platform.isAndroid ? Brightness.dark : Brightness.light,
+          Platform.isAndroid ? Brightness.dark : Brightness.light,
       systemNavigationBarColor: Colors.white,
       systemNavigationBarDividerColor: Colors.grey,
       systemNavigationBarIconBrightness: Brightness.dark,
@@ -190,8 +194,40 @@ class Utils{
   //   String extension = file.path.split('/').last.split('.').last;
   //   return extension;
   // }
+  static bool checkIfImage(String param) {
+    if (param == 'image/jpeg' || param == 'image/png' || param == 'image/gif') {
+      return true;
+    }
+    return false;
+  }
 
+  static Future<bool> validateImage(String imageUrl) async {
+    http.Response res;
+    try {
+      res = await http.get(Uri.parse(imageUrl));
+    } catch (e) {
+      return false;
+    }
 
+    if (res.statusCode != 200) return false;
+    Map<String, dynamic> data = res.headers;
+    return checkIfImage(data['content-type']);
+  }
+
+  static Future<Widget> getValidatedNetworkImageWidget(
+      String link, Widget errorWidget) async {
+    log("Utils Class", link);
+    if (await Utils.validateImage(link)) {
+      return CircleAvatar(
+        radius: 70,
+        backgroundImage: NetworkImage(
+          link,
+        ),
+      );
+    } else {
+      return errorWidget;
+    }
+  }
 }
 
 class HexColor extends Color {

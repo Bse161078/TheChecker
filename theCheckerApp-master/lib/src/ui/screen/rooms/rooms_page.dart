@@ -105,8 +105,13 @@ class _RoomsState extends State<Rooms> {
                             children: [
                               Row(
                                 children: [
-                                  Text('Level  ${controller.filteredLevelsList[i].level?.title}')
-                                      .setStyle(size: 17),
+                                  SizedBox(
+                                    width: Get.width / 2,
+                                    child: Text(
+                                      'Level  ${controller.filteredLevelsList[i].level?.title}',
+                                      overflow: TextOverflow.ellipsis,
+                                    ).setStyle(size: 17),
+                                  ),
                                 ],
                               ).paddingOnly(left: 16),
                               CustomPaint(

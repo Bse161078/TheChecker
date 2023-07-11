@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print, unused_local_variable, non_constant_identifier_names
 
 import 'package:dio/dio.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../../src/controllers/basic.dart';
 import 'package:get/get.dart';
@@ -65,7 +65,7 @@ class ReceptionController extends Basic {
       final id = result.body['data']['user']['_id'];
       // final name = result.body['data']['user']['fullname'];
 
-      FirebaseMessaging.instance.subscribeToTopic(id);
+      // FirebaseMessaging.instance.subscribeToTopic(id);
 
       Pref.to.setString(Pref.id, id);
       // Pref.to.setString(Pref.name, name);

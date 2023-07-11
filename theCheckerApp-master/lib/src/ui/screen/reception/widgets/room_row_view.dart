@@ -53,7 +53,7 @@ class _RoomRowViewState extends State<RoomRowView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    width: screenWidth > 800 ? 85 : 40,
+                    width: screenWidth > 800 ? 85 : 60,
                     child: Text(widget.label)
                         .setStyle(size: 22)
                         .paddingOnly(left: 18, top: 6, bottom: 6),
@@ -75,12 +75,45 @@ class _RoomRowViewState extends State<RoomRowView> {
                       },
                     ),
                   ),
-                  SizedBox(
-                    width: 90,
-                    child: Text(
-                      widget.type.tr,
-                      textAlign: TextAlign.center,
-                    ).setStyle(color: Get.theme.hintColor),
+                  GestureDetector(
+                    // show a popup with the text on long press
+                    onLongPress: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return SizedBox(
+                              height: 200,
+                              width: 100,
+                              child: Center(
+                                  child: Padding(
+                                padding: const EdgeInsets.all(18.0),
+                                child: Column(
+                                  children: [
+                                    const Text(
+                                      "Room Type",
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      widget.type.tr,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(fontSize: 40),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                            );
+                          });
+                    },
+                    child: SizedBox(
+                      width: 110,
+                      child: Text(
+                        widget.type.tr,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                      ).setStyle(color: Get.theme.hintColor),
+                    ),
                   ),
                 ],
               ).paddingOnly(right: 30),

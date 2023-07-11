@@ -1,6 +1,6 @@
 name: checkerapp
 description: iPad checker application
-publish_to: 'none'
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
@@ -18,16 +18,15 @@ dependencies:
   shared_preferences: ^2.0.15
   simple_animations: ^4.1.0
   intl: ^0.17.0
-  cached_network_image: ^3.2.3
   date_picker_timeline: ^1.2.3
   image_picker: ^0.8.6
   smooth_page_indicator: ^1.0.0+2
   uni_links: ^0.5.1
   dio: ^4.0.6
-  firebase_messaging: ^14.2.0
+  # firebase_messaging: ^14.2.0
   flutter_local_notifications: ^13.0.0
-  firebase_core: ^2.6.1
-
+  flutter_dotenv: ^5.1.0
+  # firebase_core: ^2.6.1
 
 dev_dependencies:
   flutter_test:

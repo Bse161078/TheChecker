@@ -192,13 +192,25 @@ class _CleanersState extends State<Cleaners> {
                       ),
                     ),
                   ] else
-                    CachedImageWidget(
-                      image: "${Route.Routes.baseURL}/${cleaner.avatar}",
-                      errorWidget: (a, b, c) => const CircleAvatar(
-                        radius: 80,
-                        child: Icon(Icons.person),
-                      ),
-                    ),
+                    FutureBuilder(
+                        future: Utils.getValidatedNetworkImageWidget(
+                            "${Route.Routes.baseURL}/${cleaner.avatar}",
+                            const CircleAvatar(
+                              radius: 80,
+                              child: Icon(Icons.person),
+                            )),
+                        builder: (context, snapshot) {
+                          return snapshot.hasData == true
+                              ? snapshot.data as Widget
+                              : const CircularProgressIndicator();
+                        }),
+                  // CachedImageWidget(
+                  //   image: ,
+                  //   errorWidget: (a, b, c) => const CircleAvatar(
+                  //     radius: 80,
+                  //     child: Icon(Icons.person),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

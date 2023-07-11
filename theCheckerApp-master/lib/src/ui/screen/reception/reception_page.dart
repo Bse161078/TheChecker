@@ -1,5 +1,5 @@
 import 'package:checkerapp/src/ui/screen/reception/widgets/room_row_view.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../../../data/model/room_model.dart';
 import '../../../storage/pref.dart';
@@ -454,12 +454,12 @@ class _ReceptionState extends State<Reception> {
                       onPressed: () {
                         Pref.to.clear();
                         Get.offNamed(Routes.SPLASH);
-                        try {
-                          FirebaseMessaging.instance
-                              .unsubscribeFromTopic(Pref.to.idVal);
-                        } catch (e) {
-                          log(this, 'e: $e');
-                        }
+                        // try {
+                        //   FirebaseMessaging.instance
+                        //       .unsubscribeFromTopic(Pref.to.idVal);
+                        // } catch (e) {
+                        //   log(this, 'e: $e');
+                        // }
                       },
                       secondaryBtn: true,
                       padding: const EdgeInsets.symmetric(
