@@ -13,9 +13,7 @@ class CleanerAvatar extends StatelessWidget {
   final String image;
   final String name;
   final VoidCallback onTap;
-  const CleanerAvatar(
-      {Key? key, required this.image, required this.name, required this.onTap})
-      : super(key: key);
+  const CleanerAvatar({Key? key, required this.image, required this.name, required this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +30,12 @@ class CleanerAvatar extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             if (image.isEmpty || image == 'null') ...[
-              CircleAvatar(
+              const CircleAvatar(
                 radius: 80, // Image radius
-                backgroundColor: const Color(0x330BBBEF),
+                backgroundColor: Color(0x330BBBEF),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
-                  children: const [
+                  children: [
                     Icon(
                       CupertinoIcons.person_fill,
                       color: primaryColor,
@@ -56,9 +54,7 @@ class CleanerAvatar extends StatelessWidget {
                         child: Icon(Icons.person),
                       )),
                   builder: (context, snapshot) {
-                    return snapshot.hasData == true
-                        ? snapshot.data as Widget
-                        : const CircularProgressIndicator();
+                    return snapshot.hasData == true ? snapshot.data as Widget : const CircularProgressIndicator();
                   }),
               // CachedImageWidget(
               //   image: "${Routes.baseURL}/$image",

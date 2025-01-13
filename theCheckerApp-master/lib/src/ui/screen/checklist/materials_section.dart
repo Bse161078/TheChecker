@@ -1,24 +1,21 @@
-
-
 import 'package:checkerapp/src/controllers/checklist_controller.dart';
-import 'package:checkerapp/src/ui/widget/textfield_widget.dart';
+// import 'package:checkerapp/src/ui/widget/textfield_widget.dart';
 import 'package:checkerapp/src/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../routes/app_pages.dart';
-import '../../widget/button_widget.dart';
+// import '../../../routes/app_pages.dart';
+// import '../../widget/button_widget.dart';
 import '../../widget/checker.dart';
-import '../cleaners/widgets/cleaner_avatar.dart';
+// import '../cleaners/widgets/cleaner_avatar.dart';
 
-class MaterialsSection extends GetView<CheckListController>{
+class MaterialsSection extends GetView<CheckListController> {
+  const MaterialsSection({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GetX<CheckListController>(
-        initState: (_){
-
-        },
+        initState: (_) {},
         builder: (_) {
           _.isLoading;
           return SingleChildScrollView(
@@ -26,12 +23,16 @@ class MaterialsSection extends GetView<CheckListController>{
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
-                Text('materials_list'.tr, style: Get.textTheme.subtitle1,).setStyle(size: 18, weight: FontWeight.bold),
+                Text(
+                  'materials_list'.tr,
+                  style: Get.textTheme.bodySmall,
+                ).setStyle(size: 18, weight: FontWeight.bold),
                 22.ph,
-                Text('room_items'.tr, style: Get.textTheme.subtitle1,).setStyle(size: 14),
+                Text(
+                  'room_items'.tr,
+                  style: Get.textTheme.bodySmall,
+                ).setStyle(size: 14),
                 8.ph,
-
                 Container(
                   // height: 110,
                   decoration: BoxDecoration(
@@ -42,29 +43,35 @@ class MaterialsSection extends GetView<CheckListController>{
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-
                           Expanded(
                             flex: 1,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Checker(label: 'Chips'.tr, state: controller.materialChips.value, type: CheckerType.Check, onChanged: (newValue)=>controller.materialChips.value = newValue, longText: false),
-                                Container(decoration: BoxDecoration(
-                                    color: Get.theme.backgroundColor,
-                                    borderRadius: BorderRadius.circular(6),
-                                    border: Border.all(color: Get.theme.dividerColor)
-                                ),
+                                Checker(
+                                    label: 'Chips'.tr,
+                                    state: controller.materialChips.value,
+                                    type: CheckerType.Check,
+                                    onChanged: (newValue) => controller.materialChips.value = newValue,
+                                    longText: false),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: Get.theme.colorScheme.surface,
+                                      borderRadius: BorderRadius.circular(6),
+                                      border: Border.all(color: Get.theme.dividerColor)),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Text('qty'.tr, style: Get.textTheme.subtitle1,).setStyle(size: 12),
+                                      Text(
+                                        'qty'.tr,
+                                        style: Get.textTheme.titleMedium,
+                                      ).setStyle(size: 12),
                                       4.pw,
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 50,
                                         height: 36,
                                         child: TextField(
@@ -74,7 +81,7 @@ class MaterialsSection extends GetView<CheckListController>{
                                             filled: true,
                                             fillColor: Colors.transparent,
                                             counterText: "",
-                                            contentPadding: const EdgeInsets.only(
+                                            contentPadding: EdgeInsets.only(
                                               left: 0,
                                               right: 0,
                                               top: 0,
@@ -102,18 +109,26 @@ class MaterialsSection extends GetView<CheckListController>{
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Checker(label: 'water'.tr, state: controller.materialWater.value, type: CheckerType.Check, onChanged: (newValue)=>controller.materialWater.value = newValue, longText: false),
-                                Container(decoration: BoxDecoration(
-                                    color: Get.theme.backgroundColor,
-                                    borderRadius: BorderRadius.circular(6),
-                                    border: Border.all(color: Get.theme.dividerColor)
-                                ),
+                                Checker(
+                                    label: 'water'.tr,
+                                    state: controller.materialWater.value,
+                                    type: CheckerType.Check,
+                                    onChanged: (newValue) => controller.materialWater.value = newValue,
+                                    longText: false),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: Get.theme.colorScheme.surface,
+                                      borderRadius: BorderRadius.circular(6),
+                                      border: Border.all(color: Get.theme.dividerColor)),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Text('qty'.tr, style: Get.textTheme.subtitle1,).setStyle(size: 12),
+                                      Text(
+                                        'qty'.tr,
+                                        style: Get.textTheme.titleMedium,
+                                      ).setStyle(size: 12),
                                       4.pw,
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 50,
                                         height: 36,
                                         child: TextField(
@@ -123,7 +138,7 @@ class MaterialsSection extends GetView<CheckListController>{
                                             filled: true,
                                             fillColor: Colors.transparent,
                                             counterText: "",
-                                            contentPadding: const EdgeInsets.only(
+                                            contentPadding: EdgeInsets.only(
                                               left: 0,
                                               right: 0,
                                               top: 0,
@@ -144,24 +159,17 @@ class MaterialsSection extends GetView<CheckListController>{
                               ],
                             ).paddingOnly(top: 6, bottom: 4),
                           ),
-
                         ],
                       ),
 
-
-
                       // const Divider(height: 4,).paddingSymmetric(horizontal: 12),
-
-
                     ],
                   ),
                 ),
-
                 68.ph,
               ],
             ).paddingOnly(left: 22, right: 22, top: 22),
           );
         });
   }
-
 }

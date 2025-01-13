@@ -9,7 +9,7 @@ import '../src/binding/main_binding.dart';
 import '../src/ui/theme/app_translations.dart';
 import 'src/routes/app_pages.dart';
 import 'src/storage/locale_pref.dart';
-import 'src/storage/pref.dart';
+// import 'src/storage/pref.dart';
 import 'src/ui/theme/app_theme.dart';
 import 'src/ui/widget/runtime_error.dart';
 import 'src/utils/utils.dart';
@@ -20,8 +20,7 @@ const AndroidNotificationChannel channel = AndroidNotificationChannel(
   importance: Importance.high,
 );
 
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
 // Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 // await Firebase.initializeApp();
@@ -40,8 +39,7 @@ void main() async {
   // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   await flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>()
+      .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
 
   // await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(

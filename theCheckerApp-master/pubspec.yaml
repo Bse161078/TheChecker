@@ -4,19 +4,19 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ">=3.4.3 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
   cupertino_icons: ^1.0.5
-  get: ^4.6.5
+  get: ^4.6.6
   http: ^0.13.5
   flutter_svg: ^1.1.6
   path_provider: ^2.0.11
   shared_preferences: ^2.0.15
-  simple_animations: ^4.1.0
+  simple_animations: ^5.1.0
   intl: ^0.17.0
   date_picker_timeline: ^1.2.3
   image_picker: ^0.8.6

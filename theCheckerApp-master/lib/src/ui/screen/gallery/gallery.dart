@@ -42,7 +42,7 @@ class _GalleryState extends State<Gallery> {
               scrollDirection: Axis.horizontal,
               onPageChanged: _onPageViewChange,
               controller: _pageController,
-              children: <Widget>[
+              children: const <Widget>[
                 // for (int i = 0; i < post.images!.length; i++)
                 //   image('${post.images![i].url}')
               ],
@@ -61,7 +61,7 @@ class _GalleryState extends State<Gallery> {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: Row(
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // for (int i = 0; i < post.images!.length; i++)

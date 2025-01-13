@@ -21,10 +21,11 @@ class Login extends GetView<AuthController> {
     {'name': 'German', 'locale': const Locale('de', 'DE')},
   ];
 
+  Login({super.key});
+
   _showLocaleDialog(BuildContext context) {
     Dialog errorDialog = Dialog(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0)), //this right here
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)), //this right here
       child: SizedBox(
         width: Get.width / 2.2,
         child: Obx(() {
@@ -33,9 +34,7 @@ class Login extends GetView<AuthController> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               ClipRRect(
-                borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(12),
-                    topLeft: Radius.circular(12)),
+                borderRadius: const BorderRadius.only(topRight: Radius.circular(12), topLeft: Radius.circular(12)),
                 child: CupertinoNavigationBar(
                   leading: CupertinoNavigationBarBackButton(
                     previousPageTitle: 'cancel'.tr,
@@ -53,7 +52,7 @@ class Login extends GetView<AuthController> {
                       width: Get.width / 3.5,
                       child: Text(
                         'pls_choose_your_lang'.tr,
-                        style: Get.textTheme.subtitle1,
+                        style: Get.textTheme.bodySmall,
                       ).setStyle(size: 16).paddingOnly(left: 24, top: 24)),
                 ],
               ),
@@ -97,8 +96,7 @@ class Login extends GetView<AuthController> {
         }),
       ),
     );
-    showDialog(
-        context: context, builder: (BuildContext context) => errorDialog);
+    showDialog(context: context, builder: (BuildContext context) => errorDialog);
   }
 
   updateLocale(Locale locale, BuildContext context) {
@@ -109,8 +107,8 @@ class Login extends GetView<AuthController> {
 
   @override
   Widget build(BuildContext context) {
-    var _keyboardVisible = MediaQuery.of(context).viewInsets.bottom != 0;
-    log(this, 'key:: $_keyboardVisible');
+    var keyboardVisible = MediaQuery.of(context).viewInsets.bottom != 0;
+    log(this, 'key:: $keyboardVisible');
 
     return GetX<AuthController>(initState: (_) {
       // controllerUser.text= 'amiecheckerx';
@@ -127,7 +125,7 @@ class Login extends GetView<AuthController> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
+                  const Row(
                     children: [],
                   ),
                   SizedBox(
@@ -151,14 +149,12 @@ class Login extends GetView<AuthController> {
                           label: 'pass'.tr,
                           inputAction: TextInputAction.done,
                           isObscure: _.obscurePass.value,
-                          obscureTap: () =>
-                              _.obscurePass.value = !_.obscurePass.value,
+                          obscureTap: () => _.obscurePass.value = !_.obscurePass.value,
                         ),
                         12.ph,
                         Btn(
                           label: 'login'.tr,
-                          onPressed: () =>
-                              _.enabledLoginButton.value ? _signIn() : null,
+                          onPressed: () => _.enabledLoginButton.value ? _signIn() : null,
                           isLoading: _.isLoading,
                           enabled: _.enabledLoginButton.value,
                         ),
@@ -180,18 +176,14 @@ class Login extends GetView<AuthController> {
                           color: Get.theme.primaryColor,
                         ),
                         8.pw,
-                        Text(Get.locale?.languageCode == 'en'
-                                ? 'English'
-                                : 'German')
-                            .setStyle(
-                                color: Get.theme.highlightColor, size: 16),
+                        Text(Get.locale?.languageCode == 'en' ? 'English' : 'German').setStyle(color: Get.theme.highlightColor, size: 16),
                       ],
                     ).paddingOnly(top: 38, right: 26)),
               ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: AnimatedOpacity(
-                  opacity: _keyboardVisible ? 0 : 1,
+                  opacity: keyboardVisible ? 0 : 1,
                   duration: const Duration(milliseconds: 120),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

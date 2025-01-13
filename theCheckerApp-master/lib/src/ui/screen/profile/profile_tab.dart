@@ -12,6 +12,8 @@ import '../../../routes/app_pages.dart';
 import '../../widget/empty_view.dart';
 
 class ProfileTab extends GetView<RoomsController> {
+  const ProfileTab({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetX<RoomsController>(initState: (_) {
@@ -42,7 +44,7 @@ class ProfileTab extends GetView<RoomsController> {
                 )
               : AppBar(
                   automaticallyImplyLeading: false,
-                  actions: [
+                  actions: const [
                     // CupertinoButton(
                     //   onPressed: () =>
                     //       Navigator.pushNamed(context, Routes.SETTINGS),
@@ -61,9 +63,9 @@ class ProfileTab extends GetView<RoomsController> {
                     style: TextStyle(color: Colors.black, fontSize: 17),
                   ),
                 ),
-          floatingActionButton:  FloatingActionButton(
+          floatingActionButton: FloatingActionButton(
             tooltip: 'New Post',
-            onPressed: (){},
+            onPressed: () {},
             backgroundColor: Colors.black,
             child: const Icon(Icons.add),
           ).paddingOnly(bottom: 70),
@@ -71,12 +73,10 @@ class ProfileTab extends GetView<RoomsController> {
               ? EmptyView(
                   imageNamePng: 'profile-illustrate.png',
                   titleText: 'Nothing here',
-                  middleText:
-                      'Please sign in to contact artists, track your purchase, and also manage your profile.',
+                  middleText: 'Please sign in to contact artists, track your purchase, and also manage your profile.',
                   actionName: 'Sign in',
                   visibleLogo: false,
-                  onPressed: () =>
-                      Get.toNamed(Routes.LOGIN, arguments: 'closable'))
+                  onPressed: () => Get.toNamed(Routes.LOGIN, arguments: 'closable'))
               // : profileModel == null
               //     ? const Center(
               //         child: SizedBox(
@@ -89,7 +89,7 @@ class ProfileTab extends GetView<RoomsController> {
               //     : profileModel.role == 1
               //         ? ProfileUser1()
               //         : ProfileUser2()
-      :null);
+              : null);
     });
   }
 }

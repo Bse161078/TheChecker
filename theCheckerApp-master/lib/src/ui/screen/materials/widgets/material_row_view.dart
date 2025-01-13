@@ -11,7 +11,8 @@ class MaterialRowView extends StatelessWidget {
   final String label;
   final Function onChangeState;
   final Function onChangeQty;
-  const MaterialRowView({Key? key, required this.label, required this.isChecked, required this.onChangeState, required this.onChangeQty}) : super(key: key);
+  const MaterialRowView({Key? key, required this.label, required this.isChecked, required this.onChangeState, required this.onChangeQty})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,16 +22,17 @@ class MaterialRowView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Checker(label: label.tr, state: isChecked, type: CheckerType.Check, onChanged: (newValue)=>onChangeState(newValue), longText: false),
-          Container(decoration: BoxDecoration(
-              color: Get.theme.backgroundColor,
-              borderRadius: BorderRadius.circular(6),
-              border: Border.all(color: Get.theme.dividerColor)
-          ),
+          Checker(label: label.tr, state: isChecked, type: CheckerType.Check, onChanged: (newValue) => onChangeState(newValue), longText: false),
+          Container(
+            decoration: BoxDecoration(
+                color: Get.theme.colorScheme.surface, borderRadius: BorderRadius.circular(6), border: Border.all(color: Get.theme.dividerColor)),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('qty'.tr, style: Get.textTheme.subtitle1,).setStyle(size: 12),
+                Text(
+                  'qty'.tr,
+                  style: Get.textTheme.bodySmall,
+                ).setStyle(size: 12),
                 4.pw,
                 SizedBox(
                   width: 50,
@@ -38,7 +40,7 @@ class MaterialRowView extends StatelessWidget {
                   child: TextField(
                     textInputAction: TextInputAction.next,
                     textAlign: TextAlign.right,
-                    onChanged: (v)=>onChangeQty(v),
+                    onChanged: (v) => onChangeQty(v),
                     decoration: const InputDecoration(
                       filled: true,
                       fillColor: Colors.transparent,

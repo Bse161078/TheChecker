@@ -42,8 +42,7 @@ class _CleanersState extends State<Cleaners> {
         controller.getCleaners();
 
         controller.filteredCleaners = controller.cleanersList;
-        print(
-            "Filtered cleaners number: ${controller.filteredCleaners.length}");
+        print("Filtered cleaners number: ${controller.filteredCleaners.length}");
       },
 
       // didUpdateWidget: (oldWidget, newWidget) {
@@ -55,9 +54,7 @@ class _CleanersState extends State<Cleaners> {
         return Scaffold(
           appBar: CupertinoNavigationBar(
             leading: CupertinoNavigationBarBackButton(
-              previousPageTitle: previousRoute.toString().contains('/dashboard')
-                  ? 'home'.tr
-                  : 'rooms'.tr,
+              previousPageTitle: previousRoute.toString().contains('/dashboard') ? 'home'.tr : 'rooms'.tr,
               onPressed: () => Get.back(),
             ),
             middle: Text('select_cleaner'.tr),
@@ -99,19 +96,14 @@ class _CleanersState extends State<Cleaners> {
                     mainAxisSpacing: 0,
                   ),
                   children: [
-                    for (int index = 0;
-                        index < controller.filteredCleaners.length;
-                        index++)
+                    for (int index = 0; index < controller.filteredCleaners.length; index++)
                       FadeAnimation(
                         delay: .15 * index,
                         child: CleanerAvatar(
                           image: '${controller.filteredCleaners[index].avatar}',
-                          name:
-                              '${controller.filteredCleaners[index].fullname}',
+                          name: '${controller.filteredCleaners[index].fullname}',
                           onTap: () {
-                            if (previousRoute
-                                .toString()
-                                .contains('/dashboard')) {
+                            if (previousRoute.toString().contains('/dashboard')) {
                               _showDialog(
                                 context,
                                 controller.filteredCleaners[index],
@@ -120,18 +112,12 @@ class _CleanersState extends State<Cleaners> {
                               if (room.status == "IN_PROGRESS") {
                                 Get.toNamed(
                                   Routes.CHECKLIST,
-                                  arguments: [
-                                    room,
-                                    controller.filteredCleaners[index]
-                                  ],
+                                  arguments: [room, controller.filteredCleaners[index]],
                                 );
                               } else {
                                 Get.toNamed(
                                   Routes.CONTINUE_ORDER,
-                                  arguments: [
-                                    room,
-                                    controller.filteredCleaners[index]
-                                  ],
+                                  arguments: [room, controller.filteredCleaners[index]],
                                 );
                               }
                             }
@@ -150,16 +136,14 @@ class _CleanersState extends State<Cleaners> {
 
   void _showDialog(BuildContext context, Cleaner cleaner) {
     Dialog errorDialog = Dialog(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0)), //this right here
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)), //this right here
       child: SizedBox(
         width: Get.width / 2.5,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ClipRRect(
-              borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(12), topLeft: Radius.circular(12)),
+              borderRadius: const BorderRadius.only(topRight: Radius.circular(12), topLeft: Radius.circular(12)),
               child: CupertinoNavigationBar(
                 leading: CupertinoNavigationBarBackButton(
                   previousPageTitle: 'cancel'.tr,
@@ -177,12 +161,12 @@ class _CleanersState extends State<Cleaners> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   if (cleaner.avatar == '' || cleaner.avatar == 'null') ...[
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 80, // Image radius
-                      backgroundColor: const Color(0x330BBBEF),
+                      backgroundColor: Color(0x330BBBEF),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
-                        children: const [
+                        children: [
                           Icon(
                             CupertinoIcons.person_fill,
                             color: primaryColor,
@@ -200,9 +184,7 @@ class _CleanersState extends State<Cleaners> {
                               child: Icon(Icons.person),
                             )),
                         builder: (context, snapshot) {
-                          return snapshot.hasData == true
-                              ? snapshot.data as Widget
-                              : const CircularProgressIndicator();
+                          return snapshot.hasData == true ? snapshot.data as Widget : const CircularProgressIndicator();
                         }),
                   // CachedImageWidget(
                   //   image: ,
@@ -215,17 +197,13 @@ class _CleanersState extends State<Cleaners> {
               ),
             ),
             28.ph,
-            TxtField(
-                    controller: TextEditingController(text: cleaner.fullname),
-                    readOnly: true,
-                    label: 'full_name'.tr)
+            TxtField(controller: TextEditingController(text: cleaner.fullname), readOnly: true, label: 'full_name'.tr)
                 .paddingSymmetric(horizontal: 24),
             28.ph,
           ],
         ),
       ),
     );
-    showDialog(
-        context: context, builder: (BuildContext context) => errorDialog);
+    showDialog(context: context, builder: (BuildContext context) => errorDialog);
   }
 }

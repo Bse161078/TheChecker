@@ -1,4 +1,3 @@
-
 import 'package:checkerapp/src/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,10 +27,17 @@ class NewCleanerButton extends StatelessWidget {
             const CircleAvatar(
               radius: 80, // Image radius
               backgroundColor: Color(0x330bbbef),
-              child: Icon(Icons.add, color: primaryColor, size: 58,),
+              child: Icon(
+                Icons.add,
+                color: primaryColor,
+                size: 58,
+              ),
             ),
             8.ph,
-            Text('new_cleaner'.tr, style: Get.theme.textTheme.subtitle1,).setStyle(size: 15, weight: FontWeight.w600),
+            Text(
+              'new_cleaner'.tr,
+              style: Get.theme.textTheme.bodySmall,
+            ).setStyle(size: 15, weight: FontWeight.w600),
           ],
         ),
       ),
