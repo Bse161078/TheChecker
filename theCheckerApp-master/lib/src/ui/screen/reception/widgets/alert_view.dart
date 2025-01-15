@@ -15,28 +15,29 @@ class AlertView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Tap(
       onTap: onTap,
-      child: Row(
-        children: [
-          Container(
-            width: Get.width > 800 ? 150 : 120,
-            decoration: BoxDecoration(
-                color: Get.theme.cardColor,
-                borderRadius: BorderRadius.circular(8)),
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(
-                  Icons.warning_amber_rounded,
-                  color: redColor,
-                  size: 22,
-                ),
-                8.pw,
-                Text('send_alert'.tr),
-              ],
-            ).paddingSymmetric(vertical: 6),
-          ),
-        ],
+      child: Container(
+        width: Get.width > 800 ? 150 : 120,
+        decoration: BoxDecoration(color: Get.theme.cardColor, borderRadius: BorderRadius.circular(8)),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.warning_amber_rounded,
+              color: redColor,
+              size: 22,
+            ),
+            8.pw,
+            Expanded(
+              child: Text(
+                'send_alert'.tr,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
+            ),
+          ],
+        ).paddingSymmetric(vertical: 6),
       ),
     );
   }

@@ -54,8 +54,7 @@ class _ReceptionState extends State<Reception> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('sign_out'.tr)
-                      .setStyle(color: Colors.red, weight: FontWeight.w500),
+                  Text('sign_out'.tr).setStyle(color: Colors.red, weight: FontWeight.w500),
                   6.pw,
                   const Icon(
                     Icons.logout,
@@ -98,8 +97,7 @@ class _ReceptionState extends State<Reception> {
                       onPressed: () {
                         print("Searched value is: ${controllerSearchBox.text}");
                         setState(() {
-                          controller
-                              .searchReceptionRooms(controllerSearchBox.text);
+                          controller.searchReceptionRooms(controllerSearchBox.text);
                         });
                       },
                     ),
@@ -190,8 +188,7 @@ class _ReceptionState extends State<Reception> {
                       itemBuilder: (BuildContext context, int index) {
                         // Room model = receptionController.roomsList[index];
                         Room model = controller.filteredRoomsList[index];
-                        print(
-                            "Inside reception page ${model.name} has ${model.roomType}");
+                        print("Inside reception page ${model.name} has ${model.roomType}");
                         return RoomRowView(
                           label: '${model.name}',
                           type: '${model.roomType}',
@@ -217,8 +214,7 @@ class _ReceptionState extends State<Reception> {
     await controller.getRoomTypes();
 
     Dialog errorDialog = Dialog(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0)), //this right here
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)), //this right here
       child: SingleChildScrollView(
         child: SizedBox(
           width: Get.width / 1.8,
@@ -227,9 +223,7 @@ class _ReceptionState extends State<Reception> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(12),
-                      topLeft: Radius.circular(12)),
+                  borderRadius: const BorderRadius.only(topRight: Radius.circular(12), topLeft: Radius.circular(12)),
                   child: CupertinoNavigationBar(
                     leading: CupertinoNavigationBarBackButton(
                       previousPageTitle: 'cancel'.tr,
@@ -252,15 +246,11 @@ class _ReceptionState extends State<Reception> {
                     Text(
                       'Room Type'.tr,
                       style: Get.textTheme.titleMedium,
-                    )
-                        .setStyle(size: 14, weight: FontWeight.w500)
-                        .paddingOnly(left: 24, top: 24),
+                    ).setStyle(size: 14, weight: FontWeight.w500).paddingOnly(left: 24, top: 24),
                   ],
                 ),
                 8.ph,
-                for (int i = 0;
-                    i < controller.receptionRoomTypesList.length;
-                    i += 2)
+                for (int i = 0; i < controller.receptionRoomTypesList.length; i += 2)
                   Row(
                     children: [
                       Expanded(
@@ -268,10 +258,7 @@ class _ReceptionState extends State<Reception> {
                           label: controller.receptionRoomTypesList[i],
                           state: controller.receptionRoomTypesChecks[i].value,
                           type: CheckerType.Check,
-                          onChanged: (newValue) => {
-                            controller.receptionRoomTypesChecks[i].value =
-                                newValue
-                          },
+                          onChanged: (newValue) => {controller.receptionRoomTypesChecks[i].value = newValue},
                           longText: false,
                         ),
                       ),
@@ -280,13 +267,9 @@ class _ReceptionState extends State<Reception> {
                         Expanded(
                           child: Checker(
                             label: controller.receptionRoomTypesList[i + 1],
-                            state: controller
-                                .receptionRoomTypesChecks[i + 1].value,
+                            state: controller.receptionRoomTypesChecks[i + 1].value,
                             type: CheckerType.Check,
-                            onChanged: (newValue) => {
-                              controller.receptionRoomTypesChecks[i + 1].value =
-                                  newValue
-                            },
+                            onChanged: (newValue) => {controller.receptionRoomTypesChecks[i + 1].value = newValue},
                             longText: false,
                           ),
                         ),
@@ -297,9 +280,7 @@ class _ReceptionState extends State<Reception> {
                     Text(
                       'Occupation Status',
                       style: Get.textTheme.titleMedium,
-                    )
-                        .setStyle(size: 14, weight: FontWeight.w500)
-                        .paddingOnly(left: 24, top: 24),
+                    ).setStyle(size: 14, weight: FontWeight.w500).paddingOnly(left: 24, top: 24),
                   ],
                 ),
                 8.ph,
@@ -310,8 +291,7 @@ class _ReceptionState extends State<Reception> {
                           label: 'free'.tr,
                           state: controller.freeCheck.value,
                           type: CheckerType.Check,
-                          onChanged: (newValue) =>
-                              controller.freeCheck.value = newValue,
+                          onChanged: (newValue) => controller.freeCheck.value = newValue,
                           longText: false),
                     ),
                     16.pw,
@@ -320,8 +300,7 @@ class _ReceptionState extends State<Reception> {
                         label: 'occupied'.tr,
                         state: controller.occupiedCheck.value,
                         type: CheckerType.Check,
-                        onChanged: (newValue) =>
-                            controller.occupiedCheck.value = newValue,
+                        onChanged: (newValue) => controller.occupiedCheck.value = newValue,
                         longText: false,
                       ),
                     ),
@@ -332,9 +311,7 @@ class _ReceptionState extends State<Reception> {
                     Text(
                       'cleaning'.tr,
                       style: Get.textTheme.titleMedium,
-                    )
-                        .setStyle(size: 14, weight: FontWeight.w500)
-                        .paddingOnly(left: 24, top: 24),
+                    ).setStyle(size: 14, weight: FontWeight.w500).paddingOnly(left: 24, top: 24),
                   ],
                 ),
                 8.ph,
@@ -345,8 +322,7 @@ class _ReceptionState extends State<Reception> {
                           label: 'not_cleaned'.tr,
                           state: controller.notCleanedCheck.value,
                           type: CheckerType.Check,
-                          onChanged: (newValue) =>
-                              controller.notCleanedCheck.value = newValue,
+                          onChanged: (newValue) => controller.notCleanedCheck.value = newValue,
                           longText: false),
                     ),
                     16.pw,
@@ -355,8 +331,7 @@ class _ReceptionState extends State<Reception> {
                           label: 'in_progress'.tr,
                           state: controller.inProgressCheck.value,
                           type: CheckerType.Check,
-                          onChanged: (newValue) =>
-                              controller.inProgressCheck.value = newValue,
+                          onChanged: (newValue) => controller.inProgressCheck.value = newValue,
                           longText: false),
                     ),
                   ],
@@ -369,8 +344,7 @@ class _ReceptionState extends State<Reception> {
                           label: 'cleaned'.tr,
                           state: controller.cleanedCheck.value,
                           type: CheckerType.Check,
-                          onChanged: (newValue) =>
-                              controller.cleanedCheck.value = newValue,
+                          onChanged: (newValue) => controller.cleanedCheck.value = newValue,
                           longText: false),
                     ),
                     16.pw,
@@ -409,16 +383,14 @@ class _ReceptionState extends State<Reception> {
 
   void _showSignoutDialog(BuildContext context) {
     Dialog errorDialog = Dialog(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0)), //this right here
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)), //this right here
       child: SizedBox(
         width: Get.width / 2.5,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ClipRRect(
-              borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(12), topLeft: Radius.circular(12)),
+              borderRadius: const BorderRadius.only(topRight: Radius.circular(12), topLeft: Radius.circular(12)),
               child: CupertinoNavigationBar(
                 leading: CupertinoNavigationBarBackButton(
                   previousPageTitle: 'cancel'.tr,
@@ -444,8 +416,7 @@ class _ReceptionState extends State<Reception> {
                         label: 'cancel'.tr,
                         onPressed: () => Get.back(),
                         direction: TextDirection.rtl,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 18, vertical: 9))),
+                        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 9))),
                 16.pw,
                 Expanded(
                     flex: 1,
@@ -462,8 +433,7 @@ class _ReceptionState extends State<Reception> {
                         // }
                       },
                       secondaryBtn: true,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 18, vertical: 7),
+                      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 7),
                     )),
               ],
             ).paddingSymmetric(horizontal: 24),
@@ -472,19 +442,16 @@ class _ReceptionState extends State<Reception> {
         ),
       ),
     );
-    showDialog(
-        context: context, builder: (BuildContext context) => errorDialog);
+    showDialog(context: context, builder: (BuildContext context) => errorDialog);
   }
 
   _submitAlertDialog(BuildContext context, Room room) {
     Dialog errorDialog = Dialog(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0)), //this right here
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)), //this right here
       child: SendAlertDialog(
         room: room,
       ),
     );
-    showDialog(
-        context: context, builder: (BuildContext context) => errorDialog);
+    showDialog(context: context, builder: (BuildContext context) => errorDialog);
   }
 }

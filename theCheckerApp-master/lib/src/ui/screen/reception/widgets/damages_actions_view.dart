@@ -17,38 +17,39 @@ class DamagesActionsView extends StatelessWidget {
     return Row(
       children: [
         Container(
-          width: Get.width > 800 ? 150 : 135,
-          decoration: BoxDecoration(
-              color: Get.theme.cardColor,
-              borderRadius: BorderRadius.circular(24)),
+          width: Get.width > 800 ? 155 : 135,
+          decoration: BoxDecoration(color: Get.theme.cardColor, borderRadius: BorderRadius.circular(24)),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  4.pw,
-                  Icon(
-                    state == DamagesActions.noDamages
-                        ? Icons.thumb_up_off_alt_outlined
-                        : state == DamagesActions.notAvailable
-                            ? Icons.thumb_down_off_alt_rounded
-                            : Icons.thumb_down_off_alt_outlined,
-                    color: state == DamagesActions.noDamages
-                        ? greenColor
-                        : redColor,
-                    size: 20,
-                  ),
-                  8.pw,
-                  Text(
-                    state == DamagesActions.noDamages
-                        ? 'no_damages'.tr
-                        : state == DamagesActions.notAvailable
-                            ? 'Not Available'.tr
-                            : 'damaged'.tr,
-                  ),
-                ],
+              Flexible(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    4.pw,
+                    Icon(
+                      state == DamagesActions.noDamages
+                          ? Icons.thumb_up_off_alt_outlined
+                          : state == DamagesActions.notAvailable
+                              ? Icons.thumb_down_off_alt_rounded
+                              : Icons.thumb_down_off_alt_outlined,
+                      color: state == DamagesActions.noDamages ? greenColor : redColor,
+                      size: 20,
+                    ),
+                    8.pw,
+                    Flexible(
+                      child: Text(
+                        state == DamagesActions.noDamages
+                            ? 'no_damages'.tr
+                            : state == DamagesActions.notAvailable
+                                ? 'Not Available'.tr
+                                : 'damaged'.tr,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               // Icon(Icons.keyboard_arrow_down_sharp, color: Get.theme.highlightColor, size: 22,),
             ],
